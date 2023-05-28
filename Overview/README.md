@@ -51,6 +51,36 @@
 - Equivariant Networks
   - PhiSNet
   - QHNet
+  - QHNet
+## Al for Molecular Interactions
+### Protein-Ligand Binding Prediction
+- Predict Coordinates
+  - EquiBind
+  - E3Bind
+- Predict Interatomic Distances
+  - TankBind
+- Predict Rotation, Translation, and Torsions
+  - DiffDock
+### Structure-Based Drug Design
+- Autoregressively Generate Relative Position-Related Variables
+  - AR
+  - GraphBP
+  - Pocket2Mol
+  - FLAG 
+- Generate Coordinates with Diffusion Models
+  - TargetDiff
+  - DiffBP
+  - DiffSBDD
+### Energy, Force, and Position Prediction for Molecule-Material Pairs
+- Invariant Methods
+  - SpinConv
+  - GemNet-OC
+- Equivariant Methods
+  - Equiformer
+- Approximately Equivariant Methods
+  - SCN
+  - eSCN
+
 
 ## Other Examples
 
