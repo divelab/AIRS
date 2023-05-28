@@ -86,12 +86,31 @@
 
 ### Out-of-Distribution Generalization
 - OOD in AI for Quantum Mechanics
+  - [Guan et al. 2021](https://pubs.rsc.org/en/content/articlehtml/2021/sc/d0sc04823b)
+  - [Botu and Ramprasad 2015](https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.24836?casa_token=4dRmUPDz_CQAAAAA:jTYJPlzF6e7DNmT73_9ohyUJ6Tu8cff3Y65XDl6kJc7kMFAhxjPg2fpNHZ4mir2T7CW-o011IyQk)
 - OOD in AI for Density Functional Theory
+  - [Li et al. 2016](https://arxiv.org/abs/1609.03705)
+  - [Pereira et al. 2017](https://pubs.acs.org/doi/10.1021/acs.jcim.6b00340)
 - OOD in AI for Molecular Science
+  - [Yang et al. 2022](https://openreview.net/forum?id=2nWUNTnFijm)
+  - [Lee et al. 2022](https://arxiv.org/abs/2206.07632)
 - OOD in AI for Protein Science
+  - [Nijkamp et al. 2022](https://arxiv.org/abs/2206.13517)
+  - [Gruver et al. 2021](https://icml-compbio.github.io/2021/papers/WCBICML2021_paper_61.pdf)
+  - [Hamid and Friedberg 2019](https://www.biorxiv.org/content/10.1101/543272v1)
 - OOD in AI for Material Science
+  - [Murdock et al. 2020](https://link.springer.com/article/10.1007/s40192-020-00179-z)
+  - [Kailkhura et al. 2019](https://www.nature.com/articles/s41524-019-0248-2)
+  - [Sutton et al. 2020](https://www.nature.com/articles/s41467-020-17112-9)
 - OOD in AI for Chemical Interactions
+  - [Ji et al. 2022](https://arxiv.org/abs/2201.09637)
+  - [Li et al. 2022](https://arxiv.org/abs/2209.07921)
+  - [Han et al. 2021](https://arxiv.org/abs/2111.12951)
+  - [Cai et al. 2022](https://www.biorxiv.org/content/10.1101/2022.11.15.516682v2)
+  - [Cai et al. 2022](https://academic.oup.com/bioinformatics/article/38/9/2561/6547052)
 - OOD in AI for Partial Differential Equations
+  - [Boussif et al. 2022](https://arxiv.org/abs/2210.05495)
+  - [Brandstetter et al. 2022](https://arxiv.org/abs/2202.03376)
 
 ### Foundation Models and Self-Supervised Learning
 
