@@ -81,6 +81,22 @@
   - SCN
   - eSCN
 
+## Other Technical Challenges
+### Interpretability 
+
+### Out-of-Distribution Generalization
+- OOD in AI for Quantum Mechanics
+- OOD in AI for Density Functional Theory
+- OOD in AI for Molecular Science
+- OOD in AI for Protein Science
+- OOD in AI for Material Science
+- OOD in AI for Chemical Interactions
+- OOD in AI for Partial Differential Equations
+
+### Foundation Models and Self-Supervised Learning
+
+### Uncertainty Quantification
+
 
 ## Other Examples
 
