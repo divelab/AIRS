@@ -52,6 +52,46 @@
   - PhiSNet
   - QHNet
   - QHNet
+## AI for Small Molecules
+### Molecular Representation Learning
+- Invariant Methods: $\ell=0$
+  - [SchNet](https://pubs.aip.org/aip/jcp/article/148/24/241722/962591/SchNet-A-deep-learning-architecture-for-molecules) 
+  - [DimeNet](https://openreview.net/forum?id=B1eWbxStPH)
+  - [SphereNet](https://openreview.net/forum?id=givsRXsOt9r)
+  - [GemNet](https://openreview.net/forum?id=HS_sOaxS9K-)
+  - [ComENet](https://openreview.net/forum?id=mCzMqeWSFJ)
+- Equivariant Methods: $\ell=1$
+  - [EGNN](https://proceedings.mlr.press/v139/satorras21a.html)
+  - [GVP-GNN](https://openreview.net/forum?id=1YLJDvSx6J4)
+  - [PaiNN](http://proceedings.mlr.press/v139/schutt21a.html)
+  - [Vector Neurons](https://openaccess.thecvf.com/content/ICCV2021/html/Deng_Vector_Neurons_A_General_Framework_for_SO3-Equivariant_Networks_ICCV_2021_paper.html)
+- Equivariant Methods: $\ell>1$
+  - [TFN](https://arxiv.org/abs/1802.08219)
+  - [Cormorant](https://openreview.net/forum?id=SkenhHHeUH)
+  - [SE(3)-Transformer](https://proceedings.neurips.cc//paper/2020/hash/15231a7ce4ba789d13b722cc5c955834-Abstract.html)
+  - [NequIP](https://www.nature.com/articles/s41467-022-29939-5)
+  - [SEGNN](https://openreview.net/forum?id=_xwr8gOBeV1)
+  - [Equiformer](https://openreview.net/forum?id=KwmPfARgOTD)
+  - [MACE](https://openreview.net/forum?id=YPpSngE-ZU)
+### Molecular Conformer Generation
+- Learn the Distribution of Low-Energy Geometries
+  - [CVGAE](https://www.nature.com/articles/s41598-019-56773-5)
+  - [ConfVAE](https://proceedings.mlr.press/v139/xu21f.html)
+  - [GeoDiff](https://openreview.net/forum?id=PzcvxEMzvQC)
+  - [Torsional Diffusion](https://openreview.net/forum?id=w6fj2r62r_H)
+- Predict the Equilibrium Ground-State Geometry
+  - [EMPNN](https://arxiv.org/abs/2305.13315)
+  - [DeeperGCN-DAGNN+Dist](https://arxiv.org/abs/2110.01717)
+### Molecule Generation from Scratch
+- Generate Coordinate Matrices
+  - [E-NFs](https://openreview.net/forum?id=N5hQI_RowVA)
+  - [EDM](https://proceedings.mlr.press/v162/hoogeboom22a.html)
+- Generate SE(3)-Invariant Features
+  - [EDMNet](https://arxiv.org/abs/1910.03131)
+  - [G-SchNet](https://proceedings.neurips.cc/paper_files/paper/2019/hash/a4d8e2a7e0d0c102339f97716d2fdfb6-Abstract.html)
+  - [G-SphereNet](https://openreview.net/forum?id=C03Ajc-NS5W)
+### Learning to Simulate Molecular Dynamics
+### Representation Learning of Stereoisomerism and Conformational Flexibility
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
 - Predict Coordinates
