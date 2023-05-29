@@ -4,30 +4,30 @@
 
 ## Al for Quantum Mechanics
 
-### Spin Systems [[Table view]]() <br/>$|\psi\rangle = \sum_i^{2^N} \psi(\bm{\sigma}^{(i)}) |\bm{\sigma}^{(i)}\rangle$
+### Spin Systems
 
 - Restricted boltzmann machines
-  - [[Carleo and Troyer 2017]]()
-  - [[Gao and Duan 2017]]()
-  - [[Choo et al. 2018]]()
-  - [[Chen et al. 202]]()
+  - [Carleo and Troyer 2017](https://www.science.org/doi/10.1126/science.aag2302)
+  - [Gao and Duan 2017](https://www.nature.com/articles/s41467-017-00705-2)
+  - [Choo et al. 2018](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.167204)
+  - [Chen et al. 202](https://openreview.net/pdf?id=qZUHvvtbzy)
 - Feed-forward neural networks
-  - [[Saito 2017]]()
-  - [[Cai and Liu 2018]]()
-  - [[Saito and Kato 2018]]()
-  - [[Saito 2018]]()
+  - [Saito 2017](https://journals.jps.jp/doi/10.7566/JPSJ.86.093001)
+  - [Cai and Liu 2018](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.97.035116)
+  - [Saito and Kato 2018](https://journals.jps.jp/doi/10.7566/JPSJ.87.014001)
+  - [Saito 2018](https://journals.jps.jp/doi/10.7566/JPSJ.87.074002)
 - Convolutional neural networks
-  - Liang et al. 2018
-  - Choo et al. 2019
-  - Szabo et al. 2020
-  - Fu et al. 2022
+  - [Liang et al. 2018](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.104426)
+  - [Choo et al. 2019](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.125124)
+  - [Szabo et al. 2020](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033075)
+  - [Fu et al. 2022](https://arxiv.org/abs/2206.07370)
 - Autoregressive and recurrent neural networks
-  - Sharir et al. 2020
-  - Hibat-Allah et al. 2020
-  - Luo et al. 2021a
+  - [Sharir et al. 2020](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.124.020503)
+  - [Hibat-Allah et al. 2020](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.023358)
+  - [Luo et al. 2021a](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.013216)
 - Graph neural networks
-  - Yang et al. 2020
-  - Kochkov et al. 2021a
+  - [Yang et al. 2020](https://arxiv.org/abs/2011.12453)
+  - [Kochkov et al. 2021a](https://arxiv.org/abs/2110.06390)
 
 ### Many-electron Systems
 - Single Geometry
