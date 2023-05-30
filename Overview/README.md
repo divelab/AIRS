@@ -31,18 +31,18 @@
 
 ### Many-electron Systems
 - Single Geometry
-  - PauliNet
-  - FermiNet
-  - Gerard et al. 2022
-  - PsiFormer
-  - FermiNet+DMC
-  - DiffVMC
+  - [PauliNet](https://www.nature.com/articles/s41557-020-0544-y)
+  - [FermiNet](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033429)
+  - [Gerard et al. 2022](https://openreview.net/pdf?id=nX-gReQ0OT)
+  - [PsiFormer](https://openreview.net/pdf?id=xveTeHVlF7j)
+  - [FermiNet+DMC](https://www.nature.com/articles/s41467-023-37609-3)
+  - [DiffVMC](https://arxiv.org/abs/2305.16540))
 - Multiple Geometries
-  - PESNet
-  - DeepErwin
-  - PlaNet
-  - Globe
-  - Scherbela et al. 2023
+  - [PESNet](https://openreview.net/pdf?id=apv504XsysP)
+  - [DeepErwin](https://arxiv.org/abs/2105.08351)
+  - [PlaNet](https://openreview.net/pdf?id=Tuk3Pqaizx)
+  - [Globe](https://arxiv.org/abs/2302.04168)
+  - [Scherbela et al. 2023](https://arxiv.org/abs/2303.09949)
 ## Al for Density Functional Theory
 ### Quantum Tensor Prediction
 - Invariant Networks
