@@ -153,6 +153,13 @@
   - [Brandstetter et al. 2022](https://arxiv.org/abs/2202.03376)
 
 ### Foundation Models and Self-Supervised Learning
+- Self-Supervised Learning
+  - Molecule Representation
+  - PDE Solvers
+- Foundation Models
+  - Large Language Models for Science
+  - Protein Discovery
+  - Molecule Analysis
 
 ### Uncertainty Quantification
 
