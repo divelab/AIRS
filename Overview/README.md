@@ -93,6 +93,16 @@
 ### Learning to Simulate Molecular Dynamics
 ### Representation Learning of Stereoisomerism and Conformational Flexibility
 ## Al for Protein Science
+### Protein Backbone Generation
+- Structure Representation: Coordinates
+  - [ProtDiff](https://arxiv.org/abs/2206.04119)
+  - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
+  - [Genie](https://arxiv.org/abs/2301.12485)
+- Structure Representation: Frames
+  - [RFdiffusion](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
+  - [FrameDiff](https://arxiv.org/abs/2302.02277)
+- Structure Representation: Internal Angles
+  - [FoldingDiff](https://arxiv.org/abs/2209.15611)
 ## Al for Material Science
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
