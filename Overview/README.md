@@ -36,7 +36,7 @@
   - [Gerard et al. 2022](https://openreview.net/pdf?id=nX-gReQ0OT)
   - [PsiFormer](https://openreview.net/pdf?id=xveTeHVlF7j)
   - [FermiNet+DMC](https://www.nature.com/articles/s41467-023-37609-3)
-  - [DiffVMC](https://arxiv.org/abs/2305.16540))
+  - [DiffVMC](https://arxiv.org/abs/2305.16540)
 - Multiple Geometries
   - [PESNet](https://openreview.net/pdf?id=apv504XsysP)
   - [DeepErwin](https://arxiv.org/abs/2105.08351)
