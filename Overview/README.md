@@ -92,6 +92,8 @@
   - [G-SphereNet](https://openreview.net/forum?id=C03Ajc-NS5W)
 ### Learning to Simulate Molecular Dynamics
 ### Representation Learning of Stereoisomerism and Conformational Flexibility
+## Al for Protein Science
+## Al for Material Science
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
 - Predict Coordinates
@@ -120,7 +122,7 @@
 - Approximately Equivariant Methods
   - SCN
   - eSCN
-
+## Al for Partial Differential Equations
 ## Other Technical Challenges
 ### Interpretability 
 
