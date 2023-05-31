@@ -155,6 +155,42 @@
   - SCN
   - eSCN
 ## Al for Partial Differential Equations
+### Multiscale Dynamics
+- Sequential Multiscale Processing
+  - Dil-ResNet
+  - U-Net
+- Parallel Multiscale Processing
+  - FNO
+  - GraphCast
+  - FourCastNet
+  - 3DEST
+### Multiresolution Dynamics
+- Geometry Deformation
+  - Geo-FNO, 
+  - F-FNO
+- Learned Adaptive Remeshing
+  - MeshGraphNets, 
+  - LAMP
+### ROllout Stability
+- Adversarial Noise Injection
+  - GNS, 
+  - MPPDE
+- Multistep Objective
+  - HGNS
+- Temporal Bundling
+  - MPPDE
+### Incorporating Symmetries
+- Data Augmentation
+  - LPSDA
+- Equivariant Architectures
+  - Equ-ResNet
+  - Equ-Unet
+  - RGroup
+  - RSteer
+  - GCAN
+  - GFNO
+  - IsoGCN
+
 ## Other Technical Challenges
 ### Interpretability 
 
