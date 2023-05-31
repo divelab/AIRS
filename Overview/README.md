@@ -104,6 +104,17 @@
 - Structure Representation: Internal Angles
   - [FoldingDiff](https://arxiv.org/abs/2209.15611)
 ## Al for Material Science
+### Material Representation Learning
+- Material Representation: Multi-Edge Graphs
+  - [CGCNN](https://link.aps.org/doi/10.1103/PhysRevLett.120.145301)
+  - [MEGNET]
+  - [GATGNN]
+  - [SchNet]
+  - [ALIGNN]
+  - [M3GNET]
+- Material Representation: Multi-Edge Graphs and Fully-Connected Graphs
+  - [Matformer]
+  - [PotNet]
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
 - Predict Coordinates
