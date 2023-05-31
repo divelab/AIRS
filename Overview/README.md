@@ -187,13 +187,28 @@
   - [Brandstetter et al. 2022](https://arxiv.org/abs/2202.03376)
 
 ### Foundation Models and Self-Supervised Learning
-- Self-Supervised Learning
-  - Molecule Representation
-  - PDE Solvers
-- Foundation Models
-  - Large Language Models for Science
-  - Protein Discovery
-  - Molecule Analysis
+- SSL for Molecule Representation
+  - [Survey on 2D Graphs](https://ieeexplore.ieee.org/document/9764632)
+  - [GraphMVP](https://openreview.net/forum?id=xQUe1pOKPam)
+  - [3D InfoMax](https://proceedings.mlr.press/v162/stark22a.html)
+  - [Noisy Node - Pretraining](https://openreview.net/forum?id=tYIMtogyee)
+  - [Noisy Node - Auxiliary](https://openreview.net/forum?id=1wVvweK3oIb)
+- Large Language Models for Science
+  - [Galactica](https://arxiv.org/abs/2211.09085)
+  - [BioMedLM](https://crfm.stanford.edu/2022/12/15/biomedlm.html)
+  - [med-PALM](https://sites.research.google/med-palm/)
+  - [ChemGPT](https://chemrxiv.org/engage/chemrxiv/article-details/627bddd544bdd532395fb4b5)
+  - [ChatDrug](https://chao1224.github.io/ChatDrug)
+  - [Boiko et al.](https://arxiv.org/abs/2304.05332)
+  - [Nori et al.](https://www.microsoft.com/en-us/research/publication/capabilities-of-gpt-4-on-medical-challenge-problems/)
+- Foundation Models for Protein Discovery
+  - [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)
+  - [RoseTTAFold](https://www.science.org/doi/10.1126/science.abj8754)
+  - [RFdiffusion](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
+  - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
+  - [AlphaFold Multimer](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v2)
+  - [Humphreys et al.](https://www.science.org/doi/10.1126/science.abm4805)
+- Foundation Models for Molecule Analysis
 
 ### Uncertainty Quantification
 
