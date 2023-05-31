@@ -106,7 +106,7 @@
 ## Al for Material Science
 ### Material Representation Learning
 - Material Representation: Multi-Edge Graphs
-  - [CGCNN](https://link.aps.org/doi/10.1103/PhysRevLett.120.145301)
+  - [CGCNN]
   - [MEGNET]
   - [GATGNN]
   - [SchNet]
