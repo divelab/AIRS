@@ -106,15 +106,15 @@
 ## Al for Material Science
 ### Material Representation Learning
 - Material Representation: Multi-Edge Graphs
-  - [CGCNN]
-  - [MEGNET]
-  - [GATGNN]
-  - [SchNet]
-  - [ALIGNN]
-  - [M3GNET]
+  - [CGCNN](https://link.aps.org/doi/10.1103/PhysRevLett.120.145301)
+  - [MEGNET](https://arxiv.org/abs/1812.05055)
+  - [GATGNN](https://arxiv.org/abs/2003.13379)
+  - [SchNet](https://arxiv.org/abs/1706.08566)
+  - [ALIGNN](https://www.nature.com/articles/s41524-021-00650-1)
+  - [M3GNET](https://www.nature.com/articles/s43588-022-00349-3)
 - Material Representation: Multi-Edge Graphs and Fully-Connected Graphs
-  - [Matformer]
-  - [PotNet]
+  - [Matformer](https://openreview.net/forum?id=pqCT3L-BU9T&)
+  - PotNet
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
 - Predict Coordinates
