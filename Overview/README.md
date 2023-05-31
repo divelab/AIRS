@@ -93,6 +93,17 @@
 ### Learning to Simulate Molecular Dynamics
 ### Representation Learning of Stereoisomerism and Conformational Flexibility
 ## Al for Protein Science
+### Protein Representation Learning
+- Invariant Networks
+  - [IEConv](https://openreview.net/forum?id=l0mSUROpwY)
+  - [HoloProt](https://openreview.net/forum?id=-xEk43f_EO6)
+  - [GearNet](https://openreview.net/forum?id=to3qCB3tOh9)
+  - [ProNet](https://openreview.net/forum?id=9X-hgLDLYkQ)
+  - [PiFold](https://openreview.net/forum?id=oMsN9TYwJ0j)
+  - [CDConv](https://openreview.net/forum?id=P5Z-Zl9XJ7)
+- Equivariant Networks
+  - [GVP-GNN](https://openreview.net/forum?id=1YLJDvSx6J4)
+  - [GBPNet](https://dl.acm.org/doi/abs/10.1145/3534678.3539441)
 ### Protein Backbone Generation
 - Structure Representation: Coordinates
   - [ProtDiff](https://arxiv.org/abs/2206.04119)
