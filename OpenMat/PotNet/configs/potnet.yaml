@@ -1,0 +1,48 @@
+output_dir: /data/kruskallin/formation_energy_peratom/
+process_dir: processed
+cache_dir: cache
+checkpoint_dir: test
+
+dataset: dft_3d
+# JARVIS: formation_energy_peratom, mbj_bandgap, optb88vdw_bandgap, optb88vdw_total_energy, ehull
+# MP: e_form, gap pbe
+target: target
+
+atom_features: cgcnn
+
+epochs: 500
+batch_size: 64
+num_workers: 8
+weight_decay: 0.0
+learning_rate: 1e-3
+
+criterion: mse
+optimizer: adamw
+scheduler: onecycle
+
+pin_memory: False
+write_checkpoint: True
+write_predictions: True
+store_outputs: True
+progress: True
+log_tensorboard: False
+
+
+normalize: False
+euclidean: False
+cutoff: 4.0
+max_neighbors: 16
+infinite_funcs: ["zeta", "zeta", "exp"]
+infinite_params: [0.5, 3.0, 3.0]
+R: 3
+
+model:
+  name: potnet
+  conv_layers: 3
+  rbf_min: -4.0
+  rbf_max: 4.0
+#  potentials: [-0.801, -0.074, 0.145]
+  potentials: [-0.8162, -0.05199, 0.1489]
+
+  charge_map: False
+  transformer: False
