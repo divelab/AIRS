@@ -1,4 +1,3 @@
-output_dir: /data/kruskallin/formation_energy_peratom/
 process_dir: processed
 cache_dir: cache
 checkpoint_dir: test
