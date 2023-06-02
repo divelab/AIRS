@@ -29,7 +29,7 @@ python setup.py build_ext --inplace
 Then the algorithm is installed as Cython package. A simple way to test if it is successfully installed is to run below in the root directory.
 
 ```shell
-python test.py
+python test_algorithm.py
 ```
 
 
