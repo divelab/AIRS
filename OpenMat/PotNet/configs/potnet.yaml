@@ -1,6 +1,6 @@
 process_dir: processed
 cache_dir: cache
-checkpoint_dir: test
+checkpoint_dir: checkpoint
 
 dataset: dft_3d
 # JARVIS: formation_energy_peratom, mbj_bandgap, optb88vdw_bandgap, optb88vdw_total_energy, ehull
@@ -40,8 +40,7 @@ model:
   conv_layers: 3
   rbf_min: -4.0
   rbf_max: 4.0
-#  potentials: [-0.801, -0.074, 0.145]
-  potentials: [-0.8162, -0.05199, 0.1489]
-
+  potentials: [-0.801, -0.074, 0.145]
+#  potentials: [-0.816, -0.052, 0.149]
   charge_map: False
   transformer: False
