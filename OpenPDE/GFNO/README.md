@@ -1,1 +1,0 @@
-# Group Equivariant Fourier Neural Operators for Partial Differential Equations
