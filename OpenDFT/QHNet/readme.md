@@ -79,7 +79,7 @@ Please cite our paper if you find our paper useful.
 @inproceedings{yu2023efficient,
   title={Efficient and Equivariant Graph Networks for Predicting Quantum Hamiltonian},
   author={Yu, Haiyang and Xu, Zhao and Qian, Xiaofeng and Qian, Xiaoning and Ji, Shuiwang},
-  booktitle={International Conference on Machine Learning},2},
+  booktitle={International Conference on Machine Learning},
   year={2023},
   organization={PMLR}
 }
