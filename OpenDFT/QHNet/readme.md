@@ -20,7 +20,7 @@ Then set the model path and version in the configs accroding to the names of the
 
 ## Training
 
-Training the QHNet on the MD17 dataset. 
+Training the QHNet on the MD17 dataset. Note that `$DATASET` is the name of datasets from water, ethanol, malondialdehyde, uracil.
 ```bash
 python train_wH.py dataset=$DATASET model=QHNet model.version=QHNet
 ```
@@ -32,7 +32,7 @@ python train_mixed.py dataset=all model=QHNet model.version=QHNet
 
 ## Test
 
-Testing the QHNet on the MD17 dataset.
+Testing the QHNet on the MD17 dataset. Note that `$PATH_TO_SAVED_MODEL` is the path to the downloaded model parameters or saved model paramters.
 ```bash
 python test_wH.py dataset=$DATASET model=QHNet model.version=QHNet model_path=$PATH_TO_SAVED_MODEL
 ```
@@ -44,7 +44,7 @@ python test_mixed.py dataset=all model=QHNet model.version=QHNet model_path=$PAT
 
 ## Benchmark
 
-The results of QHNet in the main paper is based on **float64**, the it applies a linear schedule of total 200, 000 steps with warmup 5,000.
+The results of QHNet in the main paper is based on **float64**, the it applies a linear schedule of total 200, 000 steps with warmup 1,000.
 
 | Dataset         | Training strategies  | MAE   | $\epsilon$ | $\psi$ |
 |:--------------- | -------------------- |:-----:|:----------:|:------:|
