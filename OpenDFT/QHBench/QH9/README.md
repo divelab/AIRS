@@ -26,7 +26,7 @@ To comprehensively evaluate the quantum Hamiltonian prediction performance, we d
 
 ## Requirement
 
-We include key dependencies below. The versions we used are in the parentheses. 
+We include key dependencies below. The versions we used are in parentheses. 
 * PyTorch (1.11.0)
 * PyG (2.0.4)
 * e3nn (0.5.1)
@@ -34,7 +34,7 @@ We include key dependencies below. The versions we used are in the parentheses.
 * hydra-core (1.1.2)
 
 ## Dataset Usage
-We provide the datasets as commonly used PyG datasets. Here are simple examples to load our datasets with a few lines of code.
+We provide the datasets as commonly used PyG datasets. Here are simple examples to load our datasets with a few lines of code. Prior to that, you can download the `datasets` folder, which includes the raw data files `QH9Stable.db` and `QH9Dynamic.db`, via [this Google Drive link](https://drive.google.com/drive/folders/1W2qb8Uu3CGwYMk1VX8vrHPVvA_cK8ARR?usp=sharing).
 
 ```python
 from torch_geometric.loader import DataLoader
