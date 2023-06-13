@@ -8,7 +8,7 @@ This is the official implement of QHNet Paper [Efficient and Equivariant Graph N
 - create the env and install the requirements
   
   ```bash
-  git clone https://github.com/divelab/AIRS.git
+  $ git clone https://github.com/divelab/AIRS.git
   $ cd AIRS/OpenDFT/QHNet
   $ source ./install.sh
   ```
