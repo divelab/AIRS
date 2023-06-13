@@ -3,7 +3,7 @@
 
 ## Introduction
 
-QH9 provides precise DFT-calculated Hamiltonian matrices for **2,399 molecular dynamics trajectories** and **130,831  stable molecular geometries**, based on the QM9 dataset.
+QH9 provides precise DFT-calculated Hamiltonian matrices for **2,399 molecular dynamics trajectories** and **130,831  stable molecular geometries**, based on the [QM9](http://quantum-machine.org/datasets/) dataset.
 
 In this repo, we provide both the QH9 dataset and the baseline models, which can be highly valuable for developing machine learning methods and accelerating molecular and materials design for scientific and technological applications.
 
