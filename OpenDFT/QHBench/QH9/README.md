@@ -1,5 +1,6 @@
 # QH9: A Quantum Hamiltonian Prediction Benchmark
 
+[[Paper]](https://arxiv.org/abs/2306.09549)
 
 ## Introduction
 
@@ -79,5 +80,11 @@ python test_dft_acceleration.py
 ```
 
 ## Citing QH9
-
-Add it later
+```
+@article{yu2023qh9,
+      title={{QH9}: A Quantum Hamiltonian Prediction Benchmark for QM9 Molecules}, 
+      author={Haiyang Yu and Meng Liu and Youzhi Luo and Alex Strasser and Xiaofeng Qian and Xiaoning Qian and Shuiwang Ji},
+      journal={arXiv Preprint, arXiv:2306.09549},
+      year={2023}
+}
+```
