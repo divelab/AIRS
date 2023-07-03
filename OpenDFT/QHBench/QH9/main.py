@@ -25,10 +25,10 @@ def recorder_pos(data):
 def criterion(outputs, target, loss_weights):
     error_dict = {}
     keys = loss_weights.keys()
+    row = target.edge_index[0]
+    edge_batch = target.batch[row]
     try:
         for key in keys:
-            row = target.edge_index[0]
-            edge_batch = target.batch[row]
             diff_diagonal = outputs[f'{key}_diagonal_blocks']-target[f'diagonal_{key}']
             mse_diagonal  = torch.sum(diff_diagonal**2 * target[f"diagonal_{key}_mask"], dim=[1, 2])
             mae_diagonal  = torch.sum(torch.abs(diff_diagonal) * target[f"diagonal_{key}_mask"], dim=[1, 2])
