@@ -50,8 +50,8 @@ def criterion(outputs, target, loss_weights):
 
             error_dict[key+'_mae']  = mae
             error_dict[key+'_rmse'] = torch.sqrt(mse)
-            error_dict[key + '_diagonal_mae'] = mae_diagonal / count_sum_diagonal
-            error_dict[key + '_non_diagonal_mae'] = mae_non_diagonal / count_sum_non_diagonal
+            error_dict[key + '_diagonal_mae'] = (mae_diagonal / count_sum_diagonal).mean()
+            error_dict[key + '_non_diagonal_mae'] = (mae_non_diagonal / count_sum_non_diagonal).mean()
             loss = mse + mae
             error_dict[key] = loss
             if 'loss' in error_dict.keys():
