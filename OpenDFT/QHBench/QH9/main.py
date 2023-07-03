@@ -6,7 +6,7 @@ import logging
 from models import QHNet
 from torchvision.transforms import Compose
 from torch_geometric.loader import DataLoader
-from torch_scatter import scatter
+from torch_scatter import scatter_sum
 
 from datasets import QH9Stable, QH9Dynamic
 from torch_ema import ExponentialMovingAverage
