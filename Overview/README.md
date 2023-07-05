@@ -108,6 +108,7 @@
 - Structure Representation: Coordinates
   - [ProtDiff](https://arxiv.org/abs/2206.04119)
   - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
+  - [LatentDiff](https://arxiv.org/abs/2305.04120)
   - [Genie](https://arxiv.org/abs/2301.12485)
 - Structure Representation: Frames
   - [RFdiffusion](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
