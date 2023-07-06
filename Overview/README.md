@@ -93,6 +93,16 @@
 ### Learning to Simulate Molecular Dynamics
 ### Representation Learning of Stereoisomerism and Conformational Flexibility
 ## Al for Protein Science
+### Protein Folding
+- Two-Stage Learning
+  - [RaptorX-Contact](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324)
+  - [AlphaFold1](https://www.nature.com/articles/s41586-019-1923-7)
+  - [trRoseTTA](https://www.nature.com/articles/s41596-021-00628-9)
+- End-To-End Learning
+  - [AlphaFold2](https://www.nature.com/articles/s41586-021-03819-2)
+  - [RoseTTAFold](https://www.science.org/doi/10.1126/science.abj8754)
+  - [ESMFold](https://www.science.org/doi/10.1126/science.ade2574)
+  - [OpenFold](https://www.biorxiv.org/content/10.1101/2022.11.20.517210v1)
 ### Protein Representation Learning
 - Invariant Networks
   - [IEConv](https://openreview.net/forum?id=l0mSUROpwY)
