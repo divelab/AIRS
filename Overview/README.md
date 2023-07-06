@@ -46,12 +46,11 @@
 ## Al for Density Functional Theory
 ### Quantum Tensor Prediction
 - Invariant Networks
-  - SchNorb
-  - DeepH
+  - [SchNorb](https://www.nature.com/articles/s41467-019-12875-2)
+  - [DeepH](https://www.nature.com/articles/s43588-022-00265-6)
 - Equivariant Networks
-  - PhiSNet
-  - QHNet
-  - QHNet
+  - [PhiSNet](https://arxiv.org/abs/2106.02347)
+  - [QHNet](https://arxiv.org/abs/2306.04922)
 ## AI for Small Molecules
 ### Molecular Representation Learning
 - Invariant Methods: $\ell=0$
