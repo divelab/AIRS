@@ -156,31 +156,33 @@
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
 - Predict Coordinates
-  - EquiBind
-  - E3Bind
+  - [EquiBind](https://arxiv.org/abs/2202.05146)
+  - [E3Bind](https://arxiv.org/abs/2210.06069)
+  - [NeuralPLexer](http://export.arxiv.org/abs/2209.15171)
 - Predict Interatomic Distances
-  - TankBind
+  - [TankBind](https://www.biorxiv.org/content/10.1101/2022.06.06.495043v1)
 - Predict Rotation, Translation, and Torsions
-  - DiffDock
+  - [DiffDock](https://arxiv.org/abs/2210.01776)
 ### Structure-Based Drug Design
 - Autoregressively Generate Relative Position-Related Variables
-  - AR
-  - GraphBP
-  - Pocket2Mol
-  - FLAG 
+  - [AR](https://arxiv.org/abs/2203.10446)
+  - [GraphBP](https://arxiv.org/abs/2204.09410)
+  - [Pocket2Mol](https://arxiv.org/abs/2205.07249)
+  - [FLAG](https://openreview.net/forum?id=Rq13idF0F73)
 - Generate Coordinates with Diffusion Models
-  - TargetDiff
-  - DiffBP
-  - DiffSBDD
-### Energy, Force, and Position Prediction for Molecule-Material Pairs
+  - [TargetDiff](https://arxiv.org/abs/2303.03543)
+  - [DiffBP](https://arxiv.org/abs/2211.11214)
+  - [DiffSBDD](https://arxiv.org/abs/2210.13695)
+### Molecule and Material Interactions
 - Invariant Methods
-  - SpinConv
-  - GemNet-OC
+  - [SpinConv](https://arxiv.org/abs/2106.09575)
+  - [GemNet-OC](https://arxiv.org/abs/2204.02782)
 - Equivariant Methods
-  - Equiformer
+  - [Equiformer](https://arxiv.org/abs/2206.11990)
+  - [EquiformerV2](https://arxiv.org/abs/2306.12059)
 - Approximately Equivariant Methods
-  - SCN
-  - eSCN
+  - [SCN](https://arxiv.org/abs/2206.14331)
+  - [eSCN](https://arxiv.org/abs/2302.03655)
 ## Al for Partial Differential Equations
 ### Multiscale Dynamics
 - Sequential Multiscale Processing
