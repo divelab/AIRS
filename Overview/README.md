@@ -44,7 +44,7 @@
   - [Globe](https://arxiv.org/abs/2302.04168)
   - [Scherbela et al. 2023](https://arxiv.org/abs/2303.09949)
 ## Al for Density Functional Theory
-### Quantum Tensor Prediction
+### Quantum Tensor Learning
 - Invariant Networks
   - [SchNorb](https://www.nature.com/articles/s41467-019-12875-2)
   - [DeepH](https://www.nature.com/articles/s43588-022-00265-6)
