@@ -53,9 +53,9 @@
   - [QHNet](https://arxiv.org/abs/2306.04922)
 ### Density Functional Learning
 - Exchange-Correlation Energy Density Functional Learning
-  - [NN gedeon2021machine](https://iopscience.iop.org/article/10.1088/2632-2153/ac3149)
+  - [NN gedeon et al. 2021](https://iopscience.iop.org/article/10.1088/2632-2153/ac3149)
   - [MLP](https://www.science.org/doi/10.1126/science.abj6511)
-  - [DNN DM21](https://www.nature.com/articles/s41524-020-0310-0) [DNN pokharel2022exact](https://arxiv.org/abs/2205.14241)
+  - [DNN DM21](https://www.nature.com/articles/s41524-020-0310-0) [DNN pokharel et al. 2022](https://arxiv.org/abs/2205.14241)
   - [symbolic regression](https://www.science.org/doi/10.1126/sciadv.abq0279)
 - Kinetic Energy Density Functional Learning
   - [KRR](https://arxiv.org/abs/1112.5441)
