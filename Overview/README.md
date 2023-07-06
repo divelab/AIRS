@@ -51,6 +51,18 @@
 - Equivariant Networks
   - [PhiSNet](https://arxiv.org/abs/2106.02347)
   - [QHNet](https://arxiv.org/abs/2306.04922)
+### Density Functional Learning
+- Exchange-Correlation Energy Density Functional Learning
+  - [NN gedeon2021machine](https://iopscience.iop.org/article/10.1088/2632-2153/ac3149)
+  - [MLP](https://www.science.org/doi/10.1126/science.abj6511)
+  - [DNN DM21](https://www.nature.com/articles/s41524-020-0310-0) [DNN pokharel2022exact](https://arxiv.org/abs/2205.14241)
+  - [symbolic regression](https://www.science.org/doi/10.1126/sciadv.abq0279)
+- Kinetic Energy Density Functional Learning
+  - [KRR](https://arxiv.org/abs/1112.5441)
+  - [VDNN](https://pubs.acs.org/doi/10.1021/acs.jctc.1c00812)
+  - [Delta Learning](https://pubs.acs.org/doi/10.1021/acs.jctc.5b00099)
+
+Functional Learning
 ## AI for Small Molecules
 ### Molecular Representation Learning
 - Invariant Methods: $\ell=0$
