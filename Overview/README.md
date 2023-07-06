@@ -64,6 +64,7 @@
   - [GVP-GNN](https://openreview.net/forum?id=1YLJDvSx6J4)
   - [PaiNN](http://proceedings.mlr.press/v139/schutt21a.html)
   - [Vector Neurons](https://openaccess.thecvf.com/content/ICCV2021/html/Deng_Vector_Neurons_A_General_Framework_for_SO3-Equivariant_Networks_ICCV_2021_paper.html)
+  - [EQGAT](https://arxiv.org/abs/2202.09891)
 - Equivariant Methods: $\ell>1$
   - [TFN](https://arxiv.org/abs/1802.08219)
   - [Cormorant](https://openreview.net/forum?id=SkenhHHeUH)
@@ -85,12 +86,28 @@
 - Generate Coordinate Matrices
   - [E-NFs](https://openreview.net/forum?id=N5hQI_RowVA)
   - [EDM](https://proceedings.mlr.press/v162/hoogeboom22a.html)
+  - [GeoLDM](https://arxiv.org/abs/2305.01140)
 - Generate SE(3)-Invariant Features
   - [EDMNet](https://arxiv.org/abs/1910.03131)
   - [G-SchNet](https://proceedings.neurips.cc/paper_files/paper/2019/hash/a4d8e2a7e0d0c102339f97716d2fdfb6-Abstract.html)
   - [G-SphereNet](https://openreview.net/forum?id=C03Ajc-NS5W)
 ### Learning to Simulate Molecular Dynamics
+- ML Force Fields
+  - [Unke et al. 2021c](https://pubs.acs.org/doi/10.1021/acs.chemrev.0c01111)
+- Enhanced Sampling
+  - [Sidky et al. 2020a](https://www.tandfonline.com/doi/full/10.1080/00268976.2020.1737742)
+- Coarse Graining (CG)
+  - [Noid 2023](https://pubs.acs.org/doi/10.1021/acs.jpcb.2c08731)
 ### Representation Learning of Stereoisomerism and Conformational Flexibility
+- Represent Tetrahedral Chirality
+  - [Chemprop](https://pubs.acs.org/doi/10.1021/acs.jcim.9b00237)
+  - [MolKGNN](https://www.biorxiv.org/content/10.1101/2022.08.24.505155v1)
+  - [Tetra-DMPNN](https://arxiv.org/abs/2012.00094)
+  - [ChIRo](https://arxiv.org/abs/2110.04383)
+- Represent Conformational Flexibility
+  - [Adams et al. 2021](https://arxiv.org/abs/2110.04383)
+  - [Axelrod and Gomez-Bombarelli 2020](https://arxiv.org/abs/2012.08452)
+  - [Chuang and Keiser 2020](https://arxiv.org/abs/2011.12820)
 ## Al for Protein Science
 ### Protein Folding
 - Two-Stage Learning
