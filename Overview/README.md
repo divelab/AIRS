@@ -62,7 +62,6 @@
   - [VDNN](https://pubs.acs.org/doi/10.1021/acs.jctc.1c00812)
   - [Delta Learning](https://pubs.acs.org/doi/10.1021/acs.jctc.5b00099)
 
-Functional Learning
 ## AI for Small Molecules
 ### Molecular Representation Learning
 - Invariant Methods: $\ell=0$
