@@ -5,6 +5,8 @@
 ### Equivariant Featurization and Data Interaction
 - [Group Equivariant CNNs](http://proceedings.mlr.press/v48/cohenc16.pdf)
 - [Tensor Field Networks](https://arxiv.org/abs/1802.08219)
+- [3D Steerable CNNs](https://proceedings.neurips.cc/paper_files/paper/2018/file/488e4104520c6aab692863cc1dba45af-Paper.pdf)
+- [e3nn](https://e3nn.org)
 - [SCN](https://openreview.net/pdf?id=5Z3GURcqwT)
 - [eSCN](https://arxiv.org/abs/2302.03655)
   
