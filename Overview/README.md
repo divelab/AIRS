@@ -45,7 +45,7 @@
   - [PESNet](https://openreview.net/pdf?id=apv504XsysP)
   - [PESNet++ & PlaNet](https://openreview.net/pdf?id=Tuk3Pqaizx)
   - [Globe](https://openreview.net/pdf?id=2F3bt9s0iW)
-  - [Scherbela et al. 2023](https://arxiv.org/abs/2303.09949)
+  - [TAO](https://arxiv.org/abs/2303.09949)
 - Superfluids and Homogeneous Electron Gas
   - [AGPs FermiNet](https://arxiv.org/abs/2305.06989)
   - [MP-NQS](https://arxiv.org/abs/2305.07240)
