@@ -47,7 +47,6 @@
 
 
 #### Frame Averaging as an Alternative for Equivariance
-
 - [Puny et al. 2022](https://openreview.net/pdf?id=zIUyj55nXR)
 - [Pozdnyakov and Ceriotti 2023](https://arxiv.org/abs/2305.19302)
 - [Duval et al. 2023](https://openreview.net/pdf?id=HRDRZNxQXc)
@@ -55,7 +54,6 @@
 - [Passaro and Zitnick 2023](https://arxiv.org/abs/2302.03655)
 
 #### Approximate Equivariance
-
 - [Residual Pathway Priors](https://proceedings.neurips.cc/paper_files/paper/2021/file/fc394e9935fbd62c8aedc372464e1965-Paper.pdf)
 - [Wang et al. 2022](https://proceedings.mlr.press/v162/wang22aa/wang22aa.pdf)
 - [van der Ouderaa et al. 2022](https://openreview.net/pdf?id=5oEk8fvJxny)
@@ -235,7 +233,38 @@
   - [M3GNET](https://www.nature.com/articles/s43588-022-00349-3)
 - Material Representation: Multi-Edge Graphs and Fully-Connected Graphs
   - [Matformer](https://openreview.net/forum?id=pqCT3L-BU9T&)
-  - PotNet
+  - [PotNet](https://arxiv.org/abs/2306.10045)
+
+### Material Generation
+- Material Representation: 3D Voxel Grids
+  - [Hoffmann et al. 2019](https://arxiv.org/abs/1909.00949)
+  - [Cond-DFC-VAE](https://pubs.acs.org/doi/10.1021/acs.jcim.0c00464)
+- Material Representation: Fractional Coordinates
+  - [FTCP](https://arxiv.org/abs/2005.07609)
+  - [Kim et al. 2020](https://pubs.acs.org/doi/10.1021/acscentsci.0c00426)
+- Material Representation: Multi-Edge Graphs
+  - [CDVAE](https://openreview.net/pdf?id=03RLpj-tc_)
+  - [SyMat](https://arxiv.org/abs/2307.02707)
+
+### Materials Characterization
+- Material Representation: 1D Spectral Data
+  - [Garcia-Cardona et al. 2019](https://ieeexplore.ieee.org/document/9005968)
+  - [Chitturi et al. 2021](https://journals.iucr.org/j/issues/2021/06/00/vb5020/)
+  - [Corriero et al. 2023](https://onlinelibrary.wiley.com/iucr/doi/10.1107/S1600576723000596)
+  - [Greasley and Hosein 2023](https://link.springer.com/article/10.1007/s10853-023-08343-4)
+  - [Banko et al. 2021](https://arxiv.org/abs/2104.04392)
+- Material Representation: Local Environment Descriptor
+  - [DeepStruc](https://pubs.rsc.org/en/content/articlelanding/2023/dd/d2dd00086e)
+  - [Venetos et al. 2023](https://pubs.acs.org/doi/10.1021/acs.jpca.2c07530)
+
+### Phonon Calculations
+- Material Representation: Local Environment Descriptor
+  - [MLIPs](https://www.sciencedirect.com/science/article/pii/S2352940720301323)
+  - [MTPs](https://pubs.acs.org/doi/full/10.1021/acs.jpca.9b08723)
+- Material Representation: Multi-Edge Graphs
+  - [VGNN](https://arxiv.org/abs/2301.02197)
+  - [Chen et al. 2021](https://arxiv.org/abs/2009.05163)
+
 ## Al for Molecular Interactions
 ### Protein-Ligand Binding Prediction
 - Predict Coordinates
