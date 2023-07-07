@@ -48,10 +48,18 @@
 
 #### Frame Averaging as an Alternative for Equivariance
 
+- [Puny et al. 2022](https://openreview.net/pdf?id=zIUyj55nXR)
+- [Pozdnyakov and Ceriotti 2023](https://arxiv.org/abs/2305.19302)
+- [Duval et al. 2023](https://openreview.net/pdf?id=HRDRZNxQXc)
+- [Kaba et al. 2022](https://openreview.net/pdf?id=pVD1k8ge25a)
+- [Passaro and Zitnick 2023](https://arxiv.org/abs/2302.03655)
 
 #### Approximate Equivariance
 
-
+- [Residual Pathway Priors](https://proceedings.neurips.cc/paper_files/paper/2021/file/fc394e9935fbd62c8aedc372464e1965-Paper.pdf)
+- [Wang et al. 2022](https://proceedings.mlr.press/v162/wang22aa/wang22aa.pdf)
+- [van der Ouderaa et al. 2022](https://openreview.net/pdf?id=5oEk8fvJxny)
+- [Romero and Lohit 2022](https://arxiv.org/abs/2110.10211)
 
 
 ## Al for Quantum Mechanics
