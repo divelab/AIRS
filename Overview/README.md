@@ -38,7 +38,7 @@
   - [FermiNet+SchNet](https://openreview.net/pdf?id=nX-gReQ0OT)
   - [PsiFormer](https://openreview.net/pdf?id=xveTeHVlF7j)
   - [FermiNet+DMC - Ren et al.](https://www.nature.com/articles/s41467-023-37609-3)
-  - [FermiNet+DMC - Wilson et al.]([https://www.nature.com/articles/s41467-023-37609-3](https://arxiv.org/abs/2103.12570))
+  - [FermiNet+DMC - Wilson et al.](https://arxiv.org/abs/2103.12570)
   - [DiffVMC](https://arxiv.org/abs/2305.16540)
 - Molecules - Multiple Geometries
   - [DeepErwin](https://arxiv.org/abs/2105.08351)
