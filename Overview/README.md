@@ -1,11 +1,57 @@
 # AIRS 
 
 ## Group Theory, Symmetries, and Equivariance
+
+### Equivariant Featurization and Data Interaction
 - [Group Equivariant CNNs](http://proceedings.mlr.press/v48/cohenc16.pdf)
 - [Tensor Field Networks](https://arxiv.org/abs/1802.08219)
-- [3D Steerable CNNs](https://proceedings.neurips.cc/paper_files/paper/2018/file/488e4104520c6aab692863cc1dba45af-Paper.pdf)
 - [SCN](https://openreview.net/pdf?id=5Z3GURcqwT)
 - [eSCN](https://arxiv.org/abs/2302.03655)
+  
+### Physics and Mathematical Foundations
+- Group theory and irreducible representations
+- Tensor product and Clebsh-Gordan Coefficients
+- Spherical harmonics projections and equivariant networks
+- SO(3) group, spherical harmonics and angular momentum
+
+### General Formulation via Steerable Kernels
+- [Steerable CNNs](https://openreview.net/pdf?id=rJQKYt5ll)
+- [3D Steerable CNNs](https://proceedings.neurips.cc/paper_files/paper/2018/file/488e4104520c6aab692863cc1dba45af-Paper.pdf)
+- [General E(2) Steerable CNNs](https://proceedings.neurips.cc/paper_files/paper/2019/file/45d6637b718d0f24a237069fe41b0db4-Paper.pdf)
+- [Group Equivariant CNNs on Homogeous Spaces](https://proceedings.neurips.cc/paper_files/paper/2019/file/b9cfe8b6042cf759dc4c0cccb27a6737-Paper.pdf)
+- [Wigner-Eckart Theorem for G-CNNs](https://openreview.net/pdf?id=ajOrOhQOsYx)
+- [Steerable Partial Differential Operators](https://openreview.net/pdf?id=N9W24a4zU)
+- [escnn](https://openreview.net/pdf?id=WE4qe9xlnQw)
+- [Coordinate Indepedent CNNs](https://arxiv.org/abs/2106.06020)
+
+### Open Research Directions
+
+#### Symmetry Breaking
+- [Smidt et al. 2021](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.L012002)
+
+#### Empirical Benefits and Expense of Equivariance versus Invariance
+- [Batzner et al. 2022](https://www.nature.com/articles/s41467-022-29939-5)
+- [Musaelian et al. 2023](https://www.nature.com/articles/s41467-023-36329-y)
+- [Owen et al. 2023](https://arxiv.org/abs/2302.12993)
+- [Yu et al. 2023](https://openreview.net/pdf?id=pKNQRJZwnV)
+- [eSCN](https://arxiv.org/abs/2302.03655) 
+
+#### Universality of Equivariant Neural Architectures
+- [Yarotsky 2018](https://link.springer.com/article/10.1007/s00365-021-09546-1)
+- [Bogatskiy et al. 2022](https://arxiv.org/abs/2203.06153)
+- [Dym and Maron 2021](https://openreview.net/pdf?id=6NFBvWlRXaG)
+- [Xu et al. 2018](https://arxiv.org/abs/1810.00826)
+- [Joshi et al. 2023](https://openreview.net/pdf?id=fzjd0rW81a-)
+
+
+#### Frame Averaging as an Alternative for Equivariance
+
+
+#### Approximate Equivariance
+
+
+
+
 ## Al for Quantum Mechanics
 
 ### Spin Systems
