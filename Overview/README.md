@@ -98,10 +98,14 @@
 ### Molecular Conformer Generation
 - Learn the Distribution of Low-Energy Geometries
   - [CVGAE](https://www.nature.com/articles/s41598-019-56773-5)
+  - [GraphDG](https://arxiv.org/abs/1909.11459)
   - [ConfVAE](https://proceedings.mlr.press/v139/xu21f.html)
+  - [CGCF](https://arxiv.org/abs/2102.10240)
+  - [ConfGf](https://arxiv.org/abs/2105.03902)
   - [GeoDiff](https://openreview.net/forum?id=PzcvxEMzvQC)
   - [Torsional Diffusion](https://openreview.net/forum?id=w6fj2r62r_H)
 - Predict the Equilibrium Ground-State Geometry
+  - [GeoMol](https://arxiv.org/abs/2106.07802)
   - [EMPNN](https://arxiv.org/abs/2305.13315)
   - [DeeperGCN-DAGNN+Dist](https://arxiv.org/abs/2110.01717)
 ### Molecule Generation from Scratch
