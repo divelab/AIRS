@@ -41,7 +41,7 @@
   - [FermiNet+DMC (Wilson et al.)](https://arxiv.org/abs/2103.12570)
   - [DiffVMC](https://arxiv.org/abs/2305.16540)
 - Molecules - Multiple Geometries
-  - [DeepErwin](https://arxiv.org/abs/2105.08351)
+  - [DeepErwin](https://www.nature.com/articles/s43588-022-00228-x)
   - [PESNet](https://openreview.net/pdf?id=apv504XsysP)
   - [PESNet++ & PlaNet](https://openreview.net/pdf?id=Tuk3Pqaizx)
   - [Globe](https://openreview.net/pdf?id=2F3bt9s0iW)
