@@ -30,19 +30,27 @@
   - [Kochkov et al. 2021a](https://arxiv.org/abs/2110.06390)
 
 ### Many-electron Systems
-- Single Geometry
+- Molecules - Single Geometry
+  - [DeepWF](https://www.sciencedirect.com/science/article/abs/pii/S0021999119306345)
   - [PauliNet](https://www.nature.com/articles/s41557-020-0544-y)
   - [FermiNet](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033429)
-  - [Gerard et al. 2022](https://openreview.net/pdf?id=nX-gReQ0OT)
+  - [FermiNet-GA](https://www.sciencedirect.com/science/article/abs/pii/S0021999122008282)
+  - [FermiNet+SchNet](https://openreview.net/pdf?id=nX-gReQ0OT)
   - [PsiFormer](https://openreview.net/pdf?id=xveTeHVlF7j)
-  - [FermiNet+DMC](https://www.nature.com/articles/s41467-023-37609-3)
+  - [FermiNet+DMC - Ren et al.](https://www.nature.com/articles/s41467-023-37609-3)
+  - [FermiNet+DMC - Wilson et al.]([https://www.nature.com/articles/s41467-023-37609-3](https://arxiv.org/abs/2103.12570))
   - [DiffVMC](https://arxiv.org/abs/2305.16540)
-- Multiple Geometries
-  - [PESNet](https://openreview.net/pdf?id=apv504XsysP)
+- Molecules - Multiple Geometries
   - [DeepErwin](https://arxiv.org/abs/2105.08351)
-  - [PlaNet](https://openreview.net/pdf?id=Tuk3Pqaizx)
-  - [Globe](https://arxiv.org/abs/2302.04168)
+  - [PESNet](https://openreview.net/pdf?id=apv504XsysP)
+  - [PESNet++ & PlaNet](https://openreview.net/pdf?id=Tuk3Pqaizx)
+  - [Globe](https://openreview.net/pdf?id=2F3bt9s0iW)
   - [Scherbela et al. 2023](https://arxiv.org/abs/2303.09949)
+- Superfluids and Homogeneous Electron Gas
+  - [AGPs FermiNet](https://arxiv.org/abs/2305.06989)
+  - [MP-NQS](https://arxiv.org/abs/2305.07240)
+  - [Cassella et al. 2023](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.130.036401)
+  - [WAP-net](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.107.235139)
 ## Al for Density Functional Theory
 ### Quantum Tensor Learning
 - Invariant Networks
