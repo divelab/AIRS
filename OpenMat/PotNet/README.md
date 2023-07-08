@@ -95,7 +95,7 @@ To train our model, use the script
 python main.py --config configs/potnet.yaml --output_dir xxx --checkpoint xxx
 ```
 
-where `output_dir` denotes the output directory of checkpoints and processed data files, and `checkpoint` denotes the path of a checkpoint meaning restarting training from a certain checkpoint. One can also omit `checkpoint` in this script.
+Here, `output_dir` denotes the output directory of checkpoints and processed data files, and `checkpoint` denotes the path of a checkpoint meaning restarting training from a certain checkpoint. One can also omit `checkpoint` in this script.
 
 To evaluate our model, use the script
 
@@ -103,7 +103,7 @@ To evaluate our model, use the script
 python main.py --config configs/potnet.yaml --output_dir xxx --checkpoint xxx --testing
 ```
 
-where `checkpoint` denotes the path of a checkpoint and `testing` denotes the evaluation phase.
+and here `checkpoint` denotes the path of a checkpoint and `testing` denotes the evaluation phase.
 
 ## Train on Custom Dataset
 
