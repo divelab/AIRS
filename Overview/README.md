@@ -332,10 +332,10 @@
   - GFNO
   - IsoGCN
 
-## Other Technical Challenges
-### Interpretability 
 
-### Out-of-Distribution Generalization
+## Technical - Interpretability 
+
+## Technical - Out-of-Distribution Generalization
 - OOD in AI for Quantum Mechanics
   - [Guan et al. 2021](https://pubs.rsc.org/en/content/articlehtml/2021/sc/d0sc04823b)
   - [Botu and Ramprasad 2015](https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.24836?casa_token=4dRmUPDz_CQAAAAA:jTYJPlzF6e7DNmT73_9ohyUJ6Tu8cff3Y65XDl6kJc7kMFAhxjPg2fpNHZ4mir2T7CW-o011IyQk)
@@ -363,7 +363,7 @@
   - [Boussif et al. 2022](https://arxiv.org/abs/2210.05495)
   - [Brandstetter et al. 2022](https://arxiv.org/abs/2202.03376)
 
-### Foundation and Large Language Models
+## Technical - Foundation and Large Language Models
 - Self-Supervised Learning
   - 2D Molecular Graph: 
     - [Survey](https://ieeexplore.ieee.org/document/9764632)
@@ -429,6 +429,6 @@
     - [SynerGPT]()
 
 
-### Uncertainty Quantification
+## Technical - Uncertainty Quantification
 
 ## Education, Workforce Developments, and Public Engagements
