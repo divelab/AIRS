@@ -142,10 +142,10 @@ The underlying training part is based on [ALIGNN](https://github.com/usnistgov/a
 
 ```latex
 @inproceedings{lin2023efficient,
-author = {Yuchao Lin and Keqiang Yan and Youzhi Luo and Yi Liu and Xiaoning Qian and Shuiwang Ji},
-title = {Efficient Approximations of Complete Interatomic Potentials for Crystal Property Prediction},
-booktitle = {Proceedings of the 40th International Conference on Machine Learning},
-year = {2023},
+	author = {Yuchao Lin and Keqiang Yan and Youzhi Luo and Yi Liu and Xiaoning Qian and Shuiwang Ji},
+	title = {Efficient Approximations of Complete Interatomic Potentials for Crystal Property Prediction},
+	booktitle = {Proceedings of the 40th International Conference on Machine Learning},
+	year = {2023},
 }
 ```
 
