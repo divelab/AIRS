@@ -1,0 +1,24 @@
+dataset_name: malondialdehyde
+num_train: 25000
+num_valid: 500
+
+density_loss: 0.01
+max_radius: 15.0
+
+train_batch_size: 5
+valid_batch_size: 5
+test_batch_size: 5
+
+learning_rate: 1e-3
+weight_decay: 0.0
+num_epochs: 100000
+validation_interval: 10
+use_gradient_clipping: true
+clip_norm: 1.0
+pin_memory: True
+num_workers: 8
+step_size: 10
+
+num_bathes: 1000000
+train_batch_interval: 100
+validation_batch_interval: 1000

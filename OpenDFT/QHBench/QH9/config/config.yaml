@@ -1,0 +1,13 @@
+defaults:
+  - datasets: QH9-stable
+ex_name: 'ex_name'
+device: 0
+ckpt_dir: 'checkpoints'
+split_seed: 42
+optimizer: adam
+ema_start_epoch: -1
+
+# For evaluating trained model
+trained_model: './' # path to your trained model
+
+seed: 0

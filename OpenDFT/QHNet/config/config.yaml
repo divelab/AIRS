@@ -1,0 +1,16 @@
+defaults:
+  - model: QHNet
+  - dataset: malondialdehyde
+device: 4
+ckpt_dir: 'checkpoints'
+split_seed: 42
+optimizer: adam
+decay_factor: 0.5
+decay_patience: 5
+ema_start_epoch: 40  # 40 for water, and 0 for others
+warmup_step: 1000
+num_training_steps: 200000
+end_lr: 1e-8
+data_type: float32
+model_path: ''
+
