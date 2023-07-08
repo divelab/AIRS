@@ -138,6 +138,10 @@ The underlying training part is based on [ALIGNN](https://github.com/usnistgov/a
 
 [4] Choudhary, K., et al. (2023). Large Scale Benchmark of Materials Design Methods. 
 
+## License
+
+We are using the same license GPL-3.0 as the one used in [ScaFaCoS](https://github.com/scafacos/scafacos) [3].
+
 ## Citation
 
 ```latex
