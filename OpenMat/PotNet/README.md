@@ -107,7 +107,7 @@ and here `checkpoint` denotes the path of a checkpoint and `testing` denotes ena
 
 ## Train on Custom Dataset
 
-We are supporting custom datasets in the same format as datasets in [JARVIS Leaderboard](https://github.com/usnistgov/jarvis_leaderboard/tree/main). Once one has the corresponding dataset, use the script
+We are supporting custom datasets in the same format as datasets in [JARVIS Leaderboard](https://github.com/usnistgov/jarvis_leaderboard/tree/main) [4]. Once one has the corresponding dataset, use the script
 
 ```shell
 python main.py --config configs/potnet.yaml --output_dir xxx --checkpoint xxx --data_root xxx
@@ -136,7 +136,7 @@ The underlying training part is based on [ALIGNN](https://github.com/usnistgov/a
 
 [3] Sutmann, G. (2014). ScaFaCoS–A Scalable library of Fast Coulomb Solvers for particle Systems.
 
-
+[4] Choudhary, K., et al. (2023). Large Scale Benchmark of Materials Design Methods. 
 
 ## Citation
 
