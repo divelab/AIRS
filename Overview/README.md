@@ -367,9 +367,9 @@
 - Self-Supervised Learning
   - 2D Molecular Graph: 
     - [Survey](https://ieeexplore.ieee.org/document/9764632)
-    - [Hu et al.]
-    - [Rong et al.]
-    - [Wang et al.]
+    - [Hu et al.]()
+    - [Rong et al.]()
+    - [Wang et al.]()
   - 3D Molecular Graph:
     - [GraphMVP](https://openreview.net/forum?id=xQUe1pOKPam)
     - [3D InfoMax](https://proceedings.mlr.press/v162/stark22a.html)
@@ -377,27 +377,26 @@
     - [Noisy Node - Auxiliary](https://openreview.net/forum?id=1wVvweK3oIb)
   - SSL for PDE Solvers
 - Single-Modal Foundation Models
-  - Protein Modeling and Discovery
+  - Protein Geometry
     - [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)
     - [RoseTTAFold](https://www.science.org/doi/10.1126/science.abj8754)
     - [RFdiffusion](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
     - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
     - [AlphaFold Multimer](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v2)
     - [Humphreys et al.](https://www.science.org/doi/10.1126/science.abm4805)
-  - Molecule Topology and Geometry
-    - [Fifty et al.]
-    - [Flam-Shepherd and Aspuru-Guzik]
-  - Molecule String Representations
-    - [ChemGPT]
-    - [ChemBERTa]
-    - [MolBert]
-    - [Schwaller et al.]
-    - [MegaMolBart]
-    - [Tysinger et al.]
-    - [Grisoni 2023]
-    - [DeepSMILES]
-    - [SELFIES]
-    - [Cheng et al. 2023a]
+  - Molecule Topology, Geometry, String
+    - [Fifty et al.]()
+    - [Flam-Shepherd and Aspuru-Guzik]()
+    - [ChemGPT]()
+    - [ChemBERTa]()
+    - [MolBert]()
+    - [Schwaller et al.]()
+    - [MegaMolBart]()
+    - [Tysinger et al.]()
+    - [Grisoni 2023]()
+    - [DeepSMILES]()
+    - [SELFIES]()
+    - [Cheng et al. 2023a]()
 - Natural Language Guided Scientific Discovery (LLMs for Science)
   - Integrating Multi-Modalities 
     - Bi-Encoder, e.g., [CLIP](https://arxiv.org/abs/2103.00020)
