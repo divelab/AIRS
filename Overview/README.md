@@ -345,10 +345,10 @@
   - [Chip Manufacturing](https://iopscience.iop.org/article/10.1088/1361-6595/acb28b/meta)
 
 
-## Other Technical Challenges
-### Interpretability 
 
-### Out-of-Distribution Generalization
+## Interpretability 
+
+## Out-of-Distribution Generalization
 - OOD in AI for Quantum Mechanics
   - [Guan et al. 2021](https://pubs.rsc.org/en/content/articlehtml/2021/sc/d0sc04823b)
   - [Botu and Ramprasad 2015](https://onlinelibrary.wiley.com/doi/abs/10.1002/qua.24836?casa_token=4dRmUPDz_CQAAAAA:jTYJPlzF6e7DNmT73_9ohyUJ6Tu8cff3Y65XDl6kJc7kMFAhxjPg2fpNHZ4mir2T7CW-o011IyQk)
@@ -376,30 +376,72 @@
   - [Boussif et al. 2022](https://arxiv.org/abs/2210.05495)
   - [Brandstetter et al. 2022](https://arxiv.org/abs/2202.03376)
 
-### Foundation Models and Self-Supervised Learning
-- SSL for Molecule Representation
-  - [Survey on 2D Graphs](https://ieeexplore.ieee.org/document/9764632)
-  - [GraphMVP](https://openreview.net/forum?id=xQUe1pOKPam)
-  - [3D InfoMax](https://proceedings.mlr.press/v162/stark22a.html)
-  - [Noisy Node - Pretraining](https://openreview.net/forum?id=tYIMtogyee)
-  - [Noisy Node - Auxiliary](https://openreview.net/forum?id=1wVvweK3oIb)
-- Large Language Models for Science
-  - [Galactica](https://arxiv.org/abs/2211.09085)
-  - [BioMedLM](https://crfm.stanford.edu/2022/12/15/biomedlm.html)
-  - [med-PALM](https://sites.research.google/med-palm/)
-  - [ChemGPT](https://chemrxiv.org/engage/chemrxiv/article-details/627bddd544bdd532395fb4b5)
-  - [ChatDrug](https://chao1224.github.io/ChatDrug)
-  - [Boiko et al.](https://arxiv.org/abs/2304.05332)
-  - [Nori et al.](https://www.microsoft.com/en-us/research/publication/capabilities-of-gpt-4-on-medical-challenge-problems/)
-- Foundation Models for Protein Discovery
-  - [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)
-  - [RoseTTAFold](https://www.science.org/doi/10.1126/science.abj8754)
-  - [RFdiffusion](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
-  - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
-  - [AlphaFold Multimer](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v2)
-  - [Humphreys et al.](https://www.science.org/doi/10.1126/science.abm4805)
-- Foundation Models for Molecule Analysis
+## Foundation and Large Language Models
+- Self-Supervised Learning
+  - 2D Molecular Graph
+    - [Survey](https://ieeexplore.ieee.org/document/9764632)
+    - [Hu et al.]()
+    - [Rong et al.]()
+    - [Wang et al.]()
+  - 3D Molecular Graph
+    - [GraphMVP](https://openreview.net/forum?id=xQUe1pOKPam)
+    - [3D InfoMax](https://proceedings.mlr.press/v162/stark22a.html)
+    - [Noisy Node - Pretraining](https://openreview.net/forum?id=tYIMtogyee)
+    - [Noisy Node - Auxiliary](https://openreview.net/forum?id=1wVvweK3oIb)
+  - SSL for PDE Solvers
+- Single-Modal Foundation Models
+  - Protein Geometry
+    - [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)
+    - [RoseTTAFold](https://www.science.org/doi/10.1126/science.abj8754)
+    - [RFdiffusion](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
+    - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
+    - [AlphaFold Multimer](https://www.biorxiv.org/content/10.1101/2021.10.04.463034v2)
+    - [Humphreys et al.](https://www.science.org/doi/10.1126/science.abm4805)
+  - Molecule Topology, Geometry, String
+    - [Fifty et al.]()
+    - [Flam-Shepherd and Aspuru-Guzik]()
+    - [ChemGPT]()
+    - [ChemBERTa]()
+    - [MolBert]()
+    - [Schwaller et al.]()
+    - [MegaMolBart]()
+    - [Tysinger et al.]()
+    - [Grisoni 2023]()
+    - [DeepSMILES]()
+    - [SELFIES]()
+    - [Cheng et al. 2023a]()
+- Natural Language Guided Scientific Discovery (LLMs for Science)
+  - Integrating Multi-Modalities 
+    - Bi-Encoder, e.g., [CLIP](https://arxiv.org/abs/2103.00020)
+    - [Text2Mol](https://aclanthology.org/2021.emnlp-main.47/)
+    - [Mol-Instructions](https://arxiv.org/abs/2306.08018)
+    - [CLAMP](https://arxiv.org/abs/2303.03363)
+    - [BioTranslator](https://www.nature.com/articles/s41467-023-36476-2)
+    - [ProteinDT](https://arxiv.org/abs/2302.04611)
+    - [Su et al.](https://arxiv.org/abs/2209.05481)
+    - Joint-Representation, e.g., [DALL-E](https://arxiv.org/abs/2102.12092)
+    - [KV-PLM](https://www.nature.com/articles/s41467-022-28494-3)
+    - [MolT5](https://arxiv.org/abs/2204.11817)
+    - [Text+Chem T5](https://arxiv.org/abs/2301.12586)
+    - [MolXPT](https://arxiv.org/abs/2305.10688)
+    - [Smiles2Actions](https://www.nature.com/articles/s41467-021-22951-1)
+    - [ProtNLM](https://www.ebi.ac.uk/about/news/technology-and-innovation/natural-language-processing-for-rapid-protein-annotation/)
+  - Adapting LLM to Scientific Domains
+    - Pre-Training, e.g., [Galactica](https://arxiv.org/abs/2211.09085)
+    - Fine-Tuning
+    - [BioMedLM (SSL)](https://crfm.stanford.edu/2022/12/15/biomedlm.html)
+    - [Med-PaLM (SSL)](https://arxiv.org/abs/2305.09617)
+    - [DrugChat (SL)](https://www.techrxiv.org/articles/preprint/DrugChat_Towards_Enabling_ChatGPT-Like_Capabilities_on_Drug_Molecule_Graphs/22945922)
+    - Prompting/In-Context Learning
+    - [Chemistry Benchmark](https://arxiv.org/abs/2305.18365)
+    - [Jablonka et al.](https://chemrxiv.org/engage/chemrxiv/article-details/63eb5a669da0bc6b33e97a35)
+    - [KEBLM](https://blender.cs.illinois.edu/paper/biomedicallm2023.pdf)
+    - [ChatDrug](https://chao1224.github.io/ChatDrug)
+    - [BO-LIFT](https://arxiv.org/abs/2304.05341)
+    - [CancerGPT](https://arxiv.org/abs/2304.10946)
+    - [SynerGPT]()
 
-### Uncertainty Quantification
+
+## Uncertainty Quantification
 
 ## Education, Workforce Developments, and Public Engagements
