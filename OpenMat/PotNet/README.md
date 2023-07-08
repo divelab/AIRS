@@ -118,7 +118,7 @@ in which `data_root` denotes the path of the custom dataset. And the code will a
 - Generate the crystal structures that can be read by JARVIS toolkits
 - Predefined the train-val-test split of your dataset
 
-## Pretrained models
+## Pretrained Models
 
 We are providing these pre-trained models in this [google drive](https://drive.google.com/drive/folders/1sKZZ_MffSPNx4fy5FJLgeCj0nhrxzf5f?usp=sharing). Right now we only provide the checkpoint for formation energy per atom of the JARVIS dataset. Please stay tuned for more pretrained models! 
 
