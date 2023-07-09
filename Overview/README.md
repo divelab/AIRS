@@ -347,6 +347,20 @@
 
 
 ## Interpretability 
+- Existing XAI Methods
+  - [Survey](https://www.computer.org/csdl/journal/tp/2023/05/09875989/1GqajxgkWcM)
+  - [Ying et al. 2019](https://proceedings.neurips.cc/paper_files/paper/2019/file/d80b7040b773199015de6d3b4293c8ff-Paper.pdf)
+  - [Yuan et al. 2021](http://proceedings.mlr.press/v139/yuan21c/yuan21c.pdf)
+  - [Gui et al. 2022](https://arxiv.org/abs/2206.12987)
+  - [Baldassarre and Azizpour 2019](https://arxiv.org/abs/1905.13686)
+  - [Huang et al. 2022](https://ieeexplore.ieee.org/document/9811416)
+  - [Schnake et al. 2021](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9547794)
+  - [Xie et al. 2022](https://openreview.net/forum?id=_sQ6pLNVHoh)
+  - [Wang et al. 2022](https://arxiv.org/abs/2210.16518)
+  - [Tubiana et al. 2022](https://www.nature.com/articles/s41592-022-01490-7)
+  - [Miao et al. 2023](https://openreview.net/forum?id=6u7mf9s2A9)
+  - [Crabbé et al. 2023](https://arxiv.org/abs/2304.06715)
+- Potential Application Scenarios
 
 ## Out-of-Distribution Generalization
 - OOD in AI for Quantum Mechanics
