@@ -360,7 +360,6 @@
   - [Tubiana et al. 2022](https://www.nature.com/articles/s41592-022-01490-7)
   - [Miao et al. 2023](https://openreview.net/forum?id=6u7mf9s2A9)
   - [Crabbé et al. 2023](https://arxiv.org/abs/2304.06715)
-- Potential Application Scenarios
 
 ## Out-of-Distribution Generalization
 - OOD in AI for Quantum Mechanics
