@@ -62,32 +62,32 @@
 
 ## Al for Quantum Mechanics
 
-### Spin Systems
+### Learning Ground State of Spin Systems
 
-- Restricted boltzmann machines
+- Restricted Boltzmann Machines
   - [Carleo and Troyer 2017](https://www.science.org/doi/10.1126/science.aag2302)
   - [Gao and Duan 2017](https://www.nature.com/articles/s41467-017-00705-2)
   - [Choo et al. 2018](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.121.167204)
-  - [Chen et al. 202](https://openreview.net/pdf?id=qZUHvvtbzy)
-- Feed-forward neural networks
+  - [Chen et al. 2023](https://openreview.net/pdf?id=qZUHvvtbzy)
+- Feed-Forward Neural Networks
   - [Saito 2017](https://journals.jps.jp/doi/10.7566/JPSJ.86.093001)
   - [Cai and Liu 2018](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.97.035116)
   - [Saito and Kato 2018](https://journals.jps.jp/doi/10.7566/JPSJ.87.014001)
   - [Saito 2018](https://journals.jps.jp/doi/10.7566/JPSJ.87.074002)
-- Convolutional neural networks
+- Convolutional Neural Networks
   - [Liang et al. 2018](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.98.104426)
   - [Choo et al. 2019](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.100.125124)
   - [Szabo et al. 2020](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033075)
   - [Fu et al. 2022](https://arxiv.org/abs/2206.07370)
-- Autoregressive and recurrent neural networks
+- Autoregressive and Recurrent Neural Networks
   - [Sharir et al. 2020](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.124.020503)
   - [Hibat-Allah et al. 2020](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.023358)
   - [Luo et al. 2021a](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.5.013216)
-- Graph neural networks
+- Graph Neural Networks
   - [Yang et al. 2020](https://arxiv.org/abs/2011.12453)
   - [Kochkov et al. 2021a](https://arxiv.org/abs/2110.06390)
 
-### Many-electron Systems
+### Learning Ground State of Many-Electron Systems
 - Molecules - Single Geometry
   - [DeepWF](https://www.sciencedirect.com/science/article/abs/pii/S0021999119306345)
   - [PauliNet](https://www.nature.com/articles/s41557-020-0544-y)
@@ -111,8 +111,9 @@
   - [WAP-net](https://journals.aps.org/prb/abstract/10.1103/PhysRevB.107.235139)
 ## Al for Density Functional Theory
 ### Quantum Tensor Learning
-- Invariant Networks
+- Invariant Networks, Data Augmentation
   - [SchNorb](https://www.nature.com/articles/s41467-019-12875-2)
+- Invariant Networks, Rotation with Wigner-D
   - [DeepH](https://www.nature.com/articles/s43588-022-00265-6)
 - Equivariant Networks
   - [PhiSNet](https://arxiv.org/abs/2106.02347)
@@ -121,7 +122,7 @@
 - Exchange-Correlation Energy Density Functional Learning
   - [NN gedeon et al. 2021](https://iopscience.iop.org/article/10.1088/2632-2153/ac3149)
   - [MLP](https://www.science.org/doi/10.1126/science.abj6511)
-  - [DNN DM21](https://www.nature.com/articles/s41524-020-0310-0) [DNN pokharel et al. 2022](https://arxiv.org/abs/2205.14241)
+  - [DNN DM21](https://www.nature.com/articles/s41524-020-0310-0), [DNN pokharel et al. 2022](https://arxiv.org/abs/2205.14241)
   - [symbolic regression](https://www.science.org/doi/10.1126/sciadv.abq0279)
 - Kinetic Energy Density Functional Learning
   - [KRR](https://arxiv.org/abs/1112.5441)
@@ -130,19 +131,20 @@
 
 ## AI for Small Molecules
 ### Molecular Representation Learning
-- Invariant Methods: $\ell=0$
+- Invariant Methods ($\ell=0$ Scalar Features)
   - [SchNet](https://pubs.aip.org/aip/jcp/article/148/24/241722/962591/SchNet-A-deep-learning-architecture-for-molecules) 
   - [DimeNet](https://openreview.net/forum?id=B1eWbxStPH)
   - [SphereNet](https://openreview.net/forum?id=givsRXsOt9r)
   - [GemNet](https://openreview.net/forum?id=HS_sOaxS9K-)
   - [ComENet](https://openreview.net/forum?id=mCzMqeWSFJ)
-- Equivariant Methods: $\ell=1$
+- Equivariant Methods ($\ell=1$ Vector Features)
   - [EGNN](https://proceedings.mlr.press/v139/satorras21a.html)
+  - [ClofNet](https://proceedings.mlr.press/v162/du22e.html)
   - [GVP-GNN](https://openreview.net/forum?id=1YLJDvSx6J4)
   - [PaiNN](http://proceedings.mlr.press/v139/schutt21a.html)
   - [Vector Neurons](https://openaccess.thecvf.com/content/ICCV2021/html/Deng_Vector_Neurons_A_General_Framework_for_SO3-Equivariant_Networks_ICCV_2021_paper.html)
   - [EQGAT](https://arxiv.org/abs/2202.09891)
-- Equivariant Methods: $\ell>1$
+- Equivariant Methods ($\ell \geq 1$ Tensor Features)
   - [TFN](https://arxiv.org/abs/1802.08219)
   - [Cormorant](https://openreview.net/forum?id=SkenhHHeUH)
   - [SE(3)-Transformer](https://proceedings.neurips.cc//paper/2020/hash/15231a7ce4ba789d13b722cc5c955834-Abstract.html)
