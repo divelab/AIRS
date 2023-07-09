@@ -458,5 +458,34 @@
 
 
 ## Uncertainty Quantification
-
+- Uncertainty Quantification in Machine Learning
+  - Gaussian Process
+    - [Gaussian Process for Machine Learning](https://gaussianprocess.org/gpml/)
+  - Bayesian Neural Network and Approximate Inference
+    - [Bayesian Neural Network Survey](https://arxiv.org/abs/2006.12024)
+    - [Variational Inference](https://arxiv.org/abs/1601.00670)
+    - [Stochastic Gradient Langevin Dynamics](https://dl.acm.org/doi/10.5555/3104482.3104568)
+    - [Monte Carlo Dropout](https://proceedings.mlr.press/v48/gal16.html?trk=public_post_comment-text)
+    - [Bayes-By-Backprop](https://arxiv.org/abs/1505.05424)
+  - Other Techniques
+    - [Deep Ensemble]()
+    - [Mean Variance Prediction]()
+    - [Evidential Deep Learning]()
+    - [Conformal Prediction]()
+    - [Quantile Regression]()
+- Uncertainty Quantification for Graph Learning
+  - [Hasanzadeh et al. 2020]()
+  - [Zhang et al. 2019b]()
+  - [Pal et al. 2020]()
+  - [Hasanzadeh et al. 2019]()
+  - [Hajiramezanali et al . 2019]()
+  - [Elinas et al . 2020]()
+  - [Stadler et al. 2021]()
+  - [Fang et al. 2021]()
+  - [Huang et al. 2023a]()
+- Uncertainty Quantification in AI for Science
+  - UQ in Molecular Property Prediction
+  - UQ in Protein-Compound Binding Affinity
+  - UQ in Density Functional Theory
+  - UQ in Partial Differential Equations
 ## Education, Workforce Developments, and Public Engagements
