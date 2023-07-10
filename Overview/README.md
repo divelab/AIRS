@@ -221,7 +221,7 @@
 - Equivariant Networks
   - [GVP-GNN](https://openreview.net/forum?id=1YLJDvSx6J4)
   - [GBPNet](https://dl.acm.org/doi/abs/10.1145/3534678.3539441)
-### Protein Backbone Generation
+### Protein Backbone Structure Generation
 - Structure Representation: Coordinates
   - [ProtDiff](https://arxiv.org/abs/2206.04119)
   - [Chroma](https://www.biorxiv.org/content/10.1101/2022.12.01.518682v1)
