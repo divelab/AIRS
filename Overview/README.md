@@ -10,10 +10,10 @@
 - [eSCN](https://arxiv.org/abs/2302.03655)
   
 ### Physics and Mathematical Foundations
-- Group theory and irreducible representations
-- Tensor product and Clebsh-Gordan Coefficients
-- Spherical harmonics projections and equivariant networks
-- SO(3) group, spherical harmonics and angular momentum
+- Group Theory and Irreducible Representations
+- Tensor Product and Clebsh-Gordan Coefficients
+- Spherical Harmonics Projections and Equivariant Networks
+- SO(3) group, Spherical Harmonics and Angular Momentum
 
 ### General Formulation via Steerable Kernels
 - [Steerable CNNs](https://openreview.net/pdf?id=rJQKYt5ll)
