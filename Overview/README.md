@@ -9,19 +9,20 @@
 - [SCN](https://openreview.net/pdf?id=5Z3GURcqwT)
 - [eSCN](https://arxiv.org/abs/2302.03655)
 
-### Group Theory
-- Definition
-- Invariant and Equivariant Maps
-- Group Representations
-- Irreducible Representations
-- Illustration of Irreps via a Discrete Example
+### Physics and Mathematical Foundations
+- Group Theory
+  - Definition
+  - Invariant and Equivariant Maps
+  - Group Representations
+  - Irreducible Representations
+  - Illustration of Irreps via a Discrete Example
+    
+- Tensor Product and Clebsh-Gordan Coefficients
 
-### Tensor Product and Clebsh-Gordan Coefficients
-
-### SO(3) Group and Spherical Harmonics
-- Definition
-- Spherical Harmonics Projection and Equivariant Networks
-- Connection with Angular Momentum
+- SO(3) Group and Spherical Harmonics
+  - Definition
+  - Spherical Harmonics Projection and Equivariant Networks
+  - Connection with Angular Momentum
 
 ### General Formulation via Steerable Kernels
 - [Steerable CNNs](https://openreview.net/pdf?id=rJQKYt5ll)
