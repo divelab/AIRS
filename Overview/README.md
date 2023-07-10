@@ -1,7 +1,6 @@
 # AIRS 
 
-## Group Theory, Symmetries, and Equivariance
-
+## Symmetries, Equivariance, and Theory
 ### Equivariant Featurization and Data Interaction
 - [Group Equivariant CNNs](http://proceedings.mlr.press/v48/cohenc16.pdf)
 - [Tensor Field Networks](https://arxiv.org/abs/1802.08219)
