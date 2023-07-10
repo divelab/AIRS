@@ -27,36 +27,36 @@
 
 ### Open Research Directions
 
-#### Symmetry Breaking
-- [Smidt et al. 2021](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.L012002)
+- Symmetry Breaking
+  - [Smidt et al. 2021](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.3.L012002)
 
-#### Empirical Benefits and Expense of Equivariance versus Invariance
-- [Batzner et al. 2022](https://www.nature.com/articles/s41467-022-29939-5)
-- [Musaelian et al. 2023](https://www.nature.com/articles/s41467-023-36329-y)
-- [Owen et al. 2023](https://arxiv.org/abs/2302.12993)
-- [Yu et al. 2023](https://openreview.net/pdf?id=pKNQRJZwnV)
-- [eSCN](https://arxiv.org/abs/2302.03655) 
+- Empirical Benefits and Expense of Equivariance versus Invariance
+  - [Batzner et al. 2022](https://www.nature.com/articles/s41467-022-29939-5)
+  - [Musaelian et al. 2023](https://www.nature.com/articles/s41467-023-36329-y)
+  - [Owen et al. 2023](https://arxiv.org/abs/2302.12993)
+  - [Yu et al. 2023](https://openreview.net/pdf?id=pKNQRJZwnV)
+  - [eSCN](https://arxiv.org/abs/2302.03655) 
 
-#### Universality of Equivariant Neural Architectures
-- [Yarotsky 2018](https://link.springer.com/article/10.1007/s00365-021-09546-1)
-- [Bogatskiy et al. 2022](https://arxiv.org/abs/2203.06153)
-- [Dym and Maron 2021](https://openreview.net/pdf?id=6NFBvWlRXaG)
-- [Xu et al. 2018](https://arxiv.org/abs/1810.00826)
-- [Joshi et al. 2023](https://openreview.net/pdf?id=fzjd0rW81a-)
+- Universality of Equivariant Neural Architectures
+  - [Yarotsky 2018](https://link.springer.com/article/10.1007/s00365-021-09546-1)
+  - [Bogatskiy et al. 2022](https://arxiv.org/abs/2203.06153)
+  - [Dym and Maron 2021](https://openreview.net/pdf?id=6NFBvWlRXaG)
+  - [Xu et al. 2018](https://arxiv.org/abs/1810.00826)
+  - [Joshi et al. 2023](https://openreview.net/pdf?id=fzjd0rW81a-)
 
 
-#### Frame Averaging as an Alternative for Equivariance
-- [Puny et al. 2022](https://openreview.net/pdf?id=zIUyj55nXR)
-- [Pozdnyakov and Ceriotti 2023](https://arxiv.org/abs/2305.19302)
-- [Duval et al. 2023](https://openreview.net/pdf?id=HRDRZNxQXc)
-- [Kaba et al. 2022](https://openreview.net/pdf?id=pVD1k8ge25a)
-- [Passaro and Zitnick 2023](https://arxiv.org/abs/2302.03655)
+- Frame Averaging as an Alternative for Equivariance
+  - [Puny et al. 2022](https://openreview.net/pdf?id=zIUyj55nXR)
+  - [Pozdnyakov and Ceriotti 2023](https://arxiv.org/abs/2305.19302)
+  - [Duval et al. 2023](https://openreview.net/pdf?id=HRDRZNxQXc)
+  - [Kaba et al. 2022](https://openreview.net/pdf?id=pVD1k8ge25a)
+  - [Passaro and Zitnick 2023](https://arxiv.org/abs/2302.03655)
 
-#### Approximate Equivariance
-- [Residual Pathway Priors](https://proceedings.neurips.cc/paper_files/paper/2021/file/fc394e9935fbd62c8aedc372464e1965-Paper.pdf)
-- [Wang et al. 2022](https://proceedings.mlr.press/v162/wang22aa/wang22aa.pdf)
-- [van der Ouderaa et al. 2022](https://openreview.net/pdf?id=5oEk8fvJxny)
-- [Romero and Lohit 2022](https://arxiv.org/abs/2110.10211)
+- Approximate Equivariance
+  - [Residual Pathway Priors](https://proceedings.neurips.cc/paper_files/paper/2021/file/fc394e9935fbd62c8aedc372464e1965-Paper.pdf)
+  - [Wang et al. 2022](https://proceedings.mlr.press/v162/wang22aa/wang22aa.pdf)
+  - [van der Ouderaa et al. 2022](https://openreview.net/pdf?id=5oEk8fvJxny)
+  - [Romero and Lohit 2022](https://arxiv.org/abs/2110.10211)
 
 
 ## Al for Quantum Mechanics
