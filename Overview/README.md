@@ -468,11 +468,11 @@
     - [Monte Carlo Dropout](https://proceedings.mlr.press/v48/gal16.html?trk=public_post_comment-text)
     - [Bayes-By-Backprop](https://arxiv.org/abs/1505.05424)
   - Other Techniques
-    - [Deep Ensemble](https://arxiv.org/pdf/1612.01474.pdf)
-    - [Bayesian Last Layer](https://arxiv.org/pdf/2001.08049.pdf)
+    - [Deep Ensemble](https://arxiv.org/pdf/1612.01474)
+    - [Bayesian Last Layer](https://arxiv.org/pdf/2001.08049)
     - [Mean Variance Prediction](https://ieeexplore.ieee.org/document/374138)
     - [Evidential Deep Learning](https://arxiv.org/abs/2110.03051)
-    - [Conformal Prediction](https://arxiv.org/pdf/2107.07511.pdf)
+    - [Conformal Prediction](https://arxiv.org/pdf/2107.07511)
     - [Quantile Regression](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.15.4.143)
 - Uncertainty Quantification for Graph Learning
   - [Hasanzadeh et al. 2020](https://arxiv.org/abs/2006.04064)
@@ -483,7 +483,7 @@
   - [Elinas et al . 2020](https://arxiv.org/abs/1906.01852)
   - [Stadler et al. 2021](https://arxiv.org/abs/2110.14012)
   - [Fang et al. 2021](https://dl.acm.org/doi/10.1145/3447548.3467327)
-  - [Huang et al. 2023a](https://arxiv.org/pdf/2305.14535.pdf)
+  - [Huang et al. 2023a](https://arxiv.org/pdf/2305.14535)
 - Uncertainty Quantification in AI for Science
   - UQ in Molecular Property Prediction
     - [Ryu et al. 2019](https://pubs.rsc.org/en/content/articlehtml/2019/sc/c9sc01992h)
@@ -495,7 +495,17 @@
     - [Soleimany et al. 2021](https://pubs.acs.org/doi/10.1021/acscentsci.1c00546)
     - [Yang and Li 2023](https://link.springer.com/article/10.1186/s13321-023-00682-3)
     - [Greenman et al. 2023](https://www.biorxiv.org/content/10.1101/2023.04.17.536962v1.abstract)
+    - [Griffiths 2023](https://arxiv.org/pdf/2303.14291)
+    - [Li et al. 2023b](https://arxiv.org/abs/2306.10060)
   - UQ in Protein-Compound Binding Affinity
+    - [Hirschfeld et al. 2020](https://pubs.acs.org/doi/10.1021/acs.jcim.0c00502)
   - UQ in Density Functional Theory
+    - [Fowler et al. 2019](https://iopscience.iop.org/article/10.1088/2515-7639/ab0b4a)
+    - [Mahmoud et al. 2020](https://arxiv.org/abs/2006.11803)
+    - [Wollschläger et al. 2023](https://arxiv.org/abs/2306.14916)
   - UQ in Partial Differential Equations
+    - [Psaros et al. 2023](https://arxiv.org/abs/2201.07766)
+- UQ Library
+  - [GAUCHE](https://arxiv.org/abs/2212.04450)
+  
 ## Education, Workforce Developments, and Public Engagements
