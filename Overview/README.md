@@ -182,14 +182,14 @@
   - [EDMNet](https://arxiv.org/abs/1910.03131)
   - [G-SchNet](https://proceedings.neurips.cc/paper_files/paper/2019/hash/a4d8e2a7e0d0c102339f97716d2fdfb6-Abstract.html)
   - [G-SphereNet](https://openreview.net/forum?id=C03Ajc-NS5W)
-### Learning to Simulate Molecular Dynamics
+### Molecular Dynamics Simulation
 - ML Force Fields
   - [Unke et al. 2021c](https://pubs.acs.org/doi/10.1021/acs.chemrev.0c01111)
 - Enhanced Sampling
   - [Sidky et al. 2020a](https://www.tandfonline.com/doi/full/10.1080/00268976.2020.1737742)
 - Coarse Graining (CG)
   - [Noid 2023](https://pubs.acs.org/doi/10.1021/acs.jpcb.2c08731)
-### Representation Learning of Stereoisomerism and Conformational Flexibility
+### Learning Stereoisomerism and Conformational Flexibility
 - Represent Tetrahedral Chirality
   - [Chemprop](https://pubs.acs.org/doi/10.1021/acs.jcim.9b00237)
   - [MolKGNN](https://www.biorxiv.org/content/10.1101/2022.08.24.505155v1)
