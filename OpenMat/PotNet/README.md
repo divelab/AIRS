@@ -1,5 +1,5 @@
 # PotNet
-Official code repository of paper “[Efficient Approximations of Complete Interatomic Potentials for Crystal Property Prediction](https://arxiv.org/abs/2306.10045)” by Yuchao Lin, Keqiang Yan, Youzhi Luo, Yi Liu, Xiaoning Qian, and Shuiwang Ji. [ICML 2023 Poster]
+Official code repository of paper “[Efficient Approximations of Complete Interatomic Potentials for Crystal Property Prediction](https://arxiv.org/abs/2306.10045)” by Yuchao Lin, Keqiang Yan, Youzhi Luo, Yi Liu, Xiaoning Qian, and Shuiwang Ji. [[ICML 2023 Poster](https://proceedings.mlr.press/v202/lin23m.html)]
 
 ![graph](graph.png)
 
@@ -122,7 +122,13 @@ And here `data_root` denotes the path of the custom dataset, where crystal struc
 
 ## Pretrained Models
 
-We provide pretrained models in this [google drive](https://drive.google.com/drive/folders/1sKZZ_MffSPNx4fy5FJLgeCj0nhrxzf5f?usp=sharing). Right now we only provide the checkpoint for formation energy per atom of the JARVIS dataset. Please stay tuned for more pretrained models! 
+We provide preprocessed files and pretrained models in this [google drive](https://drive.google.com/drive/folders/1sKZZ_MffSPNx4fy5FJLgeCj0nhrxzf5f?usp=sharing). Right now we only provide the checkpoint for formation energy per atom of the JARVIS dataset. Please stay tuned for more pretrained models! To use these files, specify `--output_dir` such like
+
+```shell
+python main.py --config configs/potnet.yaml --output_dir formation_energy_peratom --checkpoint xxx
+```
+
+then the processed file will be read automatically.
 
 ## Acknowledgement
 
