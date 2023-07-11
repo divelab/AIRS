@@ -1,11 +1,14 @@
-process_dir: processed
-cache_dir: cache
-checkpoint_dir: checkpoint
+process_dir: processed  # directory for torch geometric processed dataset
+cache_dir: cache  # directory for infinite summation processed files
+checkpoint_dir: checkpoint  # directory for checkpoints
 
 dataset: dft_3d
-# JARVIS: formation_energy_peratom, mbj_bandgap, optb88vdw_bandgap, optb88vdw_total_energy, ehull
-# MP: e_form, gap pbe
-target: target
+# JARVIS dataset: dft_3d
+# MP dataset: megnet
+target: formation_energy_peratom
+# JARVIS dataset entries: formation_energy_peratom, mbj_bandgap, optb88vdw_bandgap, optb88vdw_total_energy, ehull
+# MP dataset entries: e_form, gap pbe
+# If using custom dataset, please set this to the corresponding entry name, e.g., target
 
 atom_features: cgcnn
 
@@ -26,21 +29,21 @@ store_outputs: True
 progress: True
 log_tensorboard: False
 
-
-normalize: False
-euclidean: False
-cutoff: 4.0
+normalize: False  # scaling the targets by their mean and std
+euclidean: False  # disable infinite summation or not
+cutoff: 4.0  # local graph cutoff
 max_neighbors: 16
 infinite_funcs: ["zeta", "zeta", "exp"]
-infinite_params: [0.5, 3.0, 3.0]
-R: 3
+infinite_params: [0.5, 3.0, 3.0]  # Coulomb, London dispersion, Pauli
+R: 3  # error radius
 
 model:
   name: potnet
   conv_layers: 3
   rbf_min: -4.0
   rbf_max: 4.0
-  potentials: [-0.801, -0.074, 0.145]
+  potentials: [-0.801, -0.074, 0.145]  # coefficients for infinite summations
+#  potentials: [ -0.703, -0.0617, 0.142 ]
 #  potentials: [-0.816, -0.052, 0.149]
-  charge_map: False
-  transformer: False
+  charge_map: False  # information of periodic table
+  transformer: False  # enable transformer structure for infinite potential summation
