@@ -306,7 +306,8 @@
   - [SCN](https://arxiv.org/abs/2206.14331)
   - [eSCN](https://arxiv.org/abs/2302.03655)
 ## Al for Partial Differential Equations
-### Multiscale Dynamics
+### Forward Modeling
+#### Multiscale Dynamics
 - Sequential Multiscale Processing
   - [Dil-ResNet](https://arxiv.org/abs/2112.15275)
   - [U-Net](https://arxiv.org/abs/2209.15616)
@@ -315,14 +316,14 @@
   - [GraphCast](https://arxiv.org/abs/2212.12794)
   - [FourCastNet](https://arxiv.org/abs/2202.11214)
   - [3DEST](https://arxiv.org/abs/2211.02556)
-### Multiresolution Dynamics
+#### Multiresolution Dynamics
 - Geometry Deformation
   - [Geo-FNO](https://arxiv.org/abs/2207.05209) 
   - [F-FNO](https://arxiv.org/abs/2111.13802)
 - Learned Adaptive Remeshing
   - [MeshGraphNets](https://arxiv.org/abs/2010.03409) 
   - [LAMP](https://arxiv.org/abs/2305.01122)
-### Long-Term Stability
+#### Long-Term Stability
 - Adversarial Noise Injection
   - [GNS](https://arxiv.org/abs/2002.09405)
   - [MP-PDE](https://arxiv.org/abs/2202.03376)
@@ -330,7 +331,7 @@
   - [HGNS](https://arxiv.org/abs/2206.07680)
 - Temporal Bundling
   - [MP-PDE](https://arxiv.org/abs/2202.03376)
-### Preserving Symmetries
+#### Preserving Symmetries
 - Data Augmentation
   - [LPSDA](https://arxiv.org/abs/2202.07643)
 - Equivariant Architectures
@@ -339,22 +340,20 @@
   - [GCAN](https://arxiv.org/abs/2302.06594)
   - [*G*-FNO](https://arxiv.org/abs/2306.05697)
   - [IsoGCN](https://arxiv.org/abs/2005.06316)
-
-### Inverse Problems
+### Inverse Problem and Inverse Design
+#### Inverse Problems
   - [System Identification](https://arxiv.org/abs/2303.05512) 
   - [Tomography for Medical Imaging](https://arxiv.org/abs/2209.14977)
   - [Fluid Assimilation](https://arxiv.org/abs/2206.00711) 
   - [History Matching](https://arxiv.org/abs/2007.13326)
   - [Full Waveform Inversion for Geophysics](https://ieeexplore.ieee.org/abstract/document/10004771)
-### Inverse Design
+#### Inverse Design
   - [Shape Design for Planes](https://www.sciencedirect.com/science/article/pii/S0965997808001531)
   - [Ion Thruster Design](https://iopscience.iop.org/article/10.1088/1361-6595/ab0f70/meta)
   - Controlled Nuclear Fusion: [1](https://ieeexplore.ieee.org/document/5075571),[2](https://www.nature.com/articles/s41586-021-04301-9)
   - [Nanophotonics](https://www.nature.com/articles/s41566-018-0246-9)
   - Battery Design: [1](https://www.sciencedirect.com/science/article/pii/S2405829719302193),[2](https://www.nature.com/articles/s41586-020-1994-5)
   - [Chip Manufacturing](https://iopscience.iop.org/article/10.1088/1361-6595/acb28b/meta)
-
-
 
 ## Interpretability 
 - Existing XAI Methods
