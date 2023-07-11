@@ -516,5 +516,5 @@
 - UQ Library
   - [GAUCHE](https://arxiv.org/abs/2212.04450)
   
-## Education, Workforce Developments, and Public Engagements
+## Learning, Education, and Beyond
 - [Resource](https://github.com/divelab/AIRS/blob/main/Overview/resources.md)
