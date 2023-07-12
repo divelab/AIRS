@@ -67,7 +67,7 @@ and they are achieved in `algorithm.py` by
 - `zeta` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d, \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert\ne 0}\frac{1}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^{2p}}$
 - `exp` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d } e^{-\alpha \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert}$
 - `lj` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d, \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert\ne 0}(\frac{\sigma^{12}}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^{12}} - \frac{\sigma^6}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^6} )$
-- `morse` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d} (e^{-2\alpha \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert - r_e } - 2e^{-\alpha \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert - r_e})$
+- `morse` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d} (e^{-2\alpha (\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert - r_e) } - 2e^{-\alpha (\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert - r_e)})$
 - `screened_coulomb` referring to summation $\sum_{\mathbf{k}\in\mathbb{Z}^d, \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert\ne 0} \frac{e^{-\alpha \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert}}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert} $
 
 Each function requires the input of vectors `v` and a lattice matrix `Omega`, alongside a particular `param` and dimension `d`. We've also incorporated parameter `R`, which denotes half of the grid's length, and `verbose` which, when enabled, conducts corresponding error bound calculations.
