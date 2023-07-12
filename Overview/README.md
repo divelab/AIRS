@@ -11,7 +11,7 @@
 
 ### Physics and Mathematical Foundations
 - Group Theory
-  - Definition
+  - Describing Symmetry Transformations
   - Invariant and Equivariant Maps
   - Group Representations
   - Irreducible Representations
@@ -20,7 +20,7 @@
 - Tensor Product and Clebsh-Gordan Coefficients
 
 - SO(3) Group and Spherical Harmonics
-  - Definition
+  - 3D Rotation Group and its Irreducible Representations for Functions on a Sphere
   - Spherical Harmonics Projection and Equivariant Networks
   - Connection with Angular Momentum
 
