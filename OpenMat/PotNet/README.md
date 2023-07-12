@@ -64,6 +64,7 @@ In this code base, we provide six infinite summations of
 
 and they are achieved in `algorithm.py` by
 
+- `epstein` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d, \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert\ne 0}\frac{e^{2\pi i \mathbf{w} \cdot \mathbf{L} \mathbf{k}}}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^{2p}}$
 - `zeta` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d, \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert\ne 0}\frac{1}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^{2p}}$
 - `exp` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d } e^{-\alpha \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert}$
 - `lj` referring to summation $\sum_{\mathbf{k}\in \mathbb{Z}^d, \Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert\ne 0}(\frac{\sigma^{12}}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^{12}} - \frac{\sigma^6}{\Vert \mathbf{L}\mathbf{k}+\mathbf{v} \Vert^6} )$
