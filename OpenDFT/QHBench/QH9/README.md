@@ -63,19 +63,22 @@ Equivariant quantum tensor network QHNet is selected as the main baseline method
 
 * Train the QHNet model
 ```shell script
-### Modify the configurations in config/config.yaml as needed, and then run
-python main.py
+### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed, and then run
+python main.py datasets=QH9-stable datasets.split=random # QH-stable-iid
+python main.py datasets=QH9-stable datasets.split=size_ood # QH-stable-ood
+python main.py datasets=QH9-dynamic datasets.split=geometry # QH-stable-iid
+python main.py datasets=QH9-dynamic datasets.split=mol # QH-stable-iid
 ```
 
 * Evaluate the trained model (in terms of MAE on Hamiltonian matrix, MAE on occupied orbital energies, and cosine similarity of orbital coefficients)
 ```shell script
-### Modify the configurations in config/config.yaml as needed (including the trained_model arg), and then run
+### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
 python test.py
 ```
 
 * Evaluate the performance of accelerating DFT calculation
 ```shell script
-### Modify the configurations in config/config.yaml as needed (including the trained_model arg), and then run
+### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
 python test_dft_acceleration.py
 ```
 
