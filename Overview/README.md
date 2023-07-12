@@ -20,7 +20,7 @@
 - Tensor Product and Clebsh-Gordan Coefficients
 
 - SO(3) Group and Spherical Harmonics
-  - 3D Rotation Group and its Irreducible Representations for Functions on a Sphere
+  - 3D Rotation and its Irreducible Representations for Functions on a Sphere
   - Spherical Harmonics Projection and Equivariant Networks
   - Connection with Angular Momentum
 
