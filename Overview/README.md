@@ -244,6 +244,7 @@
 - Material Representation: Multi-Edge Graphs and Fully-Connected Graphs
   - [Matformer](https://openreview.net/forum?id=pqCT3L-BU9T&)
   - [PotNet](https://arxiv.org/abs/2306.10045)
+  - [Ewald-MP](https://arxiv.org/abs/2303.04791)
 
 ### Material Generation
 - Material Representation: 3D Voxel Grids
