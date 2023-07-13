@@ -1,6 +1,7 @@
 ---
 markmap:
   colorFreezeLevel: 2
+  color: ["blue", "#f7f6e1", "#c8ffd7", "#a9ffbd", "#f2e5ff", "#ebd2ff", "#e0b5ff", "#c7a4ff", "#ffbb98", "#f7f8da", "#f7f8da", "#f7f8da", "#f7f8da", "#d4e3fa"]
   maxWidth: 240
   initialExpandLevel: 1
 ---
