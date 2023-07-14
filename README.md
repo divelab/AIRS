@@ -5,11 +5,12 @@
 
 [license-image]:https://img.shields.io/badge/license-GPL3.0-green.svg
 [license-url]:https://github.com/divelab/AIRS/blob/main/LICENSE
+[contributing-image]:https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat
 
 
 ![Last Commit](https://img.shields.io/github/last-commit/divelab/AIRS)
 [![License][license-image]][license-url]
-
+![Contributing][contributing-image]
 
 ------
 
