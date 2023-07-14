@@ -14,10 +14,9 @@
 
 ------
 
-# Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems
+# Artificial Intelligence for Science (AIRS)
 
-AIRS (Artificial Intelligence Research for Science) is a collection of open-source software tools, datasets, and benchmarks associated with research work published by the DIVE Lab at Texas A&M University. Our focus here is on AI for Science, including AI for quantum and classic physics, chemistry, molecular simulation, drug discovery, material science, continuum mechanics and partial differential equations, etc. Our goal is to develop and maintain an integrated, open, reproducible, and sustainable set of resources in order to propel the emerging and rapidly growing field of AI for Science.
-Our current list of resources includes:
+AIRS is a collection of open-source software tools, datasets, and benchmarks associated with our paper entitled “Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems”. Our focus here is on AI for Science, including AI for quantum, atomistic, and continuum systems. Our goal is to develop and maintain an integrated, open, reproducible, and sustainable set of resources in order to propel the emerging and rapidly growing field of AI for Science. The list of resources will grow as our research progresses. The current list includes:
 -	[**OpenQM**](https://github.com/divelab/AIRS/tree/main/OpenQM): AI for Quantum Mechanics
 -	[**OpenDFT**](https://github.com/divelab/AIRS/tree/main/OpenDFT): AI for Density Functional Theory
 -	[**OpenMol**](https://github.com/divelab/AIRS/tree/main/OpenMol): AI for Small Molecules
@@ -31,5 +30,5 @@ Our current list of resources includes:
 
 **[Paper]()** | **[Website](https://www.air4.science/)**
 
-We are going to release a survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Stay tuned!
+We are going to release our survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Stay tuned!
 
