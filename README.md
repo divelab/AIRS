@@ -14,7 +14,7 @@
 
 ------
 
-# AIRS
+# Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems
 
 AIRS (Artificial Intelligence Research for Science) is a collection of open-source software tools, datasets, and benchmarks associated with research work published by the DIVE Lab at Texas A&M University. Our focus here is on AI for Science, including AI for quantum and classic physics, chemistry, molecular simulation, drug discovery, material science, continuum mechanics and partial differential equations, etc. Our goal is to develop and maintain an integrated, open, reproducible, and sustainable set of resources in order to propel the emerging and rapidly growing field of AI for Science.
 Our current list of resources includes:
