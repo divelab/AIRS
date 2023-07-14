@@ -3,6 +3,14 @@
     <br/>
 </p>
 
+[license-image]:https://img.shields.io/badge/license-GPL3.0-green.svg
+[license-url]:https://github.com/divelab/AIRS/blob/main/LICENSE
+
+
+![Last Commit](https://img.shields.io/github/last-commit/divelab/AIRS)
+[![License][license-image]][license-url]
+
+
 ------
 
 # AIRS
