@@ -4,7 +4,10 @@ This is the official implementation of the **LCN** method proposed in the follow
 
 Cong Fu*, Xuan Zhang*, Huixin Zhang, Hongyi Ling, Shenglong Xu, Shuiwang Ji. "[Lattice Convolutional Networks for Learning Ground States of Quantum Many-Body Systems](https://arxiv.org/abs/2206.07370)".
 
-![](https://github.com/divelab/AIRS/blob/main/OpenQM/LCN/assets/LCN.png)
+<p align="center">
+<img src="https://github.com/divelab/AIRS/blob/main/OpenQM/LCN/assets/LCN.png" width="800" class="center" alt=""/>
+    <br/>
+</p>
 
 ## Reference
 ```latex
