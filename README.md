@@ -25,3 +25,11 @@ Our current list of resources includes:
 -	[**OpenMat**](https://github.com/divelab/AIRS/tree/main/OpenMat): AI for Materials Science
 -	[**OpenMI**](https://github.com/divelab/AIRS/tree/main/OpenMI): AI for Molecular Interactions
 -	[**OpenPDE**](https://github.com/divelab/AIRS/tree/main/OpenPDE): AI for Partial Differential Equations
+
+
+## Survey paper
+
+**[Paper]()** | **[Website](https://www.air4.science/)**
+
+We are going to release a survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Stay tuned!
+
