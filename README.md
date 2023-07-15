@@ -27,60 +27,62 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
 
 
 <table>
-  <tbody>
+  <thead style="text-align: center; margin: 0 auto;">
     <tr>
-        <th align="center">Quantum</th>
-        <th align="center" colspan="2">Atomistic</th>
-        <th align="center">Continuum</th>
+      <th>Quantum</th>
+      <th colspan="2">Atomistic</th>
+      <th>Continuum</th>
     </tr>
+  </thead>
+  <tbody style="vertical-align: top; text-align: left;">
     <tr>
-        <td valign="top"> 
-            <ul>
-                <li><b>OpenQM</b></li>
-                <ul>
-                    <li><a href="OpenQM/LCN">LCN</a></li>
-                    <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
-                </ul>
-            </ul>
-            <ul>  
-                <li><b>OpenDFT</b></li>
-                <ul>
-                    <li><a href="OpenDFT/QHNet">QHNet</a></li>
-                    <li><a href="OpenDFT/QHBench">QHBench</a></li>
-                </ul>
-            </ul>
-        </td>
-        <td valign="top"> 
-            <ul>
-                <li><b>OpenMol</b></li>
-            </ul>
-            <ul>  
-                <li><b>OpenProt</b></li>
-            </ul>
-        </td>
-        <td valign="top"> 
-            <ul>  
-                <li><b>OpenMat</b></li>
-                <ul>
-                    <li><a href="OpenMat/Matformer">Matformer</a></li>
-                    <li><a href="OpenMat/PotNet">PotNet</a></li>
-                 </ul>
-            </ul>
-            <ul>  
-                <li><b>OpenMI</b></li>
-                <ul>
-                    <li><a href="OpenMI/GraphBP">GraphBP</a></li>
-                </ul>
-            </ul>
-        </td>
-        <td valign="top"> 
-            <ul>
-                <li><b>OpenPDE</b></li>
-                <ul>
-                    <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
-                </ul>
-            </ul>
-        </td>
+      <td> 
+        <ul>
+          <li><b>OpenQM</b></li>
+          <ul>
+            <li><a href="OpenQM/LCN">LCN</a></li>
+            <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
+          </ul>
+        </ul>
+        <ul>  
+          <li><b>OpenDFT</b></li>
+          <ul>
+            <li><a href="OpenDFT/QHNet">QHNet</a></li>
+            <li><a href="OpenDFT/QHBench">QHBench</a></li>
+          </ul>
+        </ul>
+      </td>
+      <td style="border-right: none;"> 
+        <ul>
+          <li><b>OpenMol</b></li>
+        </ul>
+        <ul>  
+          <li><b>OpenProt</b></li>
+        </ul>
+      </td>
+      <td style="border-left: none;"> 
+        <ul>  
+          <li><b>OpenMat</b></li>
+          <ul>
+            <li><a href="OpenMat/Matformer">Matformer</a></li>
+            <li><a href="OpenMat/PotNet">PotNet</a></li>
+          </ul>
+        </ul>
+        <ul>  
+          <li><b>OpenMI</b></li>
+          <ul>
+            <li><a href="OpenMI/GraphBP">GraphBP</a></li>
+          </ul>
+        </ul>
+      </td>
+      <td> 
+        <ul>
+          <li><b>OpenPDE</b></li>
+          <ul>
+            <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
+          </ul>
+        </ul>
+      </td>
     </tr>
   </tbody>
 </table>
