@@ -37,40 +37,50 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
   <tbody valign="top">
     <tr>
       <td> 
-        <p align="center"><b>OpenQM</b></p> 
         <ul>
-          <li><a href="OpenQM/LCN">LCN</a></li>
-          <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
+          <li><b>OpenQM</b></li>
+          <ul>
+            <li><a href="OpenQM/LCN">LCN</a></li>
+            <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
+          </ul>
         </ul>
-        <p align="center"><b>OpenDFT</b></p> 
-        <ul>
-          <li><a href="OpenDFT/QHNet">QHNet</a></li>
-          <li><a href="OpenDFT/QHBench">QHBench</a></li>
-        </ul>
-      </td>
-      <td> 
-        <p align="center"><b>OpenMol</b></p>
-        <ul>
-        </ul>
-        <p align="center"><b>OpenProt</b></p>
-        <ul>
-        </ul>
-      </td>
-      <td>
-        <p align="center"><b>OpenMat</b></p> 
-        <ul>
-          <li><a href="OpenMat/Matformer">Matformer</a></li>
-          <li><a href="OpenMat/PotNet">PotNet</a></li>
-        </ul>
-        <p align="center"><b>OpenMI</b></p>
-        <ul>
-          <li><a href="OpenMI/GraphBP">GraphBP</a></li>
+        <ul>  
+          <li><b>OpenDFT</b></li>
+          <ul>
+            <li><a href="OpenDFT/QHNet">QHNet</a></li>
+            <li><a href="OpenDFT/QHBench">QHBench</a></li>
+          </ul>
         </ul>
       </td>
       <td> 
-        <p align="center"><b>OpenPDE</b></p>
         <ul>
-          <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
+          <li><b>OpenMol</b></li>
+        </ul>
+        <ul>  
+          <li><b>OpenProt</b></li>
+        </ul>
+        </td>
+        <td>
+        <ul>  
+          <li><b>OpenMat</b></li>
+          <ul>
+            <li><a href="OpenMat/Matformer">Matformer</a></li>
+            <li><a href="OpenMat/PotNet">PotNet</a></li>
+          </ul>
+        </ul>
+        <ul>  
+          <li><b>OpenMI</b></li>
+          <ul>
+            <li><a href="OpenMI/GraphBP">GraphBP</a></li>
+          </ul>
+        </ul>
+      </td>
+      <td> 
+        <ul>
+          <li><b>OpenPDE</b></li>
+          <ul>
+            <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
+          </ul>
         </ul>
       </td>
     </tr>
