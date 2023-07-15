@@ -27,21 +27,23 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
 
 
 <table>
-  <tbody valign="top">
+  <thead>
     <tr>
       <th>Quantum</th>
       <th colspan="2">Atomistic</th>
       <th>Continuum</th>
     </tr>
+  </thead>
+  <tbody valign="top">
     <tr>
       <td> 
-        <ul>
-          <li><b>OpenQM</b></li>
+          <p align="center"><b>OpenQM</b></p>
+          <table>
           <ul>
             <li><a href="OpenQM/LCN">LCN</a></li>
             <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
           </ul>
-        </ul>
+          </table>
         <ul>  
           <li><b>OpenDFT</b></li>
           <ul>
