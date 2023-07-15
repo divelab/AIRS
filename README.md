@@ -37,51 +37,39 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
   <tbody valign="top">
     <tr>
       <td> 
-          <p align="center"><b>OpenQM</b></p>
-          <table>
+          <img src="https://placehold.co/50x50/87ffac/87ffac.png" height="10" width="10"> <b>OpenQM</b>
           <ul>
             <li><a href="OpenQM/LCN">LCN</a></li>
             <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
           </ul>
-          </table>
-        <ul>  
-          <li><b>OpenDFT</b></li>
+          <img src="https://placehold.co/50x50/43E976/43E976.png" height="10" width="10"> <b>OpenDFT</b>
           <ul>
             <li><a href="OpenDFT/QHNet">QHNet</a></li>
             <li><a href="OpenDFT/QHBench">QHBench</a></li>
           </ul>
-        </ul>
       </td>
       <td> 
-        <ul>
-          <li><b>OpenMol</b></li>
+         <img src="https://placehold.co/50x50/EEC0FF/EEC0FF.png" height="10" width="10"> <b>OpenMol</b>
+          <ul>
         </ul>
-        <ul>  
-          <li><b>OpenProt</b></li>
-        </ul>
+         <img src="https://placehold.co/50x50/D790FF/D790FF.png" height="10" width="10"> <b>OpenProt</b>
         </td>
         <td>
-        <ul>  
-          <li><b>OpenMat</b></li>
+          <img src="https://placehold.co/50x50/B174E9/B174E9.png" height="10" width="10"> <b>OpenMat</b>
           <ul>
             <li><a href="OpenMat/Matformer">Matformer</a></li>
             <li><a href="OpenMat/PotNet">PotNet</a></li>
           </ul>
-        </ul>
-        <ul>  
-          <li><b>OpenMI</b></li>
+          <img src="https://placehold.co/50x50/8D55F7/8D55F7.png" height="10" width="10"> <b>OpenMI</b>
           <ul>
             <li><a href="OpenMI/GraphBP">GraphBP</a></li>
           </ul>
-        </ul>
       </td>
       <td> 
-        <ul>
-          <li><b>OpenPDE</b></li>
+          <img src="https://placehold.co/50x50/FFA76E/FFA76E.png" height="10" width="10"> <b>OpenPDE</b>
           <ul>
             <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
           </ul>
-        </ul>
       </td>
     </tr>
   </tbody>
