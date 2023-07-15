@@ -36,7 +36,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
   </thead>
   <tbody valign="top">
     <tr>
-      <td width="25%"> 
+      <td> 
         <ul>
           <li><b>OpenQM</b></li>
           <ul>
@@ -52,7 +52,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
           </ul>
         </ul>
       </td>
-      <td width="25%"> 
+      <td> 
         <ul>
           <li><b>OpenMol</b></li>
         </ul>
@@ -60,7 +60,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
           <li><b>OpenProt</b></li>
         </ul>
         </td>
-        <td width="25%">
+        <td>
         <ul>  
           <li><b>OpenMat</b></li>
           <ul>
@@ -75,7 +75,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
           </ul>
         </ul>
       </td>
-      <td width="25%"> 
+      <td> 
         <ul>
           <li><b>OpenPDE</b></li>
           <ul>
