@@ -26,6 +26,66 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
 -	[**OpenPDE**](https://github.com/divelab/AIRS/tree/main/OpenPDE): AI for Partial Differential Equations
 
 
+<table>
+  <tbody>
+    <tr>
+        <th align="center">OpenQM</th>
+        <th align="center">OpenDFT</th>
+        <th align="center">OpenMol</th>
+        <th align="center">OpenProt</th>
+        <th align="center">OpenMat</th>
+        <th align="center">OpenMI</th>
+        <th align="center">OpenPDE</th>
+    </tr>
+    <tr>
+        <!--- OpenQM -->
+        <td valign="top"> 
+        <ul>
+            <li><a href="OpenQM/LCN">LCN</a></li>
+            <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
+        </ul>
+        </td>
+        <!--- OpenDFT -->
+        <td valign="top">  
+        <ul>
+            <li><a href="OpenDFT/QHNet">QHNet</a></li>
+            <li><a href="OpenDFT/QHBench">QHBench</a></li>
+        </ul>
+        </td>
+        <!--- OpenMol -->
+        <td valign="top">  
+        <ul>
+        </ul>
+        </td>
+        <!--- OpenProt -->
+        <td valign="top">  
+        <ul>
+        </ul>
+        </td>
+        <!--- OpenMat -->
+        <td valign="top">  
+        <ul>
+            <li><a href="OpenMat/Matformer">Matformer</a></li>
+            <li><a href="OpenMat/PotNet">PotNet</a></li>
+        </ul>
+        </td>
+        <!--- OpenMI -->
+        <td valign="top">  
+        <ul>
+            <li><a href="OpenMI/GraphBP">GraphBP</a></li>
+        </ul>
+        </td>
+        <!--- OpenPDE -->
+        <td valign="top">  
+        <ul>
+            <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
+        </ul>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+
 ## Survey paper
 
 **[Paper]()** | **[Website](https://www.air4.science/)**
