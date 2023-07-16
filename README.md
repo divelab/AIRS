@@ -46,7 +46,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
           <ul>
             <li><a href="OpenDFT/QHNet">QHNet</a></li>
             <li><a href="OpenDFT/QHBench">QHBench</a></li>
-          </ul><br>
+          </ul>
       </td>
       <td> 
           <img src="https://placehold.co/50x50/EEC0FF/EEC0FF.png" height="12" width="12"> <b>OpenMol</b>
@@ -56,7 +56,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
           </ul>
           <img src="https://placehold.co/50x50/D790FF/D790FF.png" height="12" width="12"> <b>OpenProt</b>
           <ul>
-          </ul><br>
+          </ul>
       </td>
       <td>
           <img src="https://placehold.co/50x50/B174E9/B174E9.png" height="12" width="12"> <b>OpenMat</b>
@@ -68,13 +68,13 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
           <img src="https://placehold.co/50x50/8D55F7/8D55F7.png" height="12" width="12"> <b>OpenMI</b>
           <ul>
             <li><a href="OpenMI/GraphBP">GraphBP</a></li>
-          </ul><br>
+          </ul>
       </td>
       <td> 
           <img src="https://placehold.co/50x50/FFA76E/FFA76E.png" height="12" width="12"> <b>OpenPDE</b>
           <ul>
             <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
-          </ul><br>
+          </ul>
       </td>
     </tr>
   </tbody>
