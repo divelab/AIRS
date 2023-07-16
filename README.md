@@ -29,18 +29,18 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
 <table>
   <thead>
     <tr>
-      <th><img src="AIRS_logo.png" height="14"> Quantum</th>
-      <th colspan="2"><img src="AIRS_logo.png" height="14"> Atomistic</th>
-      <th><img src="AIRS_logo.png" height="14"> Continuum</th>
+      <th><img src="AIRS_logo.png" height="16"> Quantum</th>
+      <th colspan="2"><img src="AIRS_logo.png" height="16"> Atomistic</th>
+      <th><img src="AIRS_logo.png" height="16"> Continuum</th>
     </tr>
   </thead>
   <tbody valign="top">
     <tr>
       <td> 
           <img src="https://placehold.co/50x50/87ffac/87ffac.png" height="12" width="12"> <b>OpenQM</b>
-          <ul>
-            <li><a href="OpenQM/LCN">LCN</a></li>
-            <li><a href="OpenQM/DiffVMC">DiffVMC</a></li>
+          <ul color="red">
+            <li style="color:#87ffac;"><span style="color:#000;"><a href="OpenQM/LCN">LCN</a></span></li>
+            <li style="color:#87ffac;"><span style="color:#000;"><a href="OpenQM/DiffVMC">DiffVMC</a></span></li>
           </ul>
           <img src="https://placehold.co/50x50/43E976/43E976.png" height="12" width="12"> <b>OpenDFT</b>
           <ul>
