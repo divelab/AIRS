@@ -51,11 +51,14 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
       <td> 
           <img src="https://placehold.co/50x50/EEC0FF/EEC0FF.png" height="12" width="12"> <b>OpenMol</b>
           <ul>
+            <li><a href="OpenMol/SphereNet">SphereNet</a></li>
+            <li><a href="OpenMol/ComENet">ComENet</a></li>
             <li><a href="OpenMol/GraphDF">GraphDF</a></li>
             <li><a href="OpenMol/G-SphereNet">G-SphereNet</a></li>
           </ul>
           <img src="https://placehold.co/50x50/D790FF/D790FF.png" height="12" width="12"> <b>OpenProt</b>
           <ul>
+            <li><a href="OpenProt/ProNet">ProNet</a></li>
           </ul>
       </td>
       <td>
