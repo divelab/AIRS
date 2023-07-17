@@ -26,6 +26,15 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
 -	[**OpenPDE**](https://github.com/divelab/AIRS/tree/main/OpenPDE): AI for Partial Differential Equations
 
 
+
+<p align="center">
+<img src="https://github.com/divelab/AIRS/blob/main/overview.jpeg" width="950" class="center" alt="logo"/>
+    <br/>
+</p>
+
+## Methods
+Here is the summary of methods we have in AIRS. More methods will be included as our research progresses.
+
 <table>
   <thead>
     <tr>
