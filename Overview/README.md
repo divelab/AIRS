@@ -505,16 +505,18 @@
     - [Greenman et al. 2023](https://www.biorxiv.org/content/10.1101/2023.04.17.536962v1.abstract)
     - [Griffiths 2023](https://arxiv.org/pdf/2303.14291)
     - [Li et al. 2023b](https://arxiv.org/abs/2306.10060)
+    - [Wollschläger et al. 2023](https://arxiv.org/abs/2306.14916)
   - UQ in Protein-Compound Binding Affinity
     - [Hirschfeld et al. 2020](https://pubs.acs.org/doi/10.1021/acs.jcim.0c00502)
   - UQ in Density Functional Theory
     - [Fowler et al. 2019](https://iopscience.iop.org/article/10.1088/2515-7639/ab0b4a)
     - [Mahmoud et al. 2020](https://arxiv.org/abs/2006.11803)
-    - [Wollschläger et al. 2023](https://arxiv.org/abs/2306.14916)
   - UQ in Partial Differential Equations
     - [Psaros et al. 2023](https://arxiv.org/abs/2201.07766)
-- UQ Library
+- UQ Libraries
+  - [MIT-UQ](https://mituq.bitbucket.io/source/_site/index.html)
   - [GAUCHE](https://arxiv.org/abs/2212.04450)
+  - [Objective-UQ](https://objectiveuq.org/)
   
 ## Learning, Education, and Beyond
 - [Resource](https://github.com/divelab/AIRS/blob/main/Overview/resources.md)
