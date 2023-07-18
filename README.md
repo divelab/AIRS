@@ -97,5 +97,5 @@ Here is the summary of methods we have in AIRS. More methods will be included as
 
 **[Paper](https://arxiv.org/abs/2307.08423)** | **[Website](https://www.air4.science/)**
 
-We are going to release our survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Stay tuned!
+We released our survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Please check our paper and website for more details!
 
