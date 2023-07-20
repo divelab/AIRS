@@ -133,7 +133,7 @@ then the processed file will be read automatically.
 
 ## Acknowledgement
 
-The underlying training part is based on [ALIGNN](https://github.com/usnistgov/alignn) [2] and the incomplete Bessel Function is based on [ScaFaCoS](https://github.com/scafacos/scafacos) [3].
+The underlying training part is based on [ALIGNN](https://github.com/usnistgov/alignn) [2] and the incomplete Bessel Function is based on [ScaFaCoS](https://github.com/scafacos/scafacos) [3]. This work was supported in part by National Science Foundation grants IIS-1908220, CCF-1553281, IIS-1812641, DMR-2119103, and IIS-2212419, and National Institutes of Health grant U01AG070112.
 
 
 
