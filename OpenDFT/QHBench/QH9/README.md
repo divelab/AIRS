@@ -91,3 +91,6 @@ python test_dft_acceleration.py
       year={2023}
 }
 ```
+
+## Acknowledgments
+This work was supported in part by National Science Foundation grant IIS-2006861, CCF-1553281, DMR-2119103, DMR-1753054, DMR-2103842, and IIS-2212419. Acknowledgment is also made to the donors of the American Chemical Society Petroleum Research Fund for partial support of this research.
