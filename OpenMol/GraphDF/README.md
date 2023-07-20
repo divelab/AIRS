@@ -24,3 +24,6 @@ Youzhi Luo, Keqiang Yan, Shuiwang Ji. "[GraphDF: A Discrete Flow Model for Molec
   publisher = {PMLR}
 }
 ```
+
+## Acknowledgments
+This work was supported in part by National Science Foundation grants DBI-2028361.

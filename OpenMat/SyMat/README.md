@@ -19,3 +19,5 @@ Youzhi Luo, Chengkai Liu, Shuiwang Ji. "[Towards Symmetry-Aware Generation of Pe
 }
 ```
 
+## Acknowledgments
+This work was supported in part by National Science Foundation under grants IIS-1908220 and IIS-2006861.
