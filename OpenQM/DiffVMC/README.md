@@ -14,3 +14,6 @@ Xuan Zhang, Shenglong Xu, Shuiwang Ji. "[A Score-Based Model for Learning Neural
   year={2023}
 }
 ```
+
+## Acknowledgments
+This work was supported in part by National Science Foundation grants IIS-2006861 and IIS-1908220, and National Institutes of Health grant U01AG070112.
