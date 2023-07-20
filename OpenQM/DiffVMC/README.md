@@ -4,6 +4,10 @@ This is the official implementation of the **DiffVMC** method proposed in the fo
 
 Xuan Zhang, Shenglong Xu, Shuiwang Ji. "[A Score-Based Model for Learning Neural Wavefunctions](https://arxiv.org/abs/2305.16540)".
 
+<p align="center">
+<img src="https://github.com/divelab/AIRS/blob/main/OpenQM/DiffVMC/assets/diffvmc.png" width="800" class="center" alt=""/>
+    <br/>
+</p>
 
 ## Reference
 ```latex
