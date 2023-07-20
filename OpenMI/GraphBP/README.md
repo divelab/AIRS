@@ -50,7 +50,6 @@ CUDA_VISIBLE_DEVICES=${you_gpu_id} python main_eval.py
 ```
 
 
-
 ## Reference
 ```
 @inproceedings{liu2022graphbp,
@@ -60,3 +59,7 @@ CUDA_VISIBLE_DEVICES=${you_gpu_id} python main_eval.py
   year={2022}
 }
 ```
+
+## Acknowledgments
+This work was supported in part by National Science Foundation grants IIS-2006861 and IIS-1908220.
+
