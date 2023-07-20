@@ -63,7 +63,7 @@ python experiments.py --seed=1 --data_path=./data/ns_V0.0001_N1200_T30_cos4.mat 
     --super_path=./data/ns_V0.0001_N1200_T30_cos4_super.mat
 ```
 
-SWE-Arena:
+SWE:
 
 ```python
 python experiments.py --seed=1 --data_path=./data/ShallowWater2D \ 
@@ -73,7 +73,7 @@ python experiments.py --seed=1 --data_path=./data/ShallowWater2D \
     --learning_rate=1e-3 --early_stopping=100 --verbose --time_pad
 ```
 
-SWE-Bench:
+SWE-Sym:
 
 ```python
 python experiments.py --seed=1 --data_path=./data/2D_rdb_NA_NA.h5 \
@@ -92,3 +92,6 @@ booktitle = {Proceedings of the 40th International Conference on Machine Learnin
 year = {2023},
 }
 ```
+
+## Acknowledgments
+This work was supported in part by National Science Foundation grant IIS-2006861, and by state allocated funds for the Water Exceptional Item through Texas A&M AgriLife Research facilitated by the Texas Water Resources Institute.
