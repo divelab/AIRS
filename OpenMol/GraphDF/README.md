@@ -9,7 +9,7 @@ Youzhi Luo, Keqiang Yan, Shuiwang Ji. "[GraphDF: A Discrete Flow Model for Molec
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @InProceedings{luo2021graphdf,
   title = {{GraphDF}: A Discrete Flow Model for Molecular Graph Generation},
