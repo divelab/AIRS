@@ -9,7 +9,7 @@ Limei Wang, Yi Liu, Yuchao Lin, Haoran Liu, and Shuiwang Ji. "[ComENet: Towards 
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @inproceedings{
 wang2022comenet,
