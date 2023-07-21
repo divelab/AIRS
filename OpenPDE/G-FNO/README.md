@@ -83,7 +83,7 @@ python experiments.py --seed=1 --data_path=./data/2D_rdb_NA_NA.h5 \
     --learning_rate=1e-3 --early_stopping=100 --verbose --super
 ```
 
-## Reference
+## Citation
 ```latex
 @inproceedings{helwig2023group,
 author = {Jacob Helwig and Xuan Zhang and Cong Fu and Jerry Kurtin and Stephan Wojtowytsch and Shuiwang Ji},
