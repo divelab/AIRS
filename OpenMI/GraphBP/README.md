@@ -50,7 +50,7 @@ CUDA_VISIBLE_DEVICES=${you_gpu_id} python main_eval.py
 ```
 
 
-## Reference
+## Citation
 ```
 @inproceedings{liu2022graphbp,
   title={Generating 3D Molecules for Target Protein Binding},
