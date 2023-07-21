@@ -100,17 +100,16 @@ Here is the summary of methods we have in AIRS. More methods will be included as
 We released our survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Please check our paper and website for more details!
 
 ### Reference
-```
-# Short version
 
+To cite the survey paper, please use the BibTeX entry provided below. There are two versions: the short version with part of the author names and the other with all author names.
+
+```
 @article{zhang2023artificial,
   title={Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems},
   author={Xuan Zhang and Limei Wang and Jacob Helwig and Youzhi Luo and Cong Fu and Yaochen Xie and ... and Shuiwang Ji},
   journal={arXiv preprint arXiv:2307.08423},
   year={2023}
 }
-
-# Long version
 
 @article{zhang2023artificial,
   title={Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems},
