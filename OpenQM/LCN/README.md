@@ -9,7 +9,7 @@ Cong Fu*, Xuan Zhang*, Huixin Zhang, Hongyi Ling, Shenglong Xu, Shuiwang Ji. "[L
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @article{fu2022lattice,
   title={Lattice convolutional networks for learning ground states of quantum many-body systems},
