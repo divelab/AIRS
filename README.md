@@ -105,7 +105,7 @@ We released our survey paper about artificial intelligence for science in quantu
 
 @article{zhang2023artificial,
   title={Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems},
-  author={Xuan Zhang and Limei Wang and Jacob Helwig and Youzhi Luo and Cong Fu and Yaochen Xie and … and Shuiwang Ji},
+  author={Xuan Zhang and Limei Wang and Jacob Helwig and Youzhi Luo and Cong Fu and Yaochen Xie and ... and Shuiwang Ji},
   journal={arXiv preprint arXiv:2307.08423},
   year={2023}
 }
