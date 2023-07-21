@@ -9,7 +9,7 @@ Youzhi Luo, Shuiwang Ji. "[An Autoregressive Flow Model for 3D Molecular Geometr
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @inproceedings{
   luo2022an,
