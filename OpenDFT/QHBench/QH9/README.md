@@ -82,7 +82,7 @@ python test.py
 python test_dft_acceleration.py
 ```
 
-## Citing QH9
+## Citation
 ```
 @article{yu2023qh9,
       title={{QH9}: A Quantum Hamiltonian Prediction Benchmark for QM9 Molecules}, 
