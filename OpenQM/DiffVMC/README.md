@@ -9,7 +9,7 @@ Xuan Zhang, Shenglong Xu, Shuiwang Ji. "[A Score-Based Model for Learning Neural
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @article{zhang2023score,
   title={A Score-Based Model for Learning Neural Wavefunctions},
