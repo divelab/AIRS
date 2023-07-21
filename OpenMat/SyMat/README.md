@@ -9,7 +9,7 @@ Youzhi Luo, Chengkai Liu, Shuiwang Ji. "[Towards Symmetry-Aware Generation of Pe
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @article{luo2023towards,
   title={Towards Symmetry-Aware Generation of Periodic Materials},
