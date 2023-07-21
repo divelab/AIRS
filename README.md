@@ -99,7 +99,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
 
 We released our survey paper about artificial intelligence for science in quantum, atomistic, and continuum systems. Please check our paper and website for more details!
 
-## Reference
+### Reference
 ```
 # Short version
 
