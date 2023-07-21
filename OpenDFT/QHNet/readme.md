@@ -72,7 +72,7 @@ for later on comparison. Note that the training procedure is based on **float32*
 
 
 
-## Citations
+## Citation
 
 Please cite our paper if you find our paper useful.
 ```
