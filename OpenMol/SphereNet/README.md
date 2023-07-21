@@ -9,7 +9,7 @@ Yi Liu, Limei Wang, Meng Liu, Yuchao Lin, Xuan Zhang, Bora Oztekin, and Shuiwang
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @inproceedings{
 liu2022spherical,
