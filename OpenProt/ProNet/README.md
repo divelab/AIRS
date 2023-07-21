@@ -9,7 +9,7 @@ Limei Wang, Haoran Liu, Yi Liu, Jerry Kurtin, and Shuiwang Ji. "[Learning Hierar
     <br/>
 </p>
 
-## Reference
+## Citation
 ```latex
 @inproceedings{
 wang2023learning,
