@@ -35,7 +35,7 @@ cutoff: 4.0  # local graph cutoff
 max_neighbors: 16
 infinite_funcs: ["zeta", "zeta", "exp"]
 infinite_params: [0.5, 3.0, 3.0]  # Coulomb, London dispersion, Pauli
-R: 3  # error radius
+R: 3  # half of the grid length
 
 model:
   name: potnet
