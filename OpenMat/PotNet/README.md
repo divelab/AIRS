@@ -93,7 +93,7 @@ The summation is computed over the grid instead of the ellipsoid, as we found th
 
 ## Train and Evaluate Models
 
-In this code base, the datasets are directly provided by JARVIS toolkits and there is no need to download the JARVIS or Materials Project dataset from the official site. To change between different datasets and among different properties, go to `config.yaml` and set the corresponding entries such as
+In this code base, the datasets are directly provided by JARVIS toolkits and there is no need to download the JARVIS or Materials Project dataset from the official site. To change between different datasets and among different properties, go to `potnet.yaml` and set the corresponding entries such as
 
 ```yaml
 dataset: dft_3d
