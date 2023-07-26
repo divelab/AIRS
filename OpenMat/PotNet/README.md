@@ -34,13 +34,13 @@ pip install torch-geometric
 
 ## Running Summation Algorithm
 
-- To run the summation algorithm, please run below commands in order to install the algorithm package
+- To run the summation algorithm, please run below commands in order to install the algorithm package (remember to replace the `TARGET_PATH` with your own destination.)
 
 ```shell
 cd functions
 tar xzvf gsl-latest.tar.gz
 cd gsl-2.7.1
-./configure --prefix=TARGET PATH
+./configure --prefix=TARGET_PATH
 make
 make install
 ```
@@ -48,7 +48,7 @@ make install
 - Then edit `~/.bashrc` by adding
 
 ```bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:TARGET PATH/lib/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:TARGET_PATH/lib/
 ```
 
 - Now we back to `functions` directory and run
