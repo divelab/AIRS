@@ -46,4 +46,4 @@ model:
 #  potentials: [ -0.703, -0.0617, 0.142 ]
 #  potentials: [-0.816, -0.052, 0.149]
   charge_map: False  # if including information of periodic table
-  transformer: False  # enable transformer structure for infinite potential summation; only works when euclidean is Falase
+  transformer: False  # enable transformer structure for infinite potential summation; only works when euclidean is False
