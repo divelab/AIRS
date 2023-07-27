@@ -32,9 +32,9 @@ forcing term (NS-Sym). To generate this data (`ns_V0.001_N1200_T30_cos4.mat` for
 python ns_2d_rt.py --nu=1e-4 --T=30 --N=1200 --save_path=./data --ntest=100 --period=4
 ```
 
-* Instructions for generating the shallow water equations data from PDEArena (SWE-Arena) are available via the [PDEArena data generation instructions](https://microsoft.github.io/pdearena/data/).
+* Instructions for generating the shallow water equations data from PDEArena (SWE) are available via the [PDEArena data generation instructions](https://microsoft.github.io/pdearena/data/).
 
-* The shallow water equations data from PDEBench (SWE-Bench) is available via the [PDEBench GitHub](https://github.com/pdebench/PDEBench).
+* The shallow water equations data from PDEBench (SWE) is available via the [PDEBench GitHub](https://github.com/pdebench/PDEBench).
 
 ## Run
 
