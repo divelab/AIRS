@@ -3,6 +3,8 @@ Official code repository of paper “[Efficient Approximations of Complete Inter
 
 ![graph](graph.png)
 
+A short mathematical sum-up can be seen [here](Mathematics%20Short%20Sum%20Up.pdf)
+
 ## Environment Setup
 
 - We'll use `conda` to install dependencies and set up the environment. We recommend using the [Python 3.9 Miniconda installer](https://docs.conda.io/en/latest/miniconda.html#linux-installers).
@@ -50,6 +52,14 @@ make install
 ```bash
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:TARGET_PATH/lib/
 ```
+
+and 
+
+```shell
+source ~/.bashrc
+```
+
+or create another terminal.
 
 - Now we back to `functions` directory and run
 
