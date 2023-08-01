@@ -3,7 +3,7 @@ Official code repository of paper “[Efficient Approximations of Complete Inter
 
 ![graph](graph.png)
 
-A short mathematical sum-up can be seen [here](summary.pdf)
+A short mathematical sum-up of integral summation can be seen [here](summary.pdf)
 
 ## Environment Setup
 
