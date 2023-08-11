@@ -37,9 +37,9 @@ Testing the QHNet on the MD17 dataset. Note that `$PATH_TO_SAVED_MODEL` is the p
 python test_wH.py dataset=$DATASET model=QHNet model.version=QHNet model_path=$PATH_TO_SAVED_MODEL
 ```
 
-Testing the QHNet on the mixed MD17 dataset.
+Testing the QHNet on the mixed MD17 dataset. The $Selected_version are in ['QHNet', 'QHNet_wo_bias', 'QHNet_w_bias'] according to the model version name in the model filenames.
 ```bash
-python test_mixed.py dataset=all model=QHNet model.version=QHNet model_path=$PATH_TO_SAVED_MODEL
+python test_mixed.py dataset=all model=QHNet model.version=$Selected_version model_path=$PATH_TO_SAVED_MODEL
 ```
 
 ## Benchmark
