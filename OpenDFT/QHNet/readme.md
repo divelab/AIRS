@@ -22,25 +22,33 @@ Then set the model path and version in the configs accroding to the names of the
 
 Training the QHNet on the MD17 dataset. Note that `$DATASET` is the name of datasets from water, ethanol, malondialdehyde, uracil.
 ```bash
-python train_wH.py dataset=$DATASET model=QHNet model.version=QHNet
+python train_wH.py dataset=$DATASET model=QHNet model.version=QHNet_w_bias
 ```
 
 Training the QHNet on the mixed MD17 dataset.
 ```bash
-python train_mixed.py dataset=all model=QHNet model.version=QHNet
+python train_mixed.py dataset=all model=QHNet model.version=QHNet_w_bias
 ```
 
 ## Test
 
-Testing the QHNet on the MD17 dataset. Note that `$PATH_TO_SAVED_MODEL` is the path to the downloaded model parameters or saved model paramters.
+Testing the QHNet on the MD17 dataset. Note that `$PATH_TO_SAVED_MODEL` is the path to the downloaded model parameters or saved model paramters. The `$Selected_version$` are in `['QHNet', 'QHNet_wo_bias', 'QHNet_w_bias']` according to the model version name in the model filenames. 
 ```bash
-python test_wH.py dataset=$DATASET model=QHNet model.version=QHNet model_path=$PATH_TO_SAVED_MODEL
+python test_wH.py dataset=$DATASET model=QHNet model.version=$Selected_version model_path=$PATH_TO_SAVED_MODEL
 ```
 
-Testing the QHNet on the mixed MD17 dataset. The $Selected_version are in ['QHNet', 'QHNet_wo_bias', 'QHNet_w_bias'] according to the model version name in the model filenames.
+Testing the QHNet on the mixed MD17 dataset. 
 ```bash
 python test_mixed.py dataset=all model=QHNet model.version=$Selected_version model_path=$PATH_TO_SAVED_MODEL
 ```
+
+## Clarification about the model version - `QHNet_w_bias` suggested
+
+For the model version, the `QHNet_w_bias` applies self-interaction layer with bias in the `\ell=0` by setting `bias=True` in [self-interaction layer](https://github.com/divelab/AIRS/blob/e1abc14bb9424f563e4ff1a4abd9be73a7b4b52f/OpenDFT/QHNet/models/ori_QHNet_with_bias.py#L178) and nromalize the path using [weights from the dictionary](https://github.com/divelab/AIRS/blob/e1abc14bb9424f563e4ff1a4abd9be73a7b4b52f/OpenDFT/QHNet/models/ori_QHNet_with_bias.py#L65)  while QHNet applies `path_normalization='none'` in [tensor product](https://github.com/divelab/AIRS/blob/e1abc14bb9424f563e4ff1a4abd9be73a7b4b52f/OpenDFT/QHNet/models/QHNet.py#L131). For the `QHNet`, it does not apply such bias and path_normalization operations.
+
+When conducting experiments for the paper, the model is developing and have minior setting difference for different experiments. In order to exactly reproduce the reported results, we provide the model with different versions. After our exploration, we suggest to use the version `QHNet_w_bias` to conduct experiments which might has overall better performance. We applogize for the inconvience.
+
+
 
 ## Benchmark
 
