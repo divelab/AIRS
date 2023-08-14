@@ -1,4 +1,4 @@
-# QHNet
+# QHNet (Quantum Hamiltonian Net)
 
 This is the official implement of QHNet Paper [Efficient and Equivariant Graph Networks for Predicting Quantum Hamiltonian](https://arxiv.org/pdf/2306.04922.pdf).
 
