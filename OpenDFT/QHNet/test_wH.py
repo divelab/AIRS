@@ -19,7 +19,7 @@ def criterion(outputs, target, names):
     error_dict = {}
     for key in names:
         if key == 'orbital_coefficients':
-            error_dict[key] = torch.cosine_similarity(outputs[key], target[key], dim=1).abs().mean()
+            error_dict[key] = torch.cosine_similarity(outputs[key], target[key], dim=1).mean()
         else:
             diff = outputs[key] - target[key]
             mae  = torch.mean(torch.abs(diff))
