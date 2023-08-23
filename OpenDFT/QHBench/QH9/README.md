@@ -34,7 +34,7 @@ We include key dependencies below. The versions we used are in parentheses.
 * pyscf (2.2.1)
 * hydra-core (1.1.2)
 
-Meanwhile, we provide the installation file. `sh install.sh`.
+Meanwhile, we provide the installation file, and you can build the environment by `sh install.sh`.
 
 
 ## Dataset Usage
