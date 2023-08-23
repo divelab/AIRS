@@ -34,6 +34,9 @@ We include key dependencies below. The versions we used are in parentheses.
 * pyscf (2.2.1)
 * hydra-core (1.1.2)
 
+Meanwhile, we provide the installation file. `sh install.sh`.
+
+
 ## Dataset Usage
 We provide the datasets as commonly used PyG datasets. Here are simple examples to load our datasets with a few lines of code. Prior to that, you can download the `datasets` folder, which includes the raw data files `QH9Stable.db` and `QH9Dynamic.db`, via [this Google Drive link](https://drive.google.com/drive/folders/13pPgBh3XvN2FCpowfnA8TT4VJ0OTceNM?usp=sharing).
 
