@@ -73,7 +73,7 @@ python main.py datasets=QH9-dynamic datasets.split=geometry # QH-stable-iid
 python main.py datasets=QH9-dynamic datasets.split=mol # QH-stable-iid
 ```
 
-* Evaluate the trained model (in terms of MAE on Hamiltonian matrix, MAE on occupied orbital energies, and cosine similarity of orbital coefficients)
+* Evaluate the trained model (in terms of MAE on Hamiltonian matrix, MAE on occupied orbital energies, and  cosine similarity of orbital coefficients)
 ```shell script
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
 python test.py
@@ -84,6 +84,30 @@ python test.py
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
 python test_dft_acceleration.py
 ```
+
+## Customization
+Below we provide a brief description on how to customize this benchmark to run model on your own dataset.
+
+#### How to prepare your own dataset
+Suppose that you are prepared to generate your own datasets, our current dataset classes, such as `QH9Stable`and `QH9Dynamic`, support to fetch data from `apsw` database.
+Therefore, `apsw` database is recommended to save the data.
+
+MUST HAVE:
+* `pos`: The coordinates of the atomic 3D positions.
+* `atoms`: The atomic number.
+* `Ham`: The Hamiltonian matrix for molecular geometries.
+
+For the Hamiltonian matrix, pay attention to the atomic orbital order, and magnetic order $m$.
+For current quantum tensor networks in the QHBench such as QHNet, arrangement of atomic orbitals adheres to the sequence of $s$, $p$, $d$, and so forth.
+For the magnetic order $m$, it follows the order from low to high. 
+For example, when $\ell = 1$, the magnetic order $m$ should be in the order of $-1, 0, 1$.
+When $\ell = 2$, the magnetic order $m$ should be in order of $-2, -1, 0, 1, 2$.
+To make the Hamiltonian matrix arranged in this order, the convertion should be applied when processing. 
+Please add corresponding order information in [the convention dict](https://github.com/divelab/AIRS/blob/46802e963505caef90e57f213314db9800004e01/OpenDFT/QHBench/QH9/datasets.py#L21).
+Currently, we provide the convention dict for pyscf_631G, and pyscf_def2svp. Note that the arrangement of $m$ for $\ell=1 in pyscf is $0, 1, -1$, and convertion is needed.
+
+#### How to add our own Model
+Add the model file in the corresponding directory `AIRS/OpenDFT/QHBench/QH9/models/`, and the add the corresponding configuration information in `AIRS/OpenDFT/QHBench/QH9/config/`. 
 
 ## Citation
 ```
