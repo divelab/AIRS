@@ -70,8 +70,8 @@ Equivariant quantum tensor network [QHNet](https://arxiv.org/abs/2306.04922) is 
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed, and then run
 python main.py datasets=QH9-stable datasets.split=random # QH9-stable-id
 python main.py datasets=QH9-stable datasets.split=size_ood # QH9-stable-ood
-python main.py datasets=QH9-dynamic datasets.split=geometry # QH9-stable-iid
-python main.py datasets=QH9-dynamic datasets.split=mol # QH9-stable-iid
+python main.py datasets=QH9-dynamic datasets.split=geometry # QH9-dynamic-geo
+python main.py datasets=QH9-dynamic datasets.split=mol # QH9-dynamic-mol
 ```
 
 **Trained models**: our trained QHNet models on the defined tasks are available via [this Google Drive link](https://drive.google.com/drive/folders/10ebqIWLrZ672A9bFg9wLe48F-nsz7za3?usp=share_link).
