@@ -1,6 +1,6 @@
 # QH9: A Quantum Hamiltonian Prediction Benchmark
 
-[[Paper]](https://arxiv.org/abs/2306.09549)(**NeurIPS**, Track on Datasets and Benchmarks, 2023)
+[[Paper]](https://arxiv.org/abs/2306.09549) (**NeurIPS**, Track on Datasets and Benchmarks, 2023)
 
 ## Introduction
 
@@ -8,6 +8,7 @@ QH9 provides precise DFT-calculated Hamiltonian matrices for **2,399 molecular d
 
 In this repo, we provide both the QH9 dataset and the benchmark code, which can be highly valuable for developing machine learning methods and accelerating molecular and materials design for scientific and technological applications.
 
+![QH9](figs/QH9.png)
 
 ## Tasks
 
