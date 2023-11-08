@@ -625,12 +625,6 @@ class QHNet(nn.Module):
                  num_nodes=10,
                  radius_embed_dim=32):  # maximum nuclear charge (+1, i.e. 87 for up to Rn) for embeddings, can be kept at default
         super(QHNet, self).__init__()
-        # store hyperparameter values
-        self.atom_orbs = [
-            [[8, 0, '1s'], [8, 0, '2s'], [8, 0, '3s'], [8, 1, '2p'], [8, 1, '3p'], [8, 2, '3d']],
-            [[1, 0, '1s'], [1, 0, '2s'], [1, 1, '2p']],
-            [[1, 0, '1s'], [1, 0, '2s'], [1, 1, '2p']]
-        ]
         self.order = sh_lmax
 
         self.sh_irrep = o3.Irreps.spherical_harmonics(lmax=self.order)
@@ -868,6 +862,7 @@ class QHNet(nn.Module):
         return orbital_mask
 
     def split_matrix(self, data):
+        "inverse operation of build_final_matrix"
         diagonal_matrix, non_diagonal_matrix = \
             torch.zeros(data.atoms.shape[0], 14, 14).type(data.pos.type()).to(self.device), \
             torch.zeros(data.edge_index.shape[1], 14, 14).type(data.pos.type()).to(self.device)
