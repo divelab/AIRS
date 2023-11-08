@@ -43,7 +43,7 @@ class dist_emb(torch.nn.Module):
 
 
 class ExponentialBernsteinRadialBasisFunctions(nn.Module):
-    def __init__(self, num_basis_functions, cutoff, ini_alpha=0.5):
+    def __init__(self, num_basis_functions, cutoff, ini_alpha=0.5, fix_alpha=True):
         super(ExponentialBernsteinRadialBasisFunctions, self).__init__()
         self.num_basis_functions = num_basis_functions
         self.ini_alpha = ini_alpha
@@ -61,13 +61,16 @@ class ExponentialBernsteinRadialBasisFunctions(nn.Module):
         self.register_buffer('v', torch.tensor(v, dtype=torch.float32))
         self.register_parameter('_alpha', nn.Parameter(torch.tensor(1.0, dtype=torch.float32)))
         self.reset_parameters()
+        self.fix_alpha = fix_alpha
 
     def reset_parameters(self):
         nn.init.constant_(self._alpha,  softplus_inverse(self.ini_alpha))
 
     def forward(self, r):
-        alpha = F.softplus(self._alpha)
-        alpha = 1
+        if self.fix_alpha:
+            alpha = 1
+        else:
+            alpha = F.softplus(self._alpha)
         x = - alpha * r
         x = self.logc + self.n * x + self.v * torch.log(- torch.expm1(x) )
         rbf = cutoff_function(r, self.cutoff) * torch.exp(x)

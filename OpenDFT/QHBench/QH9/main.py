@@ -96,6 +96,7 @@ def validation_dataset(valid_data_loader, model, device, default_type):
     for key in total_error_dict.keys():
         if  key != 'total_items':
             total_error_dict[key] = total_error_dict[key] / total_error_dict['total_items']
+
     return total_error_dict
 
 
@@ -137,6 +138,7 @@ def main(conf):
     test_data_loader = DataLoader(
         test_dataset, batch_size=conf.datasets.test_batch_size, shuffle=False,
         num_workers=conf.datasets.num_workers, pin_memory=conf.datasets.pin_memory)
+    # have to make sure the data in dataset (from zero or from intial)
     train_iterator = iter(train_data_loader)
 
     # define model
@@ -185,7 +187,7 @@ def main(conf):
             epoch += 1
             train_iterator = iter(train_data_loader)
             continue
-
+        
         batch = batch.to(device)
         errors = train_one_batch(conf, batch, model, optimizer)
         scheduler.step()
