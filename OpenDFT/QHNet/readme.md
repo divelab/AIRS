@@ -42,7 +42,7 @@ Testing the QHNet on the mixed MD17 dataset.
 python test_mixed.py dataset=all model=QHNet model.version=$Selected_version model_path=$PATH_TO_SAVED_MODEL
 ```
 
-## Clarification about the model version - 'QHNet' suggested
+## Clarification about the model version - `QHNet` suggested
 
 For the model version, the `QHNet_w_bias` applies self-interaction layer with bias in the `\ell=0` by setting `bias=True` in [self-interaction layer](https://github.com/divelab/AIRS/blob/e1abc14bb9424f563e4ff1a4abd9be73a7b4b52f/OpenDFT/QHNet/models/ori_QHNet_with_bias.py#L178) and normalize the path using [weights from the dictionary](https://github.com/divelab/AIRS/blob/e1abc14bb9424f563e4ff1a4abd9be73a7b4b52f/OpenDFT/QHNet/models/ori_QHNet_with_bias.py#L65). For the `QHNet_wo_bias`, it does not apply such bias and path_normalization operations.
 
