@@ -93,7 +93,7 @@ def main(conf):
     # load dataset(s)
     logger.info(f"loading {conf.dataset.dataset_name}...")
     dataset = MD17_DFT(
-        os.path.join('.', 'dataset'),
+        os.path.join(root_path, 'dataset'),
         name=conf.dataset.dataset_name,
         transform=get_mask
     )
