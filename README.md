@@ -68,6 +68,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
           <img src="https://placehold.co/50x50/D790FF/D790FF.png" height="12" width="12"> <b>OpenProt</b>
           <ul>
             <li><a href="OpenProt/ProNet">ProNet</a></li>
+            <li><a href="OpenProt/LatentDiff">LatentDiff</a></li>
           </ul>
       </td>
       <td>
@@ -86,6 +87,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
           <img src="https://placehold.co/50x50/FFA76E/FFA76E.png" height="12" width="12"> <b>OpenPDE</b>
           <ul>
             <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
+            <li><a href="OpenPDE/CFRF">CFRF</a></li>
           </ul>
       </td>
     </tr>
