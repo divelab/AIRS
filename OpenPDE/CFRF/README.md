@@ -23,7 +23,7 @@ source setup.sh
 * The Shallow Water and Diffusion-Reaction equations data are generated using scripts provided in [PDEBench](https://github.com/pdebench/PDEBench).
 * We put all the generated data in [google drive](https://drive.google.com/drive/folders/1UUjsH48WnH6mc38wUXVbTIjvQuXeaVoH?usp=sharing) for downloading.
 
-Download the data from the google drive and unzip all the datasets in the `data` folder.
+Download the data from the google drive and unzip all the datasets in the `data` folder under the `CFRF` folder.
 
 
 ## Run
