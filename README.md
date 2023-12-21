@@ -14,7 +14,7 @@
 
 ------
 
-# Artificial Intelligence for Science (AIRS)
+# Artificial Intelligence Research for Science (AIRS)
 
 AIRS is a collection of open-source software tools, datasets, and benchmarks associated with our paper entitled “Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems”. Our focus here is on AI for Science, including AI for quantum, atomistic, and continuum systems. Our goal is to develop and maintain an integrated, open, reproducible, and sustainable set of resources in order to propel the emerging and rapidly growing field of AI for Science. The list of resources will grow as our research progresses. The current list includes:
 -	[**OpenQM**](https://github.com/divelab/AIRS/tree/main/OpenQM): AI for Quantum Mechanics
