@@ -1,21 +1,42 @@
-# SyMat
+# Towards Symmetry-Aware Generation of Periodic Materials
 
-This is the official implementation of the **SyMat** method proposed in the following paper. Code will be released soon.
+This is the official implementation of the **SyMat** method proposed in the following paper.
 
-Youzhi Luo, Chengkai Liu, Shuiwang Ji. "[Towards Symmetry-Aware Generation of Periodic Materials](https://arxiv.org/abs/2307.02707)".
+Youzhi Luo, Chengkai Liu, Shuiwang Ji. "[Towards Symmetry-Aware Generation of Periodic Materials](https://openreview.net/forum?id=Jkc74vn1aZ)".
 
 <p align="center">
 <img src="https://github.com/divelab/AIRS/blob/main/OpenMat/SyMat/assets/symat.png" width="800" class="center" alt=""/>
     <br/>
 </p>
 
+## Requirements
+We include key packages below. The anaconda environment we used is available in environment.yml.
+* PyTorch >= 1.7.1
+* PyTorch Geometric >= 1.6.3
+* pymatgen == 2020.11.11
+* matminer == 0.7.4
+* smact == 2.3.1
+
+## Run
+
+Model training:
+```linux
+python train.py --result_path result/ --dataset perov_5
+```
+Material generation:
+```linux
+python generate.py --model_path /path/to/your/model --dataset perov_5 --num_gen 10000
+```
+
 ## Citation
 ```latex
-@article{luo2023towards,
+@inproceedings{
+  luo2023towards,
   title={Towards Symmetry-Aware Generation of Periodic Materials},
-  author={Luo, Youzhi and Liu, Chengkai and Ji, Shuiwang},
-  journal={arXiv preprint arXiv:2307.02707},
-  year={2023}
+  author={Youzhi Luo and Chengkai Liu and Shuiwang Ji},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023},
+  url={https://openreview.net/forum?id=Jkc74vn1aZ}
 }
 ```
 
