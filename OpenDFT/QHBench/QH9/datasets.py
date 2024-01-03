@@ -306,7 +306,7 @@ class QH9Dynamic(InMemoryDataset):
                             'num_nodes': row[2], 
                             'atoms': row[3], 
                             'pos': row[4], 
-                            'Ham': row[9]
+                            'Ham': row[5]
                         }
                         data_dict = pickle.dumps(ori_data_dict)
                         txn.put(ind.to_bytes(length=4, byteorder='big'), data_dict)
@@ -336,7 +336,7 @@ class QH9Dynamic(InMemoryDataset):
                             'num_nodes': row[2], 
                             'atoms': row[3], 
                             'pos': row[4], 
-                            'Ham': row[9]
+                            'Ham': row[5]
                         }
                         data_dict = pickle.dumps(ori_data_dict)
                         txn.put(ind.to_bytes(length=4, byteorder='big'), data_dict)
