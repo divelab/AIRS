@@ -7,7 +7,7 @@ import os
 from copy import deepcopy
 from scipy.sparse.linalg import eigsh
 from torch.utils.tensorboard import SummaryWriter
-from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import StepLR, MultiStepLR
 import matplotlib.pyplot as plt
 from collections import OrderedDict
 from numpy.random import randn
@@ -242,6 +242,9 @@ def main():
     parser.add_argument('--only_nonlocal', action='store_true', default=False, help="use only nonlocal block")
     parser.add_argument('--mode', type=str, default='embedded')
     parser.add_argument('--filters_size', type=int, default=64)
+    parser.add_argument('--emb_dim', type=int, default=64)
+    parser.add_argument('--use_sublattice', action='store_true')
+    parser.add_argument('--aggr', type=str, default='flatten')
     parser.add_argument('--prob_flip', type=float, default=0.0)
     parser.add_argument('--preact', action='store_true', default=False, help="pre-activaton")
     parser.add_argument('--chain_interval', action='store_true', default=False, help="")
@@ -257,6 +260,9 @@ def main():
     parser.add_argument('--norm', type=str, default='layer')
     parser.add_argument('--last_conv', action='store_true', default=False)
     parser.add_argument('--lr_decay_step', type=int, default=20000)
+    # parser.add_argument('--milestones', type=int, nargs='+', default=[4000, 8000, 12000, 16000], help='Steps to decay lr')
+    parser.add_argument('--milestones', type=int, nargs='+', default=None, help='Steps to decay lr')
+    parser.add_argument('--gamma', type=float, default=0.1, help="Step lr decay rate")
 
     args = parser.parse_args()
 
@@ -345,6 +351,10 @@ def main():
     elif args.model == 'cnn2d-se-kagome-108':
         ansatz = CNN2D_SE_Kagome_108(data.num_nodes, num_hidden, filters_in=1, filters=args.filters_size, kernel_size=3, num_blocks=args.num_blocks,
                                         non_local=args.non_local, mode=args.mode, preact=args.preact, conv=args.conv, remove_SE=args.remove_SE)
+    # conv='nn.conv2d' for square and conv='HoneycombConv2d_v5' for honeycomb
+    elif args.model == 'cnn2d-se-2':
+        ansatz = CNN2D_SE_2(data.num_nodes, num_hidden, filters_in=1, filters=args.filters_size, kernel_size=args.kernel_size, non_local=args.non_local, conv_name=args.conv, 
+                          num_blocks=args.num_blocks, preact=args.preact, aggr=args.aggr, act=args.act, use_sublattice=args.use_sublattice, norm=args.norm, no_se=args.remove_SE)
     else:
         raise ValueError('Invalid model type')
 
@@ -367,6 +377,8 @@ def main():
     scheduler = StepLR(optimizer, step_size=args.lr_decay_step, gamma=0.1)
     # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=2000)
 
+    if args.milestones is not None:
+        scheduler = MultiStepLR(optimizer=optimizer, milestones=args.milestones, gamma=args.gamma)
 
 
 
