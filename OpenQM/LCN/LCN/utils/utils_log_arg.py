@@ -43,18 +43,21 @@ class RandomGenerator:
         random_tensor = torch.cat(random_list, dim=0)
         return random_tensor
 
-def get_undirected_idx_list(data, periodic=True, square=False):
+def get_undirected_idx_list(data, periodic=True, square=False, gen_idx=False):
     edge_index = sort_edge_index(data.edge_index)[0]
     idx_list = []
     for i in range(edge_index.shape[1]):
         if edge_index[0, i] < edge_index[1, i]:
             idx_list.append(edge_index[:, i].numpy().tolist())
 
-    edge_index2 = sort_edge_index(data.edge_index2)[0]
-    idx_list2 = []
-    for i in range(edge_index2.shape[1]):
-        if edge_index2[0, i] < edge_index2[1, i]:
-            idx_list2.append(edge_index2[:, i].numpy().tolist())
+    if gen_idx:
+        idx_list2 = get_dist2_idx(idx_list)
+    else:
+        edge_index2 = sort_edge_index(data.edge_index2)[0]
+        idx_list2 = []
+        for i in range(edge_index2.shape[1]):
+            if edge_index2[0, i] < edge_index2[1, i]:
+                idx_list2.append(edge_index2[:, i].numpy().tolist())
 
     # only works for square lattice
     # if periodic and square:

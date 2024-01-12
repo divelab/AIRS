@@ -263,6 +263,7 @@ def main():
     # parser.add_argument('--milestones', type=int, nargs='+', default=[4000, 8000, 12000, 16000], help='Steps to decay lr')
     parser.add_argument('--milestones', type=int, nargs='+', default=None, help='Steps to decay lr')
     parser.add_argument('--gamma', type=float, default=0.1, help="Step lr decay rate")
+    parser.add_argument('--save_stable_avg', action='store_true', help="Whether to compare average recent energies when saving stable checkpoints.")
 
     args = parser.parse_args()
 
@@ -280,7 +281,11 @@ def main():
     datapath = os.path.join(args.data_dir, args.dataname + '.pt')
     #     print(datapath)
     data = torch.load(datapath)
-    idx_list = get_undirected_idx_list(data, periodic=False, square=False)
+    if args.dataname.endswith('honeycomb_lattice'):
+        print('Honeycomb')
+        idx_list = get_undirected_idx_list(data, gen_idx=True)
+    else:
+        idx_list = get_undirected_idx_list(data, periodic=False, square=False)
     # print("Undirected edge number: ", len(idx_list))
 
     global num_spin
@@ -320,12 +325,12 @@ def main():
             fig.savefig(save_dir + 'energy.png')
             plt.close(fig)
 
-    params = {
-        'num_spins': args.num_spin,
-        'hidden': args.emb_dim,
-        'dropout': args.drop_ratio,
-        'depth': args.num_layers
-    }
+    # params = {
+    #     'num_spins': args.num_spin,
+    #     'hidden': args.emb_dim,
+    #     'dropout': args.drop_ratio,
+    #     'depth': args.num_layers
+    # }
 
     if args.GPU:
         # device = torch.device("cuda:" + str(0)) if torch.cuda.is_available() else torch.device("cpu")
@@ -352,7 +357,7 @@ def main():
         ansatz = CNN2D_SE_Kagome_108(data.num_nodes, num_hidden, filters_in=1, filters=args.filters_size, kernel_size=3, num_blocks=args.num_blocks,
                                         non_local=args.non_local, mode=args.mode, preact=args.preact, conv=args.conv, remove_SE=args.remove_SE)
     # conv='nn.conv2d' for square and conv='HoneycombConv2d_v5' for honeycomb
-    elif args.model == 'cnn2d-se-2':
+    elif args.model == 'cnn2d-se':
         ansatz = CNN2D_SE_2(data.num_nodes, num_hidden, filters_in=1, filters=args.filters_size, kernel_size=args.kernel_size, non_local=args.non_local, conv_name=args.conv, 
                           num_blocks=args.num_blocks, preact=args.preact, aggr=args.aggr, act=args.act, use_sublattice=args.use_sublattice, norm=args.norm, no_se=args.remove_SE)
     else:
@@ -397,6 +402,19 @@ def main():
              prob_flip=args.prob_flip, generator=generator, save_dir=save_dir, checkpoint_step=checkpoint['step'])
         print("Testing time: ", time.time() - start)
 
+        print("Testing using last checkpoint!")
+        start = time.time()
+        checkpoint_dir = os.path.join(args.checkpoint_dir, args.savefolder, args.model, '')
+        checkpoint_path = checkpoint_dir + 'checkpoint.pt'
+        print("Checkpoint path: ", checkpoint_path)
+        checkpoint = torch.load(checkpoint_path)
+        print("Training energy for last model: %.4f, step: %d" % (checkpoint['energy'], checkpoint['step']))
+        print("Training energy: ", checkpoint['energy'])
+        ansatz.load_state_dict(checkpoint['model_state_dict'])
+        model = VMCKernel(data=data, energy_loc=heisenberg_loc_batch_fast_J1_J2, ansatz=ansatz.to(device))
+        test(model=model, num_spin=num_spin, idx_list=idx_list, J2=J2, device=device, batch_size=args.batch_size, 
+             prob_flip=args.prob_flip, generator=generator, save_dir=save_dir, checkpoint_step=checkpoint['step'])
+        print("Testing time: ", time.time() - start)
 
         print("Testing using best checkpoint!")
         start = time.time()
@@ -436,6 +454,8 @@ def main():
     lowest_stable_energy_step = 0
 
     checkpoint_dict = OrderedDict()
+    recent_energies = []
+    recent_checkpoints = []
 
     for epoch in range(args.epochs):
         steps = int(200000 / args.batch_size)
@@ -491,19 +511,35 @@ def main():
                           'optimizer_state_dict': optimizer.state_dict(),
                           'scheduler_state_dict': scheduler.state_dict(), 'energy': energy, 'num_params': num_params}
 
-            if len(checkpoint_dict) < window_size:
-                checkpoint_dict[energy.item()] = checkpoint
-            else:
-                checkpoint_dict[energy.item()] = checkpoint
-                checkpoint_dict.popitem(last=False)
+            if not args.save_stable_avg:
+                if len(checkpoint_dict) < window_size:
+                    checkpoint_dict[energy.item()] = checkpoint
+                else:
+                    checkpoint_dict[energy.item()] = checkpoint
+                    checkpoint_dict.popitem(last=False)
 
-            if np.std(list(checkpoint_dict.keys())) < 0.0015 and len(checkpoint_dict) == window_size:
-                checkpoint_keys = list(checkpoint_dict.keys())
-                idx = np.min(checkpoint_keys)
-                checkpoint_stable_best = checkpoint_dict[idx]
-                if lowest_stable_energy > checkpoint_stable_best['energy']:
-                    lowest_stable_energy = checkpoint_stable_best['energy']
-                    lowest_stable_energy_step = checkpoint_stable_best['step']
+                if np.std(list(checkpoint_dict.keys())) < 0.0015 and len(checkpoint_dict) == window_size:
+                    checkpoint_keys = list(checkpoint_dict.keys())
+                    idx = np.min(checkpoint_keys)
+                    checkpoint_stable_best = checkpoint_dict[idx]
+                    if lowest_stable_energy > checkpoint_stable_best['energy']:
+                        lowest_stable_energy = checkpoint_stable_best['energy']
+                        lowest_stable_energy_step = checkpoint_stable_best['step']
+                        save_stable_best = True
+
+            else:
+                recent_energies.append(energy.item())
+                recent_checkpoints.append(checkpoint)
+                if len(recent_energies) > window_size:
+                    recent_energies.pop(0)
+                    recent_checkpoints.pop(0)
+
+                recent_avg_energy = np.mean(recent_energies)
+                if recent_avg_energy <= lowest_avg_energy and np.std(recent_energies) <= 0.0015:
+                    lowest_avg_energy = recent_avg_energy
+                    best_idx = np.argmin(recent_energies)
+                    lowest_stable_energy = recent_energies[best_idx]
+                    lowest_stable_energy_step = step_total - len(recent_energies) + best_idx + 1
                     save_stable_best = True
 
             print('Step %d, E = %.4f, elapse = %.4f, lowest_E = %.4f, lowest_E_step = %d, '
