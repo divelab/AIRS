@@ -263,7 +263,6 @@ def main():
     # parser.add_argument('--milestones', type=int, nargs='+', default=[4000, 8000, 12000, 16000], help='Steps to decay lr')
     parser.add_argument('--milestones', type=int, nargs='+', default=None, help='Steps to decay lr')
     parser.add_argument('--gamma', type=float, default=0.1, help="Step lr decay rate")
-    parser.add_argument('--save_stable_avg', action='store_true', help="Whether to compare average recent energies when saving stable checkpoints.")
 
     args = parser.parse_args()
 
@@ -402,19 +401,20 @@ def main():
              prob_flip=args.prob_flip, generator=generator, save_dir=save_dir, checkpoint_step=checkpoint['step'])
         print("Testing time: ", time.time() - start)
 
-        print("Testing using last checkpoint!")
-        start = time.time()
-        checkpoint_dir = os.path.join(args.checkpoint_dir, args.savefolder, args.model, '')
-        checkpoint_path = checkpoint_dir + 'checkpoint.pt'
-        print("Checkpoint path: ", checkpoint_path)
-        checkpoint = torch.load(checkpoint_path)
-        print("Training energy for last model: %.4f, step: %d" % (checkpoint['energy'], checkpoint['step']))
-        print("Training energy: ", checkpoint['energy'])
-        ansatz.load_state_dict(checkpoint['model_state_dict'])
-        model = VMCKernel(data=data, energy_loc=heisenberg_loc_batch_fast_J1_J2, ansatz=ansatz.to(device))
-        test(model=model, num_spin=num_spin, idx_list=idx_list, J2=J2, device=device, batch_size=args.batch_size, 
-             prob_flip=args.prob_flip, generator=generator, save_dir=save_dir, checkpoint_step=checkpoint['step'])
-        print("Testing time: ", time.time() - start)
+        if args.dataname.endswith('honeycomb_lattice') or args.dataname.endswith('square_lattice'):
+            print("Testing using last checkpoint!")
+            start = time.time()
+            checkpoint_dir = os.path.join(args.checkpoint_dir, args.savefolder, args.model, '')
+            checkpoint_path = checkpoint_dir + 'checkpoint.pt'
+            print("Checkpoint path: ", checkpoint_path)
+            checkpoint = torch.load(checkpoint_path)
+            print("Training energy for last model: %.4f, step: %d" % (checkpoint['energy'], checkpoint['step']))
+            print("Training energy: ", checkpoint['energy'])
+            ansatz.load_state_dict(checkpoint['model_state_dict'])
+            model = VMCKernel(data=data, energy_loc=heisenberg_loc_batch_fast_J1_J2, ansatz=ansatz.to(device))
+            test(model=model, num_spin=num_spin, idx_list=idx_list, J2=J2, device=device, batch_size=args.batch_size, 
+                prob_flip=args.prob_flip, generator=generator, save_dir=save_dir, checkpoint_step=checkpoint['step'])
+            print("Testing time: ", time.time() - start)
 
         print("Testing using best checkpoint!")
         start = time.time()
@@ -452,6 +452,8 @@ def main():
     lowest_energy_step = 0
     lowest_stable_energy = 1000
     lowest_stable_energy_step = 0
+    lowest_avg_energy = 1000
+
 
     checkpoint_dict = OrderedDict()
     recent_energies = []
@@ -511,7 +513,7 @@ def main():
                           'optimizer_state_dict': optimizer.state_dict(),
                           'scheduler_state_dict': scheduler.state_dict(), 'energy': energy, 'num_params': num_params}
 
-            if not args.save_stable_avg:
+            if not (args.dataname.endswith('honeycomb_lattice') or args.dataname.endswith('square_lattice')):
                 if len(checkpoint_dict) < window_size:
                     checkpoint_dict[energy.item()] = checkpoint
                 else:
@@ -541,6 +543,7 @@ def main():
                     lowest_stable_energy = recent_energies[best_idx]
                     lowest_stable_energy_step = step_total - len(recent_energies) + best_idx + 1
                     save_stable_best = True
+                    checkpoint_stable_best = recent_checkpoints[best_idx]
 
             print('Step %d, E = %.4f, elapse = %.4f, lowest_E = %.4f, lowest_E_step = %d, '
                   'lowest_stable_E = %.4f, lowest_stable_E_step = %d' % (step_total, energy,
