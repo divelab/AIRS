@@ -1,5 +1,11 @@
 # Group Equivariant Fourier Neural Operators for Partial Differential Equations
 
+## Note on Hyperparameters
+
+To choose the number of modes and channels relative to FNO, the extra parameters in *G*-FNO kernels added by the stabilizer dimension should be offset by reducing the number of channels (**as opposed to the number of modes**) as discussed in Appendix A.2 and Section 8.2 of [Cohen and Welling (2016)](https://arxiv.org/abs/1602.07576).
+
+## Introduction
+
 This is the official implementation of *G*-FNO:
 
 Jacob Helwig*, Xuan Zhang*, Cong Fu, Jerry Kurtin, Stephan Wojtowytsch and Shuiwang Ji. "[Group Equivariant Fourier Neural Operators for Partial Differential Equations](https://icml.cc/virtual/2023/poster/23875)". [ICML 2023 Poster]
