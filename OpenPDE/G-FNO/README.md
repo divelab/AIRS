@@ -2,7 +2,7 @@
 
 ## Note on Hyperparameters
 
-To choose the number of modes and channels relative to FNO, the extra parameters in *G*-FNO kernels added by the stabilizer dimension should be offset by reducing the number of channels (**as opposed to the number of modes**) as discussed in Appendix A.2 and Section 8.2 of [Cohen and Welling (2016)](https://arxiv.org/abs/1602.07576).
+To choose the number of modes and channels relative to FNO, the extra parameters in *G*-FNO kernels added by the stabilizer dimension should be offset by reducing the number of channels (**as opposed to the number of modes**) as discussed in [Appendix A.2](https://icml.cc/virtual/2023/poster/23875) and Section 8.2 of [Cohen and Welling (2016)](https://arxiv.org/abs/1602.07576).
 
 ## Introduction
 
