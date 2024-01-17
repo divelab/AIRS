@@ -65,7 +65,7 @@ The results of QHNet in the main paper is based on **float64**, the it applies a
 
 To facilitate the development of models to predict the Hamiltonian matrix, 
 here we provide the results of QHNet on various total training steps 
-for later on comparison. Note that the training procedure is based on **float32**.
+for later on comparison. Note that the training procedure is based on **float32**, and the pretrained model QHNet version is `QHNet_w_bias`.
 
 | Dataset         | Training strategies     | MAE   | $\epsilon$ | $\psi$ |
 | --------------- | ----------------------- |:-----:|:----------:|:------:|
