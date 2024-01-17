@@ -60,7 +60,7 @@ def hamiltonian_transform(hamiltonian, atoms):
 
     transform_indices = [transform_indices[idx] for idx in orbitals_order]
     transform_signs = [transform_signs[idx] for idx in orbitals_order]
-    transform_indices = np.concatenate(transform_indices).astype(np.int)
+    transform_indices = np.concatenate(transform_indices).astype(np.int64)
     transform_signs = np.concatenate(transform_signs)
 
     hamiltonian_new = hamiltonian[...,transform_indices, :]
