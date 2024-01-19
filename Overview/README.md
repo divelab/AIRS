@@ -96,7 +96,12 @@
   - [Kochkov et al. 2021a](https://arxiv.org/abs/2110.06390)
 
 ### Learning Ground State of Many-Electron Systems
-- Molecules - Single Geometry
+- Molecules - Single Geometry (Discrete basis)
+  - [Leo and Clark 2019](https://arxiv.org/abs/1807.10770)
+  - [Choo et al. 2020](https://www.nature.com/articles/s41467-020-15724-9)
+  - [Barrett et al. 2022](https://arxiv.org/abs/2109.12606)
+  - [Herzog et al. 2023](https://arxiv.org/abs/2208.06708)
+- Molecules - Single Geometry (Continous basis)
   - [DeepWF](https://www.sciencedirect.com/science/article/abs/pii/S0021999119306345)
   - [PauliNet](https://www.nature.com/articles/s41557-020-0544-y)
   - [FermiNet](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.2.033429)
@@ -112,6 +117,9 @@
   - [PESNet++ & PlaNet](https://openreview.net/pdf?id=Tuk3Pqaizx)
   - [Globe](https://openreview.net/pdf?id=2F3bt9s0iW)
   - [TAO](https://arxiv.org/abs/2303.09949)
+- Molecules - Extension to Excited States
+  - [Entwistle et al. 2023](https://arxiv.org/abs/2203.09472)
+  - [NES-VMC](https://arxiv.org/abs/2308.16848) 
 - Superfluids and Homogeneous Electron Gas
   - [AGPs FermiNet](https://arxiv.org/abs/2305.06989)
   - [MP-NQS](https://arxiv.org/abs/2305.07240)
