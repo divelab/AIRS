@@ -97,7 +97,7 @@
 
 ### Learning Ground State of Many-Electron Systems
 - Molecules - Single Geometry (Discrete basis)
-  - [Leo and Clark 2019](https://arxiv.org/abs/1807.10770)
+  - [Luo and Clark 2019](https://arxiv.org/abs/1807.10770)
   - [Choo et al. 2020](https://www.nature.com/articles/s41467-020-15724-9)
   - [Barrett et al. 2022](https://arxiv.org/abs/2109.12606)
   - [Herzog et al. 2023](https://arxiv.org/abs/2208.06708)
