@@ -205,8 +205,8 @@ def main(conf):
 
     path_to_the_saved_models = conf.trained_model
     state_dict = torch.load(path_to_the_saved_models)['state_dict']
-    model.set(device)
     model.load_state_dict(state_dict)
+    model.set(device)
     num_params = sum(p.numel() for p in model.parameters())
     logger.info(f"the number of parameters in this model is {num_params}.")
     errors = test_over_dataset(test_data_loader, model, device, default_type)

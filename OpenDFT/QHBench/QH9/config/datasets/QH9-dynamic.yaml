@@ -1,5 +1,5 @@
 dataset_name: QH9Dynamic
-split: geometry  #[geometry, mol]
+split: mol  #[geometry, mol]
 
 train_batch_size: 32
 valid_batch_size: 32
@@ -13,7 +13,7 @@ pin_memory: True
 num_workers: 8
 
 warmup_steps: 1000
-total_steps: 250000
+total_steps: 260000
 lr_end: 1e-7
 
 train_batch_interval: 100

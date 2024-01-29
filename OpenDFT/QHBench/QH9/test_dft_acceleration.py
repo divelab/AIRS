@@ -8,6 +8,7 @@ import pyscf
 from pyscf import dft
 import numpy as np
 from tqdm import tqdm
+from torch_cluster import radius_graph
 
 from models import QHNet
 from datasets import QH9Stable, QH9Dynamic
@@ -15,6 +16,7 @@ from torchvision.transforms import Compose
 from torch_geometric.loader import DataLoader
 
 logger = logging.getLogger()
+NUM_EXAMPLES = 50
 
 
 def cal_orbital_and_energies(overlap_matrix, full_hamiltonian):
@@ -29,17 +31,18 @@ def cal_orbital_and_energies(overlap_matrix, full_hamiltonian):
     return orbital_energies, orbital_coefficients
 
 
-
 from argparse import Namespace
+
+
 convention_dict = {
     'pyscf_631G': Namespace(
         atom_to_orbitals_map={1: 'ss', 6: 'ssspp', 7: 'ssspp', 8: 'ssspp', 9: 'ssspp'},
         orbital_idx_map={'s': [0], 'p': [2, 0, 1], 'd': [0, 1, 2, 3, 4]},
         orbital_sign_map={'s': [1], 'p': [1, 1, 1], 'd':
-                          [1, 1, 1, 1, 1]},
+            [1, 1, 1, 1, 1]},
         orbital_order_map={
-            1: [0, 1], 6: [0, 1, 2, 3, 4], 7:  [0, 1, 2, 3, 4],
-            8:  [0, 1, 2, 3, 4], 9:  [0, 1, 2, 3, 4]
+            1: [0, 1], 6: [0, 1, 2, 3, 4], 7: [0, 1, 2, 3, 4],
+            8: [0, 1, 2, 3, 4], 9: [0, 1, 2, 3, 4]
         },
     ),
     'pyscf_def2svp': Namespace(
@@ -62,14 +65,15 @@ convention_dict = {
     ),
 }
 
+
 def matrix_transform(hamiltonian, atoms, convention='pyscf_def2svp'):
     conv = convention_dict[convention]
     orbitals = ''
     orbitals_order = []
     for a in atoms:
         offset = len(orbitals_order)
-        orbitals += conv.atom_to_orbitals_map[a]
-        orbitals_order += [idx + offset for idx in conv.orbital_order_map[a]]
+        orbitals += conv.atom_to_orbitals_map[a.item()]
+        orbitals_order += [idx + offset for idx in conv.orbital_order_map[a.item()]]
 
     transform_indices = []
     transform_signs = []
@@ -82,11 +86,11 @@ def matrix_transform(hamiltonian, atoms, convention='pyscf_def2svp'):
 
     transform_indices = [transform_indices[idx] for idx in orbitals_order]
     transform_signs = [transform_signs[idx] for idx in orbitals_order]
-    transform_indices = np.concatenate(transform_indices).astype(np.int)
+    transform_indices = np.concatenate(transform_indices).astype(np.int32)
     transform_signs = np.concatenate(transform_signs)
 
-    hamiltonian_new = hamiltonian[...,transform_indices, :]
-    hamiltonian_new = hamiltonian_new[...,:, transform_indices]
+    hamiltonian_new = hamiltonian[..., transform_indices, :]
+    hamiltonian_new = hamiltonian_new[..., :, transform_indices]
     hamiltonian_new = hamiltonian_new * transform_signs[:, None]
     hamiltonian_new = hamiltonian_new * transform_signs[None, :]
 
@@ -101,26 +105,42 @@ def to_atom(atom_idx):
     return ret_atom_name
 
 
-def build_matrix(mol, dm0=None, batch=None):
+def get_total_cycles(envs):
+    setattr(envs['mf'], 'total_cycle', envs['cycle'])
+    if envs['mf'].gt is not None:
+        if np.mean(np.abs(envs['fock'] - envs['mf'].gt)) < envs['mf'].error_level and \
+                envs['mf'].achieve_error_flag is False:
+            setattr(envs['mf'], 'achieve_error_flag', True)
+            setattr(envs['mf'], 'achieve_error_cycle', envs['cycle'])
+
+
+def build_matrix(mol, dm0=None, error_level=None, Hamiltonian_gt=None):
     scf_eng = dft.RKS(mol)
+    scf_eng.gt = Hamiltonian_gt
+    scf_eng.total_cycle = None
+    scf_eng.achieve_error_cycle = None
+    scf_eng.achieve_error_flag = False
+    scf_eng.error_level = error_level
+
     scf_eng.xc = 'b3lyp'
     scf_eng.basis = 'def2svp'
     scf_eng.grids.level = 3
+    scf_eng.callback = get_total_cycles
     if dm0 is not None:
         dm0 = dm0.astype('float64')
-    scf_eng.kernel(dm0 = dm0)
+    scf_eng.kernel(dm0=dm0)
     num_cycle = scf_eng.total_cycle
-    return num_cycle
+    if hasattr(scf_eng, 'achieve_error_cycle'):
+        achieve_error_cycle = scf_eng.achieve_error_cycle
+    else:
+        achieve_error_cycle = None
+    return num_cycle, achieve_error_cycle
 
 
-def test_over_dataset(test_data_loader, model, num_examples, device, default_type):
-    total_time = 0
-    total_ratio = 0
-    count = 0
+def test_over_dataset_model_pred(test_data_loader, model, device, default_type):
+    num_cycles_model_pred = []
+    error_level_list = []
     for batch_idx, batch in tqdm(enumerate(test_data_loader)):
-        if batch_idx >= num_examples:
-            break
-        
         mol = pyscf.gto.Mole()
         t = [[batch.atoms[atom_idx].cpu().item(), batch.pos[atom_idx].cpu().numpy()]
              for atom_idx in range(batch.num_nodes)]
@@ -137,6 +157,13 @@ def test_over_dataset(test_data_loader, model, num_examples, device, default_typ
         hamiltonian_pyscf = matrix_transform(
             hamiltonian, batch.atoms.cpu().squeeze().numpy(), convention='back2pyscf')
 
+        hamiltonian_pyscf_gt = model.build_final_matrix(
+            batch, batch['diagonal_hamiltonian'], batch['non_diagonal_hamiltonian'])
+        hamiltonian_pyscf_gt = hamiltonian_pyscf_gt.cpu()
+        hamiltonian_pyscf_gt = matrix_transform(
+            hamiltonian_pyscf_gt, batch.atoms.cpu().squeeze().numpy(), convention='back2pyscf')
+        error_level = (hamiltonian_pyscf - hamiltonian_pyscf_gt).abs().mean()
+
         orbital_energies, orbital_coefficients = \
             cal_orbital_and_energies(overlap_pyscf, hamiltonian_pyscf)
         num_orb = int(batch.atoms[batch.ptr[0]: batch.ptr[1]].sum() / 2)
@@ -144,18 +171,92 @@ def test_over_dataset(test_data_loader, model, num_examples, device, default_typ
         dm0 = orbital_coefficients[:, :num_orb].matmul(orbital_coefficients[:, :num_orb].T) * 2
         dm0 = dm0.cpu().numpy()
 
-        build_matrix_w_dm = build_matrix(mol, dm0, batch)
-        tic = time.time()
-        build_matrix_wo_dm = build_matrix(mol, None, batch)
+        build_matrix_w_dm, _ = build_matrix(mol, dm0)
+        num_cycles_model_pred.append(build_matrix_w_dm)
+        error_level_list.append(error_level)
 
-        ratio = build_matrix_w_dm / build_matrix_wo_dm
-        duration = time.time() - tic
-        total_time = duration + total_time
-        total_ratio = total_ratio + ratio
-        count = count + 1
-    total_time = total_time / count
-    total_ratio = total_ratio / count
-    return total_time, total_ratio
+    return num_cycles_model_pred, error_level_list
+
+
+def test_over_dataset_DFT(test_data_loader, model, guessing_method_name='minao', error_level_list=None):
+    num_cycles_guessing_initalization = []
+    achieve_error_cycle_list = []
+    for batch_idx, batch in tqdm(enumerate(test_data_loader)):
+        error_level = error_level_list[batch_idx].numpy()
+        mol = pyscf.gto.Mole()
+        t = [[batch.atoms[atom_idx].cpu().item(), batch.pos[atom_idx].cpu().numpy()]
+             for atom_idx in range(batch.num_nodes)]
+        mol.build(verbose=0, atom=t, basis='def2svp', unit='ang')
+
+        if guessing_method_name.lower() == '1e':
+            dm0 = pyscf.scf.hf.init_guess_by_1e(mol)
+        elif guessing_method_name.lower() == 'minao':
+            dm0 = pyscf.scf.hf.init_guess_by_minao(mol)
+        else:
+            raise NotImplementedError
+
+        batch = batch.to(model.device)
+        batch.full_edge_index = radius_graph(batch.pos, 100000, batch.batch).to(batch.pos.device)
+        hamiltonian = model.build_final_matrix(
+            batch, batch['diagonal_hamiltonian'], batch['non_diagonal_hamiltonian'])
+        hamiltonian = hamiltonian.cpu()
+        hamiltonian_pyscf_gt = matrix_transform(
+            hamiltonian, batch.atoms.cpu().squeeze().numpy(), convention='back2pyscf').numpy()
+
+        build_matrix_w_dm, achieve_error_cycle = build_matrix(
+            mol, dm0, error_level, Hamiltonian_gt=hamiltonian_pyscf_gt)
+        num_cycles_guessing_initalization.append(build_matrix_w_dm)
+        achieve_error_cycle_list.append(achieve_error_cycle)
+
+    return num_cycles_guessing_initalization, achieve_error_cycle_list
+
+
+def get_lowest_achievable_ratio(num_cycles):
+    lowest_achievable_ratio_list = [1 / num_cycles[example_idx] for example_idx in range(len(num_cycles))]
+    return lowest_achievable_ratio_list
+
+
+def get_error_level_ratio(error_level_cycles, total_cycles):
+    error_level_ratio_list = []
+    for idx in range(len(error_level_cycles)):
+        error_level_ratio_list.append(error_level_cycles[idx] / total_cycles[idx])
+    return error_level_ratio_list
+
+
+def get_optimization_ratio(num_cycles_model_pred, num_cycles_minao_guessing_initalization):
+    DFT_optimization_ratio = [num_cycles_model_pred[idx] / num_cycles_minao_guessing_initalization[idx]
+                              for idx in range(len(num_cycles_model_pred))]
+    return DFT_optimization_ratio
+
+
+def get_stable_dataset_split(root_path):
+    processed_random = \
+        os.path.join(root_path, 'datasets', 'QH9Stable', 'processed', 'processed_QH9Stable_random.pt')
+    processed_ood = \
+        os.path.join(root_path, 'datasets', 'QH9Stable', 'processed', 'processed_QH9Stable_size_ood.pt')
+    split_idx_iid_test_mask = torch.load(processed_random)[4]
+    split_idx_ood_test_mask = torch.load(processed_ood)[4]
+    # test_data_mask = np.logical_and(split_idx_iid_test_mask, split_idx_ood_test_mask)
+    # test_data_indices = np.where(test_data_mask)[0]
+    test_data_indices = np.intersect1d(split_idx_iid_test_mask, split_idx_ood_test_mask)
+    rng = np.random.default_rng(43)
+    test_data_indices_sampled = rng.choice(test_data_indices, size=NUM_EXAMPLES, replace=False)
+    return test_data_indices_sampled
+
+
+def get_dynamic_dataset_split(root_path):
+    processed_mol = \
+        os.path.join(root_path, 'datasets', 'QH9Dynamic', 'processed', 'processed_QH9Dynamic_mol.pt')
+    processed_geometry = \
+        os.path.join(root_path, 'datasets', 'QH9Dynamic', 'processed', 'processed_QH9Dynamic_geometry.pt')
+    split_idx_mol_test_mask = torch.load(processed_mol)[2]
+    split_idx_geometry_test_mask = torch.load(processed_geometry)[2]
+    # test_data_mask = np.logical_and(split_idx_mol_test_mask, split_idx_geometry_test_mask)
+    # test_data_indices = np.where(test_data_mask)[0]
+    test_data_indices = np.intersect1d(split_idx_mol_test_mask, split_idx_geometry_test_mask)
+    rng = np.random.default_rng(43)
+    test_data_indices_sampled = rng.choice(test_data_indices, size=NUM_EXAMPLES, replace=False)
+    return test_data_indices_sampled
 
 
 @hydra.main(config_path='config', config_name='config')
@@ -176,14 +277,18 @@ def main(conf):
     logger.info(f"loading {conf.datasets.dataset_name}...")
     if conf.datasets.dataset_name == 'QH9Stable':
         dataset = QH9Stable(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
+        test_data_indices_sampled = get_stable_dataset_split(root_path)
+        test_dataset = dataset[test_data_indices_sampled]
+
     elif conf.datasets.dataset_name == 'QH9Dynamic':
         dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
-    test_dataset = dataset[dataset.test_mask]
-    
-    test_data_loader = DataLoader(
-        test_dataset[:50], batch_size=1, shuffle=False,
-        num_workers=conf.datasets.num_workers, pin_memory=conf.datasets.pin_memory)
+        test_data_indices_sampled = get_dynamic_dataset_split(root_path)
+        test_dataset = dataset[test_data_indices_sampled]
 
+    # we need to generate the index mask, it should maintain two
+    test_data_loader = DataLoader(
+        test_dataset, batch_size=1, shuffle=False,
+        num_workers=conf.datasets.num_workers, pin_memory=conf.datasets.pin_memory)
     # define model
     model = QHNet(
         in_node_features=1,
@@ -195,7 +300,6 @@ def main(conf):
         num_nodes=10,
         radius_embed_dim=16
     )
-
     model.set(device)
 
     # load model from the path
@@ -206,9 +310,56 @@ def main(conf):
     num_params = sum(p.numel() for p in model.parameters())
     logger.info(f"the number of parameters in this model is {num_params}.")
 
-    total_time, total_ratio = test_over_dataset(test_data_loader, model, 50, device, default_type=torch.float32)
-    msg = f"total_time: {total_time}, total_ratio:{total_ratio} "
-    logger.info(msg)
+    num_cycles_model_pred, error_level_list = \
+        test_over_dataset_model_pred(
+            test_data_loader, model, device, default_type=torch.float32)
+
+    num_cycles_minao_guessing_initalization, achieve_error_cycle_list_minao = \
+        test_over_dataset_DFT(
+            test_data_loader, model,
+            guessing_method_name='minao', error_level_list=error_level_list)
+
+    num_cycles_1e_guessing_initalization, achieve_error_cycle_list_1e = \
+        test_over_dataset_DFT(
+            test_data_loader, model,
+            guessing_method_name='1e', error_level_list=error_level_list)
+
+    num_cycles_minao_guessing_initalization_lowest_ratio = \
+        get_lowest_achievable_ratio(num_cycles_minao_guessing_initalization)
+    num_cycles_1e_guessing_initalization_lowest_ratio = \
+        get_lowest_achievable_ratio(num_cycles_1e_guessing_initalization)
+
+    optimization_ratio_minao = get_optimization_ratio(
+        num_cycles_model_pred, num_cycles_minao_guessing_initalization)
+    optimization_ratio_1e = get_optimization_ratio(
+        num_cycles_model_pred, num_cycles_1e_guessing_initalization)
+
+    error_level_optimization_ratio_minao = get_optimization_ratio(
+        achieve_error_cycle_list_minao, num_cycles_minao_guessing_initalization)
+    error_level_optimization_ratio_1e = get_optimization_ratio(
+        achieve_error_cycle_list_1e, num_cycles_1e_guessing_initalization)
+
+    logger.info(
+        f"num_cycles_minao_guessing_initalization_lowest_ratio is {num_cycles_minao_guessing_initalization_lowest_ratio}.")
+    logger.info(
+        f"num_cycles_1e_guessing_initalization_lowest_ratio is {num_cycles_1e_guessing_initalization_lowest_ratio}.")
+    logger.info(f"optimization_ratio_minao is {optimization_ratio_minao}.")
+    logger.info(f"optimization_ratio_1e is {optimization_ratio_1e}.")
+    logger.info(f"error_level_optimization_ratio_minao is {error_level_optimization_ratio_minao}.")
+    logger.info(f"error_level_optimization_ratio_1e is {error_level_optimization_ratio_1e}.")
+    logger.info(f"================================")
+    logger.info(
+        f"num_cycles_minao_guessing_initalization_lowest_ratio: mean is {np.mean(num_cycles_minao_guessing_initalization_lowest_ratio)}, std is {np.std(num_cycles_minao_guessing_initalization_lowest_ratio)}.")
+    logger.info(
+        f"num_cycles_1e_guessing_initalization_lowest_ratio: mean is {np.mean(num_cycles_1e_guessing_initalization_lowest_ratio)}, std is {np.std(num_cycles_1e_guessing_initalization_lowest_ratio)}.")
+    logger.info(
+        f"optimization_ratio_minao: mean is {np.mean(optimization_ratio_minao)}, std is {np.std(optimization_ratio_minao)}.")
+    logger.info(
+        f"optimization_ratio_1e: mean is {np.mean(optimization_ratio_1e)}, std is {np.std(optimization_ratio_1e)}.")
+    logger.info(
+        f"error_level_optimization_ratio_minao: mean is {np.mean(error_level_optimization_ratio_minao)}, std is {np.std(error_level_optimization_ratio_minao)}.")
+    logger.info(
+        f"error_level_optimization_ratio_1e: mean is {np.mean(error_level_optimization_ratio_1e)}, std is {np.std(error_level_optimization_ratio_1e)}.")
 
 
 def post_processing(batch, default_type):

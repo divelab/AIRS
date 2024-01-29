@@ -611,7 +611,9 @@ class QHNet(nn.Module):
         data.node_attr, data.edge_index, data.edge_attr, data.edge_sh = \
             node_attr, edge_index, rbf_new, edge_sh
 
-        _, full_edge_index, full_edge_attr, full_edge_sh, transpose_edge_index = self.build_graph(data, 10000)
+        _, full_edge_index, full_edge_attr, full_edge_sh, transpose_edge_index = \
+            self.build_graph(data, max_radius=10000)
+
         data.full_edge_index, data.full_edge_attr, data.full_edge_sh = \
             full_edge_index, full_edge_attr, full_edge_sh
 
@@ -652,11 +654,12 @@ class QHNet(nn.Module):
 
         return results
 
-    def build_graph(self, data, max_radius):
+    def build_graph(self, data, max_radius, edge_index=None):
         node_attr = data.atoms.squeeze()
-        
-        
-        radius_edges = radius_graph(data.pos, max_radius, data.batch, max_num_neighbors=data.num_nodes)
+        if edge_index is None:
+            radius_edges = radius_graph(data.pos, max_radius, data.batch, max_num_neighbors=data.num_nodes)
+        else:
+            radius_edges = data.full_edge_index
 
         dst, src = radius_edges
         edge_vec = data.pos[dst.long()] - data.pos[src.long()]
