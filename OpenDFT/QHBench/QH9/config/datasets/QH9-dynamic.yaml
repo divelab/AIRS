@@ -13,7 +13,11 @@ pin_memory: True
 num_workers: 8
 
 warmup_steps: 1000
+<<<<<<< HEAD
 total_steps: 260000
+=======
+total_steps: 300000
+>>>>>>> 033c4bc760359e5872d6df4f68c905407922c07b
 lr_end: 1e-7
 
 train_batch_interval: 100

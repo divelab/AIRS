@@ -1,7 +1,7 @@
 defaults:
   - model: QHNet
   - dataset: malondialdehyde
-device: 4
+device: 6
 ckpt_dir: 'checkpoints'
 split_seed: 42
 optimizer: adam

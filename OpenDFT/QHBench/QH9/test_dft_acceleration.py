@@ -19,6 +19,7 @@ logger = logging.getLogger()
 NUM_EXAMPLES = 50
 
 
+
 def cal_orbital_and_energies(overlap_matrix, full_hamiltonian):
     eigvals, eigvecs = torch.linalg.eigh(overlap_matrix)
     eps = 1e-8 * torch.ones_like(eigvals)
@@ -174,7 +175,6 @@ def test_over_dataset_model_pred(test_data_loader, model, device, default_type):
         build_matrix_w_dm, _ = build_matrix(mol, dm0)
         num_cycles_model_pred.append(build_matrix_w_dm)
         error_level_list.append(error_level)
-
     return num_cycles_model_pred, error_level_list
 
 
@@ -229,6 +229,7 @@ def get_optimization_ratio(num_cycles_model_pred, num_cycles_minao_guessing_init
     return DFT_optimization_ratio
 
 
+
 def get_stable_dataset_split(root_path):
     processed_random = \
         os.path.join(root_path, 'datasets', 'QH9Stable', 'processed', 'processed_QH9Stable_random.pt')
@@ -267,7 +268,8 @@ def main(conf):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(0)
 
-    root_path = os.path.join(os.sep.join(os.getcwd().split(os.sep)[:-3]))
+    # root_path = os.path.join(os.sep.join(os.getcwd().split(os.sep)[:-3]))
+    root_path = '/data/meng/AIRS/OpenDFT/QHBench/QH9'
     if torch.cuda.is_available():
         device = torch.device(f"cuda:{conf.device}")
     else:
@@ -334,15 +336,18 @@ def main(conf):
     optimization_ratio_1e = get_optimization_ratio(
         num_cycles_model_pred, num_cycles_1e_guessing_initalization)
 
+
     error_level_optimization_ratio_minao = get_optimization_ratio(
         achieve_error_cycle_list_minao, num_cycles_minao_guessing_initalization)
     error_level_optimization_ratio_1e = get_optimization_ratio(
         achieve_error_cycle_list_1e, num_cycles_1e_guessing_initalization)
 
+
     logger.info(
         f"num_cycles_minao_guessing_initalization_lowest_ratio is {num_cycles_minao_guessing_initalization_lowest_ratio}.")
     logger.info(
         f"num_cycles_1e_guessing_initalization_lowest_ratio is {num_cycles_1e_guessing_initalization_lowest_ratio}.")
+
     logger.info(f"optimization_ratio_minao is {optimization_ratio_minao}.")
     logger.info(f"optimization_ratio_1e is {optimization_ratio_1e}.")
     logger.info(f"error_level_optimization_ratio_minao is {error_level_optimization_ratio_minao}.")

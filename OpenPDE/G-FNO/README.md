@@ -1,5 +1,11 @@
 # Group Equivariant Fourier Neural Operators for Partial Differential Equations
 
+## Note on Hyperparameters
+
+To choose the number of modes and channels relative to FNO, the extra parameters in *G*-FNO kernels added by the stabilizer dimension should be offset by reducing the number of channels (**as opposed to the number of modes**) as discussed in [Appendix A.2](https://icml.cc/virtual/2023/poster/23875) and Section 8.2 of [Cohen and Welling (2016)](https://arxiv.org/abs/1602.07576).
+
+## Introduction
+
 This is the official implementation of *G*-FNO:
 
 Jacob Helwig*, Xuan Zhang*, Cong Fu, Jerry Kurtin, Stephan Wojtowytsch and Shuiwang Ji. "[Group Equivariant Fourier Neural Operators for Partial Differential Equations](https://icml.cc/virtual/2023/poster/23875)". [ICML 2023 Poster]
@@ -32,9 +38,9 @@ forcing term (NS-Sym). To generate this data (`ns_V0.001_N1200_T30_cos4.mat` for
 python ns_2d_rt.py --nu=1e-4 --T=30 --N=1200 --save_path=./data --ntest=100 --period=4
 ```
 
-* Instructions for generating the shallow water equations data from PDEArena (SWE-Arena) are available via the [PDEArena data generation instructions](https://microsoft.github.io/pdearena/data/).
+* Instructions for generating the shallow water equations data from PDEArena (SWE) are available via the [PDEArena data generation instructions](https://microsoft.github.io/pdearena/data/).
 
-* The shallow water equations data from PDEBench (SWE-Bench) is available via the [PDEBench GitHub](https://github.com/pdebench/PDEBench).
+* The shallow water equations data from PDEBench (SWE) is available via the [PDEBench GitHub](https://github.com/pdebench/PDEBench).
 
 ## Run
 
@@ -63,7 +69,7 @@ python experiments.py --seed=1 --data_path=./data/ns_V0.0001_N1200_T30_cos4.mat 
     --super_path=./data/ns_V0.0001_N1200_T30_cos4_super.mat
 ```
 
-SWE-Arena:
+SWE:
 
 ```python
 python experiments.py --seed=1 --data_path=./data/ShallowWater2D \ 
@@ -73,7 +79,7 @@ python experiments.py --seed=1 --data_path=./data/ShallowWater2D \
     --learning_rate=1e-3 --early_stopping=100 --verbose --time_pad
 ```
 
-SWE-Bench:
+SWE-Sym:
 
 ```python
 python experiments.py --seed=1 --data_path=./data/2D_rdb_NA_NA.h5 \
@@ -83,7 +89,7 @@ python experiments.py --seed=1 --data_path=./data/2D_rdb_NA_NA.h5 \
     --learning_rate=1e-3 --early_stopping=100 --verbose --super
 ```
 
-## Reference
+## Citation
 ```latex
 @inproceedings{helwig2023group,
 author = {Jacob Helwig and Xuan Zhang and Cong Fu and Jerry Kurtin and Stephan Wojtowytsch and Shuiwang Ji},
@@ -92,3 +98,6 @@ booktitle = {Proceedings of the 40th International Conference on Machine Learnin
 year = {2023},
 }
 ```
+
+## Acknowledgments
+This work was supported in part by National Science Foundation grant IIS-2006861, and by state allocated funds for the Water Exceptional Item through Texas A&M AgriLife Research facilitated by the Texas Water Resources Institute.

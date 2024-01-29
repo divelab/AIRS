@@ -26,6 +26,7 @@ class PotNetConfig(BaseSettings):
     rbf_min = -4.0
     rbf_max = 4.0
     potentials = []
+    euclidean = False
     charge_map = False
     transformer = False
 
@@ -76,8 +77,6 @@ class PotNet(nn.Module):
                 config.atom_input_features + 10, config.fc_features
             )
 
-        # self.infinite = True
-
         self.edge_embedding = nn.Sequential(
             RBFExpansion(
                 vmin=config.rbf_min,
@@ -88,16 +87,17 @@ class PotNet(nn.Module):
             nn.SiLU(),
         )
 
-        self.inf_edge_embedding = RBFExpansion(
-            vmin=config.rbf_min,
-            vmax=config.rbf_max,
-            bins=config.inf_edge_features,
-            type='multiquadric'
-        )
+        if not self.config.euclidean:
+            self.inf_edge_embedding = RBFExpansion(
+                vmin=config.rbf_min,
+                vmax=config.rbf_max,
+                bins=config.inf_edge_features,
+                type='multiquadric'
+            )
 
-        self.infinite_linear = nn.Linear(config.inf_edge_features, config.fc_features)
+            self.infinite_linear = nn.Linear(config.inf_edge_features, config.fc_features)
 
-        self.infinite_bn = nn.BatchNorm1d(config.fc_features)
+            self.infinite_bn = nn.BatchNorm1d(config.fc_features)
 
         self.conv_layers = nn.ModuleList(
             [
@@ -105,7 +105,8 @@ class PotNet(nn.Module):
                 for _ in range(config.conv_layers)
             ]
         )
-        if config.transformer:
+
+        if not config.euclidean and config.transformer:
             self.transformer_conv_layers = nn.ModuleList(
                 [
                     TransformerConv(config.fc_features, config.fc_features)
@@ -123,12 +124,16 @@ class PotNet(nn.Module):
         """CGCNN function mapping graph to outputs."""
         # fixed edge features: RBF-expanded bondlengths
         edge_index = data.edge_index
-        edge_features = self.edge_embedding(-0.75 / data.edge_attr)
-
-        inf_edge_index = data.inf_edge_index
-        inf_feat = sum([data.inf_edge_attr[:, i] * pot for i, pot in enumerate(self.config.potentials)])
-        inf_edge_features = self.inf_edge_embedding(inf_feat)
-        inf_edge_features = self.infinite_bn(F.softplus(self.infinite_linear(inf_edge_features)))
+        if self.config.euclidean:
+            edge_features = self.edge_embedding(data.edge_attr)
+        else:
+            edge_features = self.edge_embedding(-0.75 / data.edge_attr)
+        
+        if not self.config.euclidean:
+            inf_edge_index = data.inf_edge_index
+            inf_feat = sum([data.inf_edge_attr[:, i] * pot for i, pot in enumerate(self.config.potentials)])
+            inf_edge_features = self.inf_edge_embedding(inf_feat)
+            inf_edge_features = self.infinite_bn(F.softplus(self.infinite_linear(inf_edge_features)))
 
         # initial node features: atom feature network...
         if self.config.charge_map:
@@ -136,12 +141,12 @@ class PotNet(nn.Module):
         else:
             node_features = self.atom_embedding(data.x)
 
-        if not self.config.transformer:
+        if not self.config.euclidean and not self.config.transformer:
             edge_index = torch.cat([data.edge_index, inf_edge_index], 1)
             edge_features = torch.cat([edge_features, inf_edge_features], 0)
 
         for i in range(self.config.conv_layers):
-            if self.config.transformer:
+            if not self.config.euclidean and self.config.transformer:
                 local_node_features = self.conv_layers[i](node_features, edge_index, edge_features)
                 inf_node_features = self.transformer_conv_layers[i](node_features, inf_edge_index, inf_edge_features)
                 node_features = local_node_features + inf_node_features

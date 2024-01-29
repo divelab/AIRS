@@ -243,6 +243,7 @@ def train_pyg(
     _model = {
         "potnet": PotNet,
     }
+    config.model.euclidean = config.euclidean
     net = _model.get(config.model.name)(config.model)
     if checkpoint is not None:
         net.load_state_dict(torch.load(checkpoint)["model"])

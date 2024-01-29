@@ -63,7 +63,9 @@ Please cite our paper if you find the code helpful or if you want to use the ben
 
 ## Acknowledgement
 
-This repo is built upon the previous work ALIGNN's [[codebase]](https://github.com/usnistgov/alignn). Thank you very much for the excellent codebase.
+This repo is built upon the previous work ALIGNN's [[codebase]](https://github.com/usnistgov/alignn). Thank you very much for the excellent codebase. 
+
+This work was supported in part by National Science Foundation grant IIS-2006861.
 
 ## Contact
 

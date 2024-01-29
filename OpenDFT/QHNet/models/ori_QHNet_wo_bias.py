@@ -705,12 +705,6 @@ class QHNet(nn.Module):
                  num_nodes=10,
                  radius_embed_dim=32):  # maximum nuclear charge (+1, i.e. 87 for up to Rn) for embeddings, can be kept at default
         super(QHNet, self).__init__()
-        # store hyperparameter values
-        self.atom_orbs = [
-            [[8, 0, '1s'], [8, 0, '2s'], [8, 0, '3s'], [8, 1, '2p'], [8, 1, '3p'], [8, 2, '3d']],
-            [[1, 0, '1s'], [1, 0, '2s'], [1, 1, '2p']],
-            [[1, 0, '1s'], [1, 0, '2s'], [1, 1, '2p']]
-        ]
         self.order = sh_lmax
 
         self.sh_irrep = o3.Irreps.spherical_harmonics(lmax=self.order)
@@ -735,7 +729,6 @@ class QHNet(nn.Module):
         self.e3_gnn_layer = nn.ModuleList()
         self.e3_gnn_node_pair_layer = nn.ModuleList()
         self.e3_gnn_node_layer = nn.ModuleList()
-        self.udpate_layer = nn.ModuleList()
         for i in range(self.num_gnn_layers):
             input_irrep = self.input_irrep if i == 0 else self.hidden_irrep
             self.e3_gnn_layer.append(ConvNetLayer(

@@ -422,7 +422,7 @@ class BondAdder():
         
     def make_mol(self, atomic_numbers, positions):
         '''
-        Creat molecules with added bonds
+        Create molecules with added bonds
         atomic_numbers: [N]
         positions: [N, 3]
         '''

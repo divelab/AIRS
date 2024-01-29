@@ -162,16 +162,16 @@ def main(conf):
 
 
 def post_processing(batch, default_type):
-    if 'overlap' in batch.keys:
+    if 'overlap' in batch.keys():
         batch.overlap = batch.overlap.view(
             batch.overlap.shape[0] // batch.overlap.shape[1],
             batch.overlap.shape[1], batch.overlap.shape[1])
-    if 'hamiltonian' in batch.keys:
+    if 'hamiltonian' in batch.keys():
         batch.hamiltonian = batch.hamiltonian.view(
             batch.hamiltonian.shape[0] // batch.hamiltonian.shape[1],
             batch.hamiltonian.shape[1], batch.hamiltonian.shape[1])
 
-    for key in batch.keys:
+    for key in batch.keys():
         if torch.is_floating_point(batch[key]):
             batch[key] = batch[key].type(default_type)
     return batch

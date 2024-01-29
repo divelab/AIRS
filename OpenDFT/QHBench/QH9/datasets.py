@@ -124,6 +124,7 @@ class QH9Stable(InMemoryDataset):
         self.slices = {
             'id': torch.arange(self.train_mask.shape[0] + self.val_mask.shape[0] + self.test_mask.shape[0] + 1)}
 
+
     @property
     def raw_file_names(self):
         return [f'QH9Stable.db']
@@ -283,6 +284,7 @@ class QH9Dynamic(InMemoryDataset):
         self.slices = {
             'id': torch.arange(self.train_mask.shape[0] + self.val_mask.shape[0] + self.test_mask.shape[0] + 1)}
 
+
     @property
     def raw_file_names(self):
         return [f'QH9Dynamic.db']
@@ -368,8 +370,8 @@ class QH9Dynamic(InMemoryDataset):
             train_mask = np.where(np.isin(mol_id_array, train_mol_ids))[0].astype(np.int64)
             val_mask = np.where(np.isin(mol_id_array, val_mol_ids))[0].astype(np.int64)
             test_mask = np.where(np.isin(mol_id_array, test_mol_ids))[0].astype(np.int64)
-
         print('Saving...')
+
         torch.save((train_mask, val_mask, test_mask), self.processed_paths[0])
 
     def cut_matrix(self, matrix, atoms):
