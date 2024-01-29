@@ -20,11 +20,15 @@ To comprehensively evaluate the quantum Hamiltonian prediction performance, we d
 * **QH9-dynamic-mol** 
 
 | Task | # Total geometries | # Total molecules | # Training/validation/testing geometries|
-| -------- | -------- | -------- | -------- |
-|**QH9-stable-id** | 130, 831 | 130, 831 | 104, 664/13, 083/13, 084|
-|**QH9-stable-ood** | 130, 831 | 130, 831 | 104, 001/17, 495/9, 335|
-|**QH9-dynamic-geo** | 143, 940 | 2, 399 | 119, 950/11, 995/11, 995|
-|**QH9-dynamic-mol** | 143, 940 | 2, 399 | 115, 140/14, 340/14, 460|
+| -------- | -------- |-------------------| -------- |
+|**QH9-stable-id** | 130, 831 | 130, 831          | 104, 664/13, 083/13, 084|
+|**QH9-stable-ood** | 130, 831 | 130, 831          | 104, 001/17, 495/9, 335|
+|**QH9-dynamic-geo** | 99, 900 | 999               | 79, 920/9, 990/9, 990|
+|**QH9-dynamic-mol** | 99, 900 | 999          | 79, 900/9, 900/10, 100|
+
+**Note that we have updated the dynamic datasets which is shown in new arxiv version. 
+As a future plan, we plan to update the dynamic dataset with more MD data, 
+we will keep updating and release new dynamic data as different versions.**
 
 ## Requirement
 
@@ -32,7 +36,8 @@ We include key dependencies below. The versions we used are in parentheses.
 * PyTorch (1.11.0)
 * PyG (2.0.4)
 * e3nn (0.5.1)
-* pyscf (2.2.1)
+* pyscf (2.2.1) (Stable)
+* pyscf (2.3.0) (Dynamic)
 * hydra-core (1.1.2)
 
 Meanwhile, we provide the installation file, and you can build the environment by `sh install.sh`.
