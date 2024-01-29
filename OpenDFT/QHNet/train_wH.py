@@ -9,7 +9,7 @@ from models import get_model
 from torchvision.transforms import Compose
 from torch_geometric.loader import DataLoader
 
-from ori_dataset import MD17_DFT, random_split, recorder_pos, get_mask
+from ori_dataset import MD17_DFT, random_split, get_mask
 from torch_ema import ExponentialMovingAverage
 from transformers import get_polynomial_decay_schedule_with_warmup, get_cosine_schedule_with_warmup
 logger = logging.getLogger()
@@ -95,9 +95,8 @@ def main(conf):
     dataset = MD17_DFT(
         os.path.join('/data/haiyang/QC_matrix/equiwave', 'dataset'),
         name=conf.dataset.dataset_name,
-        transform=Compose([
-            recorder_pos,
-            get_mask]))
+        transform=get_mask
+    )
 
     train_dataset, valid_dataset, test_dataset = \
         random_split(dataset,

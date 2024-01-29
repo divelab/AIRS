@@ -1,2 +1,4 @@
-
 .DS_Store
+OpenDFT/QHBench/QH9/test_codes/*
+**/*.pt
+**/.idea
