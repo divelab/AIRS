@@ -85,6 +85,7 @@ python main.py datasets=QH9-dynamic datasets.split=mol # QH9-dynamic-mol
 * Evaluate the trained model (in terms of MAE on Hamiltonian matrix, MAE on occupied orbital energies, and  cosine similarity of orbital coefficients)
 ```shell script
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
+# Pyscf version 2.2.1 for QH9-Stable; Pyscf version 2.3.0 for QH9-Dynamic
 python test.py
 ```
 
