@@ -16,11 +16,6 @@ logger = logging.getLogger()
 def criterion(outputs, target, loss_weights):
     error_dict = {}
     keys = loss_weights.keys()
-<<<<<<< HEAD
-=======
-    row = target.edge_index[0]
-    edge_batch = target.batch[row]
->>>>>>> 033c4bc760359e5872d6df4f68c905407922c07b
     try:
         for key in keys:
             row = target.edge_index[0]
