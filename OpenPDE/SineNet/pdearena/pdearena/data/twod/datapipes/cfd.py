@@ -39,20 +39,6 @@ class CFDDatasetOpener(torch.utils.data.Dataset):
             else:
                 self.num = self.limit_trajectories
 
-            rm = []
-            fields = ['D', 'P', 'Vx', 'Vy']
-            for seed in self.seeds:
-                for field in fields:
-                    x = data[seed][field][:]
-                    if torch.tensor(x == 0).flatten(0,1).flatten(1).all(dim=1).any():
-                        rm.append(seed)
-                        print(f"All 0 found for {mode}: {field, seed} ({torch.tensor(x[:, 1] == 0).flatten(1).all(dim=1).sum()} cases)")
-
-            rm = set(rm)
-            print(f"Removing {len(rm)} of {len(self.seeds)} seeds for {mode}")
-            self.seeds = list(set(self.seeds) - set(rm))
-            print(f"seeds left: {len(self.seeds)}")
-
     def __len__(self):
         return len(self.seeds) * self.num
 

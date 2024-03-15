@@ -97,55 +97,46 @@ class PDEModel(LightningModule):
         self.normalizer = normalizer(hparams=self.hparams, pde=self.pde)
 
     def setup(self, stage):
-        setup_ckpt = os.path.join(self.trainer.checkpoint_callback.dirpath, "setup.ckpt") 
-        # if self.hparams.normalize:
-        #     assert self.normalizer.mean.isnan().all()
+        datamodule = self.trainer.datamodule
+        if self.hparams.normalize:
+            task = datamodule.hparams.task
+            if task == 'CFD':
+                mu = torch.tensor([[[[[5.041397571563721]], [[25.086105346679688]], [[-3.756210207939148e-05]], [[1.1378322597010992e-05]]]]])
+                sigma = torch.tensor([[[[[2.9829258918762207]], [[21.71123504638672]], [[0.16352088749408722]], [[0.16349086165428162]]]]])
+            elif task == 'NavierStokes2D':
+                mu = torch.tensor([[[[[0.7171192169189453]], [[-5.4855921888252723e-11]], [[-3.2108783187823065e-08]]]]])
+                sigma = torch.tensor([[[[[0.4428091049194336]], [[0.4393102824687958]], [[0.508793294429779]]]]])
+            elif task == 'ShallowWater2DVel-2Day':
+                mu = torch.tensor([[[[[0.0009767287410795689]], [[-0.4592400789260864]], [[-0.0141550088301301]]]]])
+                sigma = torch.tensor([[[[[1.0120806694030762]], [[3.4489285945892334]], [[3.4050679206848145]]]]])
+            else:
+                raise ValueError(f'Normalization not implemented for {task}')
+            
+            self.normalizer.register_buffer("mean", mu)
+            self.normalizer.register_buffer("sd", sigma)
+            self.normalizer.normalize = True
 
-        # if "ffno" in self.hparams.name.lower():
-        #     if self.model.should_normalize:
-        #         assert (self.model.normalizer.sum == 0).all()
-        #         assert (self.model.normalizer.sum_squared == 0).all()
-        #         assert self.model.normalizer.n_accumulations == 0
-
-        if self.global_rank == 0:
+        if self.global_rank == 0 and "ffno" in self.hparams.name.lower() and self.model.should_normalize:
+            setup_ckpt = os.path.join(self.trainer.checkpoint_callback.dirpath, "setup.ckpt") 
             par_dict = {}
-            datamodule = self.trainer.datamodule
-            if self.hparams.normalize:
-                self.normalizer.accumulate(datamodule.train_dp.dp)
-                par_dict["normalizer"] = self.normalizer
-            if "ffno" in self.hparams.name.lower():
-                if self.model.should_normalize:
-                    for n, (x, y) in enumerate(tqdm(datamodule.train_dataloader())):
-                        self.model._build_features(self.normalizer(x))
-                        # break
-                    self.model.normalizer.max_accumulations = torch.tensor(n)
-                    par_dict['ffno_normalizer'] = self.model.normalizer
+            for n, (x, y) in enumerate(tqdm(datamodule.train_dataloader())):
+                self.model._build_features(self.normalizer(x))
+                # break
+            self.model.normalizer.max_accumulations = torch.tensor(n)
+            par_dict['ffno_normalizer'] = self.model.normalizer
             os.makedirs(os.path.dirname(setup_ckpt), exist_ok=True)
             torch.save(par_dict, setup_ckpt)
         
         dist.barrier()
-        par_dict = torch.load(setup_ckpt)
         
-        if self.hparams.normalize:
-            self.normalizer = par_dict['normalizer']
-            assert self.normalizer.normalize
-            print(f"Rank {self.global_rank}: mean - {self.normalizer.mean}, sd - {self.normalizer.sd}") # , noise scale - {self.normalizer.noise_scale}")
-            assert not self.normalizer.mean.isnan().any()
-            assert not self.normalizer.sd.isnan().any()
-            # assert not self.normalizer.noise_scale.isnan().any()
-        else:
-            assert self.normalizer.mean.isnan().all()
-            assert self.normalizer.sd.isnan().all()
-            # assert self.normalizer.noise_scale.isnan().all()
+        if "ffno" in self.hparams.name.lower() and self.model.should_normalize:
+            par_dict = torch.load(setup_ckpt)
+            self.model.normalizer = par_dict['ffno_normalizer']
 
-        if "ffno" in self.hparams.name.lower():
-            if self.model.should_normalize:
-                self.model.normalizer = par_dict['ffno_normalizer']
-
-                print(f"Rank {self.global_rank} FFNO: sum - {self.model.normalizer.sum}, sum squared - {self.model.normalizer.sum_squared}, max accumulations - {self.model.normalizer.max_accumulations}, n accumulations - {self.model.normalizer.n_accumulations}")
-                assert not (self.model.normalizer.sum == 0).all()
-                assert not (self.model.normalizer.sum_squared == 1).all()
-
+            print(f"Rank {self.global_rank} FFNO: sum - {self.model.normalizer.sum}, sum squared - {self.model.normalizer.sum_squared}, max accumulations - {self.model.normalizer.max_accumulations}, n accumulations - {self.model.normalizer.n_accumulations}")
+            assert not (self.model.normalizer.sum == 0).all()
+            assert not (self.model.normalizer.sum_squared == 1).all()
+            
     def on_train_start(self):
         par_ct = sum(par.numel() for par in self.model.parameters())
         self.log("model/parameters", par_ct, sync_dist=True)
