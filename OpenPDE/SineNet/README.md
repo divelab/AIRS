@@ -10,6 +10,8 @@ Incompressible Navier-Stokes        |  Compressible Navier-Stokes |  Shallow Wat
 
 ## Model
 
+We employ a multi-stage UNet model. Checkout our paper for details.
+
 <p align="center">
 <img src="https://github.com/divelab/AIRS/blob/main/OpenPDE/SineNet/assets/SineNet_arch.jpg" width="800" class="center" alt=""/>
     <br/>
