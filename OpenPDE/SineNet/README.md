@@ -3,7 +3,7 @@
 Code for our [ICLR 2024 paper](https://openreview.net/pdf?id=LSYhE2hLWG) on deep-learning-based fluid dynamics simulation. Our code is based on the [PDEArena](https://github.com/microsoft/pdearena) library [1].
 
 <!-- ![Alt Text](./assets/171.gif) -->
-Incompressible Navier-Stokes        |  Compressible Navier-Stokes |  Shallow Water Equation
+Incompressible Navier-Stokes        |  Compressible Navier-Stokes |  Shallow Water Equations
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/divelab/AIRS/blob/main/OpenPDE/SineNet/assets/NavierStokes2D_1218.gif)  |  ![](https://github.com/divelab/AIRS/blob/main/OpenPDE/SineNet/assets/CFD_1198.gif) | ![](https://github.com/divelab/AIRS/blob/main/OpenPDE/SineNet/assets/ShallowWater2DVel-2Day_193.gif)
 
