@@ -16,7 +16,7 @@ The **CNS** data were generated using PDEBench [2] [here](https://github.com/pde
 ```shell
 bash data_gen.sh --mode train --nsamples 5600 --batch_size 50 --run && bash data_gen.sh --mode valid --nsamples 1400 --batch_size 50 --run && bash data_gen.sh --mode test --nsamples 1400 --batch_size 50 --run
 ```
-Note that the solver rarely but consistently exhibits instability resulting in trajectories of all 0, which is why the `CNS` dataset class checks the data for all 0 solutions and removes them, resulting in the 5400/1300/1300 split we presented in the paper.
+Note that the solver rarely but consistently exhibits instability resulting in trajectories of all 0, which is why the split we presented in the paper is 5400/1300/1300.
 
 ## Setup
 ```shell
