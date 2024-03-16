@@ -8,6 +8,7 @@ from functools import partial
 from .activations import ACTIVATION_REGISTRY
 import numpy as np
 
+# Run SineNet inference at 4x higher resolution.
 
 class ConvBlock(nn.Module):
     def __init__(self, in_channels, out_channels, padding_mode, num_groups=1, norm: bool = True, activation="gelu") -> None:
