@@ -10,7 +10,7 @@ Incompressible Navier-Stokes        |  Compressible Navier-Stokes |  Shallow Wat
 
 ## Model
 
-We employ a multi-stage UNet model. Checkout our paper for details.
+We employ a multi-stage UNet model. Check out our paper for details.
 
 <p align="center">
 <img src="https://github.com/divelab/AIRS/blob/main/OpenPDE/SineNet/assets/SineNet_arch.jpg" width="800" class="center" alt=""/>
@@ -19,14 +19,14 @@ We employ a multi-stage UNet model. Checkout our paper for details.
 
 ## Data
 
-For **INS** and **SWE**, please download from PDEArena [here](https://microsoft.github.io/pdearena/datadownload/). The **SWE** data are converted from `.nc` to `.h5` using the `h5_conv.py` script.
+For **INS** and **SWE**, please download from PDEArena [here](https://huggingface.co/pdearena). The **SWE** data are converted from `.nc` to `.h5` using the `h5_conv.py` script.
 
 The **CNS** data were generated using PDEBench [2] [here](https://github.com/pdebench/PDEBench/tree/main/pdebench/data_download). This data can be generated using their code with the modified files and data generation script `PDEBench_gen.sh` in the `PDEbench` folder of this repo as:
 
 ```shell
 bash data_gen.sh --mode train --nsamples 5600 --batch_size 50 --run && bash data_gen.sh --mode valid --nsamples 1400 --batch_size 50 --run && bash data_gen.sh --mode test --nsamples 1400 --batch_size 50 --run
 ```
-Note that the solver rarely but consistently exhibits instability resulting in trajectories of all 0, which is why the split we presented in the paper is 5400/1300/1300.
+Note that the solver rarely but consistently exhibits instability resulting in trajectories of all 0 which are removed following data generation, which is why the split we presented in the paper is 5400/1300/1300.
 
 ## Setup
 ```shell
