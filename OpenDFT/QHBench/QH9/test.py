@@ -268,7 +268,7 @@ def main(conf):
 
 
 def post_processing(batch, default_type):
-    for key in batch.keys:
+    for key in batch.keys():
         if torch.is_floating_point(batch[key]):
             batch[key] = batch[key].type(default_type)
     return batch

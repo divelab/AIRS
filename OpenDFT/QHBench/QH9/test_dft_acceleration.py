@@ -239,8 +239,8 @@ def get_stable_dataset_split(root_path):
         os.path.join(root_path, 'datasets', 'QH9Stable', 'processed', 'processed_QH9Stable_random.pt')
     processed_ood = \
         os.path.join(root_path, 'datasets', 'QH9Stable', 'processed', 'processed_QH9Stable_size_ood.pt')
-    split_idx_iid_test_mask = torch.load(processed_random)[4]
-    split_idx_ood_test_mask = torch.load(processed_ood)[4]
+    split_idx_iid_test_mask = torch.load(processed_random)[2]
+    split_idx_ood_test_mask = torch.load(processed_ood)[2]
     # test_data_mask = np.logical_and(split_idx_iid_test_mask, split_idx_ood_test_mask)
     # test_data_indices = np.where(test_data_mask)[0]
     test_data_indices = np.intersect1d(split_idx_iid_test_mask, split_idx_ood_test_mask)

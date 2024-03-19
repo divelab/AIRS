@@ -1,0 +1,157 @@
+seed_everything: 42
+trainer:
+  default_root_dir: ${oc.env:AMLT_OUTPUT_DIR,outputs}
+  logger:
+    class_path: pytorch_lightning.loggers.tensorboard.TensorBoardLogger
+    init_args:
+      save_dir: ${trainer.default_root_dir}/tb
+      name: null
+      version: null
+      log_graph: False
+      default_hp_metric: True
+      prefix: ""
+  enable_checkpointing: true
+  callbacks:
+    - class_path: pytorch_lightning.callbacks.Timer
+      init_args:
+        interval: "epoch"
+    - class_path: pytorch_lightning.callbacks.RichModelSummary
+      init_args:
+        max_depth: -1
+    - class_path: pytorch_lightning.callbacks.LearningRateMonitor
+      init_args:
+        logging_interval: "step"
+    - class_path: pytorch_lightning.callbacks.TQDMProgressBar
+      init_args:
+        refresh_rate: 1
+    # - class_path: cliffno.callbacks.Plot2DTrajPredsCallback
+    #   init_args:
+    #     trajidx: 0
+    #     save_dir: ${trainer.default_root_dir}/imgs
+    # - class_path: cliffno.callbacks.OneStep2DPredsCallback
+    #   init_args:
+    #     save_dir: ${trainer.default_root_dir}/imgs/onestep
+    - class_path: pytorch_lightning.callbacks.ModelCheckpoint
+      init_args:
+        monitor: "valid/unrolled_loss_mean" # name of the logged metric which determines when model is improving
+        mode: "min" # "max" means higher metric value is better, can be also "min"
+        save_top_k: 5 # save k best models (determined by above metric)
+        save_last: true # additionally always save model from last epoch
+        verbose: false
+        dirpath: ${trainer.default_root_dir}/ckpts
+        filename: "epoch_{epoch:03d}"
+        auto_insert_metric_name: False
+
+  gradient_clip_val: null
+  gradient_clip_algorithm: null
+  num_nodes: 1
+  enable_progress_bar: true
+  overfit_batches: 0.0
+  check_val_every_n_epoch: 1
+  fast_dev_run: false
+  accumulate_grad_batches: null
+  max_epochs: 50
+  min_epochs: 1
+  max_steps: -1
+  min_steps: null
+  max_time: null
+  limit_train_batches: null
+  limit_val_batches: null
+  limit_test_batches: null
+  limit_predict_batches: null
+  val_check_interval: null
+  log_every_n_steps: 50
+  accelerator: gpu
+  strategy: ddp
+  sync_batchnorm: false
+  precision: 32
+  enable_model_summary: true
+  weights_save_path: null
+  num_sanity_val_steps: 2
+  resume_from_checkpoint: null
+  profiler: null
+  benchmark: null
+  deterministic: false
+  reload_dataloaders_every_n_epochs: 0
+  auto_lr_find: false
+  replace_sampler_ddp: true
+  detect_anomaly: false
+  auto_scale_batch_size: false
+  plugins: null
+  amp_backend: native
+  amp_level: null
+  move_metrics_to_cpu: false
+  multiple_trainloader_mode: max_size_cycle
+model:
+  name: "Unetmod-64"
+  max_num_steps: 9
+  activation: "gelu"
+  criterion: scaledl2
+  lr: 1e-3
+  normalize: true
+
+
+data:
+  task: ShallowWater2DVel-2Day
+  data_dir: null
+  time_history: 2
+  time_future: 1
+  time_gap: 0
+  pde:
+    n_scalar_components: 1
+    n_vector_components: 1
+    trajlen: 11
+    n_spatial_dim: 2
+
+    # class_path: pdearena.pde.ShallowWaterWeather
+    # init_args:
+    #   tmin: 0.0
+    #   tmax: 88.0
+    #   Lx: 96.0
+    #   Ly: 192.0
+    #   nt: 88
+    #   nx: 96
+    #   ny: 192
+    #   skip_nt: 0
+    #   sample_rate: 8
+    #   n_scalar_components: 1
+    #   n_vector_components: 1
+
+  batch_size: 16
+  pin_memory: True
+  num_workers: 1
+  train_limit_trajectories: -1
+  valid_limit_trajectories: -1
+  test_limit_trajectories: -1
+
+
+optimizer:
+  class_path: torch.optim.AdamW
+  init_args:
+    lr: 1e-3
+    weight_decay: 1e-5
+# lr_scheduler:
+#   class_path: torch.optim.lr_scheduler.ExponentialLR
+#   init_args:
+#     gamma: 0.99
+#     verbose: True
+lr_scheduler:
+  class_path: pdearena.lr_scheduler.LinearWarmupCosineAnnealingLR
+  init_args:
+    warmup_epochs: 5
+    max_epochs: 50
+    warmup_start_lr: 1e-7
+    eta_min: 1e-7
+# lr_scheduler:
+#   class_path: pytorch_lightning.cli.ReduceLROnPlateau
+#   init_args:
+#     monitor: valid/unrolled_loss_mean
+#     mode: min
+#     factor: 0.1
+#     patience: 10
+#     threshold: 0.1
+#     threshold_mode: rel
+#     cooldown: 0
+#     min_lr: 1e-7
+#     eps: 1e-08
+#     verbose: True

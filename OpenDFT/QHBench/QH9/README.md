@@ -93,6 +93,9 @@ python test.py
 * Evaluate the performance of accelerating DFT calculation, it needs to run DFT for 50 molecules with high computatioinal cost.
 ```shell script
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
+
+
+# Pyscf version 2.2.1 for QH9-Stable; Pyscf version 2.3.0 for QH9-Dynamic
 python test_dft_acceleration.py
 ```
 
