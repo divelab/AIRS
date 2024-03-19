@@ -1,3 +1,6 @@
+# the test scripts currently run over the molecule one by one
+# causing the evaluation needs a long time
+
 #!/usr/bin/env python3
 import os
 import time
@@ -8,9 +11,11 @@ import logging
 import numpy as np
 from tqdm import tqdm
 from models import QHNet
+from torch_scatter import scatter_sum
 from datasets import QH9Stable, QH9Dynamic
 from argparse import Namespace
 from torch_geometric.loader import DataLoader
+from load_pretrained_models import load_pretrained_model_parameters
 logger = logging.getLogger()
 
 
@@ -34,6 +39,15 @@ convention_dict = {
             8: [0, 1, 2, 3, 4, 5], 9: [0, 1, 2, 3, 4, 5]
         },
     ),
+    'back2pyscf': Namespace(
+        atom_to_orbitals_map={1: 'ssp', 6: 'sssppd', 7: 'sssppd', 8: 'sssppd', 9: 'sssppd'},
+        orbital_idx_map={'s': [0], 'p': [2, 0, 1], 'd': [0, 1, 2, 3, 4]},
+        orbital_sign_map={'s': [1], 'p': [1, 1, 1], 'd': [1, 1, 1, 1, 1]},
+        orbital_order_map={
+        1: [0, 1, 2], 6: [0, 1, 2, 3, 4, 5], 7: [0, 1, 2, 3, 4, 5],
+        8: [0, 1, 2, 3, 4, 5], 9: [0, 1, 2, 3, 4, 5]
+        }
+    )
 }
 
 
@@ -43,6 +57,18 @@ def criterion(outputs, target, names):
         if key == 'orbital_coefficients':
             "The shape if [batch, total_orb, num_occ_orb]."
             error_dict[key] = torch.cosine_similarity(outputs[key], target[key], dim=1).abs().mean()
+        elif key in ['diagonal_hamiltonian', 'non_diagonal_hamiltonian']:
+            diff_blocks = outputs[key] - target[key]
+            mae_blocks = torch.sum(torch.abs(diff_blocks) * target[f"{key}_mask"], dim=[1, 2])
+            count_sum_blocks = torch.sum(target[f"{key}_mask"], dim=[1, 2])
+            if key == 'non_diagonal_hamiltonian':
+                row = target.edge_index_full[0]
+                batch = target.batch[row]
+            else:
+                batch = target.batch
+            mae_blocks = scatter_sum(mae_blocks, batch)
+            count_sum_blocks = scatter_sum(count_sum_blocks, batch)
+            error_dict[key + '_mae'] = (mae_blocks / count_sum_blocks).mean()
         else:
             diff = outputs[key] - target[key]
             mae  = torch.mean(torch.abs(diff))
@@ -73,6 +99,9 @@ def matrix_transform(matrices, atoms, convention='pyscf_def2svp'):
     transform_indices = np.concatenate(transform_indices).astype(np.int32)
     transform_signs = np.concatenate(transform_signs)
 
+    transform_indices = torch.from_numpy(transform_indices).to(matrices.device).type(torch.long)
+    transform_signs = torch.from_numpy(transform_signs).to(matrices.device)
+
     matrices_new = matrices[...,transform_indices, :]
     matrices_new = matrices_new[...,:, transform_indices]
     matrices_new = matrices_new * transform_signs[:, None]
@@ -98,9 +127,11 @@ def test_over_dataset(test_data_loader, model, device, default_type):
     total_error_dict = {'total_items': 0}
     loss_weights = {
         'hamiltonian': 1.0,
+        'diagonal_hamiltonian': 1.0,
+        'non_diagonal_hamiltonian': 1.0,
         'orbital_energies': 1.0,
         "orbital_coefficients": 1.0,
-        'HOMO': 1.0, 'LUMO': 1.0, 'GAP': 1.0
+        'HOMO': 1.0, 'LUMO': 1.0, 'GAP': 1.0,
     }
     total_time = 0
     total_graph = 0
@@ -111,8 +142,17 @@ def test_over_dataset(test_data_loader, model, device, default_type):
         outputs = model(batch)
         outputs['hamiltonian'] = model.build_final_matrix(
             batch, outputs['hamiltonian_diagonal_blocks'], outputs['hamiltonian_non_diagonal_blocks'])
+
         batch.hamiltonian = model.build_final_matrix(
             batch, batch[0].diagonal_hamiltonian, batch[0].non_diagonal_hamiltonian)
+
+        outputs['hamiltonian'] = outputs['hamiltonian'].type(torch.float64)
+        outputs['hamiltonian'] = matrix_transform(
+            outputs['hamiltonian'], batch.atoms.cpu().squeeze().numpy(), convention='back2pyscf')
+        batch.hamiltonian = batch.hamiltonian.type(torch.float64)
+        batch.hamiltonian = matrix_transform(
+            batch.hamiltonian, batch.atoms.cpu().squeeze().numpy(), convention='back2pyscf')
+
         duration = time.time() - tic
         total_graph = total_graph + batch.ptr.shape[0] - 1
         total_time = duration + total_time
@@ -120,10 +160,12 @@ def test_over_dataset(test_data_loader, model, device, default_type):
         t = [[batch.atoms[atom_idx].cpu().item(), batch.pos[atom_idx].cpu().numpy()]
              for atom_idx in range(batch.num_nodes)]
         mol.build(verbose=0, atom=t, basis='def2svp', unit='ang')
-        overlap = torch.from_numpy(mol.intor("int1e_ovlp")).unsqueeze(0).float()
-        overlap = matrix_transform(
-            overlap, batch.atoms.cpu().squeeze().numpy(), convention='pyscf_def2svp')
-        overlap = overlap.float().to(device)
+
+        overlap = torch.from_numpy(mol.intor("int1e_ovlp")).unsqueeze(0)
+        # overlap = matrix_transform(
+        #     overlap, batch.atoms.cpu().squeeze().numpy(), convention='pyscf_def2svp')
+        overlap = overlap.to(device)
+
         outputs['orbital_energies'], outputs['orbital_coefficients'] = \
             cal_orbital_and_energies(overlap, outputs['hamiltonian'])
         batch.orbital_energies, batch.orbital_coefficients = \
@@ -144,6 +186,10 @@ def test_over_dataset(test_data_loader, model, device, default_type):
             outputs['orbital_energies'][:, :num_orb], outputs['orbital_coefficients'][:, :, :num_orb], \
             batch.orbital_energies[:, :num_orb], batch.orbital_coefficients[:, :, :num_orb]
 
+        # batch.hamiltonian_diagonal_blocks, batch.hamiltonian_non_diagonal_blocks = \
+        #     batch.diagonal_hamiltonian, batch.non_diagonal_hamiltonian
+        outputs['diagonal_hamiltonian'], outputs['non_diagonal_hamiltonian'] = \
+            outputs['hamiltonian_diagonal_blocks'], outputs['hamiltonian_non_diagonal_blocks']
         error_dict = criterion(outputs, batch, loss_weights)
 
         for key in error_dict.keys():
@@ -181,7 +227,7 @@ def main(conf):
     if conf.datasets.dataset_name == 'QH9Stable':
         dataset = QH9Stable(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
     elif conf.datasets.dataset_name == 'QH9Dynamic':
-        dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
+        dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split, version=conf.datasets.version)
     test_dataset = dataset[dataset.test_mask]
 
     test_data_loader = DataLoader(
@@ -202,10 +248,14 @@ def main(conf):
         radius_embed_dim=16
     )
 
+    # load the pretrained model parameters automatically or load your model parameters
+    if conf.use_pretrained:
+        model = load_pretrained_model_parameters(model, conf.datasets.dataset_name, dataset, conf.pretrained_model_parameter_dir)
+    else:
+        path_to_the_saved_models = conf.trained_model
+        state_dict = torch.load(path_to_the_saved_models)['state_dict']
+        model.load_state_dict(state_dict)
 
-    path_to_the_saved_models = conf.trained_model
-    state_dict = torch.load(path_to_the_saved_models)['state_dict']
-    model.load_state_dict(state_dict)
     model.set(device)
     num_params = sum(p.numel() for p in model.parameters())
     logger.info(f"the number of parameters in this model is {num_params}.")

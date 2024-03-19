@@ -463,7 +463,7 @@ class PairNetLayer(torch.nn.Module):
         return next(self.parameters()).device
 
     def forward(self, data, node_attr, node_pair_attr=None):
-        dst, src = data.full_edge_index
+        dst, src = data.edge_index_full
         node_attr_0 = self.linear_node_pair_inner(node_attr)
         s0 = self.inner_product(node_attr_0[dst], node_attr_0[src])[:, self.irrep_in_node.slices()[0].stop:]
         s0 = torch.cat([node_attr_0[dst][:, self.irrep_in_node.slices()[0]],
@@ -802,11 +802,13 @@ class QHNet(nn.Module):
         data.node_attr, data.edge_index, data.edge_attr, data.edge_sh = \
             node_attr, edge_index, rbf_new, edge_sh
 
-        _, full_edge_index, full_edge_attr, full_edge_sh, transpose_edge_index = self.build_graph(data, 10000)
-        data.full_edge_index, data.full_edge_attr, data.full_edge_sh = \
-            full_edge_index, full_edge_attr, full_edge_sh
+        _, edge_index_full, full_edge_attr, full_edge_sh, transpose_edge_index = \
+            self.build_graph(data, edge_index=data.edge_index_full)
 
-        full_dst, full_src = data.full_edge_index
+        data.edge_index_full, data.full_edge_attr, data.full_edge_sh = \
+            edge_index_full, full_edge_attr, full_edge_sh
+
+        full_dst, full_src = data.edge_index_full
 
         tic = time.time()
         fii = None
@@ -846,9 +848,13 @@ class QHNet(nn.Module):
             results['hamiltonian_non_diagonal_blocks'] = ret_hamiltonian_non_diagonal_matrix
         return results
 
-    def build_graph(self, data, max_radius):
+    def build_graph(self, data, max_radius=None, edge_index=None):
         node_attr = data.atoms.squeeze()
-        radius_edges = radius_graph(data.pos, max_radius, data.batch)
+        assert edge_index is not None or max_radius is not None, "please input max_radius or edge_index"
+        if edge_index is not None:
+            radius_edges = edge_index
+        else:
+            radius_edges = radius_graph(data.pos, max_radius, data.batch, max_num_neighbors=data.num_nodes)
 
         dst, src = radius_edges
         edge_vec = data.pos[dst.long()] - data.pos[src.long()]
@@ -869,13 +875,11 @@ class QHNet(nn.Module):
             transpose_index = transpose_index + start_edge_index
             all_transpose_index.append(transpose_index)
             start_edge_index = start_edge_index + num_nodes*(num_nodes-1)
-
         return node_attr, radius_edges, rbf, edge_sh, torch.cat(all_transpose_index, dim=-1)
 
     def build_final_matrix(self, data, diagonal_matrix, non_diagonal_matrix):
-        # concate the blocks together and then select once.
         final_matrix = []
-        dst, src = data.full_edge_index
+        dst, src = data.edge_index_full
         for graph_idx in range(data.ptr.shape[0] - 1):
             matrix_block_col = []
             for src_idx in range(data.ptr[graph_idx], data.ptr[graph_idx+1]):

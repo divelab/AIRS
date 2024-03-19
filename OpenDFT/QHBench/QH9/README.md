@@ -4,7 +4,7 @@
 
 ## Introduction
 
-QH9 provides precise DFT-calculated Hamiltonian matrices for **2,399 molecular dynamics trajectories** and **130,831  stable molecular geometries**, based on the [QM9](http://quantum-machine.org/datasets/) dataset.
+QH9 provides precise DFT-calculated Hamiltonian matrices for **999 or 2,998 molecular dynamics trajectories** and **130,831  stable molecular geometries**, based on the [QM9](http://quantum-machine.org/datasets/) dataset.
 
 In this repo, we provide both the QH9 dataset and the benchmark code, which can be highly valuable for developing machine learning methods and accelerating molecular and materials design for scientific and technological applications.
 
@@ -16,19 +16,21 @@ To comprehensively evaluate the quantum Hamiltonian prediction performance, we d
 
 * **QH9-stable-id** 
 * **QH9-stable-ood** 
-* **QH9-dynamic-geo** 
-* **QH9-dynamic-mol** 
+* **QH9-dynamic-300k-geo** 
+* **QH9-dynamic-300k-mol** 
+* **QH9-dynamic-100k-geo** 
+* **QH9-dynamic-100k-mol** 
 
 | Task | # Total geometries | # Total molecules | # Training/validation/testing geometries|
 | -------- | -------- |-------------------| -------- |
 |**QH9-stable-id** | 130, 831 | 130, 831          | 104, 664/13, 083/13, 084|
 |**QH9-stable-ood** | 130, 831 | 130, 831          | 104, 001/17, 495/9, 335|
-|**QH9-dynamic-geo** | 99, 900 | 999               | 79, 920/9, 990/9, 990|
-|**QH9-dynamic-mol** | 99, 900 | 999          | 79, 900/9, 900/10, 100|
+|**QH9-dynamic-100k-geo** | 99, 900 | 999               | 79, 920/9, 990/9, 990|
+|**QH9-dynamic-100k-mol** | 99, 900 | 999          | 79, 900/9, 900/10, 100|
+|**QH9-dynamic-300k-geo** | 299, 800 | 2,998               | 239,840 / 29,980 / 29,980 |
+|**QH9-dynamic-300k-mol** | 299, 800 | 2,998          | 239,840 /29, 900/30, 100|
 
-**Note that we have updated the dynamic datasets which is shown in new arxiv version. 
-As a future plan, we plan to update the dynamic dataset with more MD data, 
-we will keep updating and release new dynamic data as different versions.**
+**Note that the cost of training on QH9-dynamic-300k is similar compared to QH9-dynamic-100k, while it contains more data and achieves higher performance in molecule-wise split. Therefore, it is recommended to use QH9-dynamic-300k.**
 
 ## Requirement
 
@@ -36,11 +38,11 @@ We include key dependencies below. The versions we used are in parentheses.
 * PyTorch (1.11.0)
 * PyG (2.0.4)
 * e3nn (0.5.1)
-* pyscf (2.2.1) (Stable)
-* pyscf (2.3.0) (Dynamic)
+* pyscf (2.2.1) (QH9-Stable, QH9-Dynamic-300k)
+* pyscf (2.3.0) (QH9-Dynamic-100k)
 * hydra-core (1.1.2)
 
-Meanwhile, we provide the installation file, and you can build the environment by `sh install.sh`.
+Meanwhile, we provide the installation file, and you can build the environment by `source install.sh`.
 
 
 ## Dataset Usage
@@ -53,8 +55,8 @@ from datasets import QH9Stable, QH9Dynamic
 ### Use one of the following lines to Load the specific dataset
 dataset = QH9Stable(split='random')  # QH9-stable-id
 dataset = QH9Stable(split='size_ood')  # QH9-stable-ood
-dataset = QH9Dynamic(split='geometry')  # QH9-dynamic-geo
-dataset = QH9Dynamic(split='mol')  # QH9-dynamic-mol
+dataset = QH9Dynamic(split='geometry', version='300k')  # QH9-dynamic-geo
+dataset = QH9Dynamic(split='mol', version='300k')  # QH9-dynamic-mol
 
 ### Get the training/validation/testing subsets
 train_dataset = dataset[dataset.train_mask]
@@ -76,19 +78,19 @@ Equivariant quantum tensor network [QHNet](https://arxiv.org/abs/2306.04922) is 
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed, and then run
 python main.py datasets=QH9-stable datasets.split=random # QH9-stable-id
 python main.py datasets=QH9-stable datasets.split=size_ood # QH9-stable-ood
-python main.py datasets=QH9-dynamic datasets.split=geometry # QH9-dynamic-geo
-python main.py datasets=QH9-dynamic datasets.split=mol # QH9-dynamic-mol
+python main.py datasets=QH9-dynamic datasets.split=geometry datasets.version=300k # QH9-dynamic-300k-geo
+python main.py datasets=QH9-dynamic datasets.split=mol datasets.version=300k # QH9-dynamic-300k-mol
 ```
 
 **Trained models**: our trained QHNet models on the defined tasks are available via [this Google Drive link](https://drive.google.com/drive/folders/10ebqIWLrZ672A9bFg9wLe48F-nsz7za3?usp=share_link).
 
-* Evaluate the trained model (in terms of MAE on Hamiltonian matrix, MAE on occupied orbital energies, and  cosine similarity of orbital coefficients)
+* Evaluate the trained model (in terms of MAE on Hamiltonian matrix, MAE on occupied orbital energies, and  cosine similarity of orbital coefficients). The eigen decoposition cost lots of time to run it.
 ```shell script
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
 python test.py
 ```
 
-* Evaluate the performance of accelerating DFT calculation
+* Evaluate the performance of accelerating DFT calculation, it needs to run DFT for 50 molecules with high computatioinal cost.
 ```shell script
 ### Modify the configurations in config/config.yaml (or pass the configurations as args) as needed (including the trained_model arg), and then run
 python test_dft_acceleration.py

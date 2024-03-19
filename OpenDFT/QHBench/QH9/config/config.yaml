@@ -1,12 +1,30 @@
+# For hydra with version larger than 1.2.0
+# override the internal parameters job.chdir for hydra to use various directories for logging
+hydra:
+  job:
+    chdir: True
+
+# build the conf. and conf.datasets
 defaults:
+  - _self_
   - datasets: QH9-dynamic
+
 ex_name: 'ex_name'
-device: 2
+device: 1
 ckpt_dir: 'checkpoints'
 split_seed: 42
 optimizer: adam
 ema_start_epoch: -1
 
-trained_model: '.'
+
+# download the pretrained model parameters automatically to the path
+use_pretrained: True
+pretrained_model_parameter_dir: '/tmp/QH9/pretrained_model_parameter_dir/'
+
+
+# if not use pretrained model parameters, use the trained_model as the path to the parameters
+trained_model: '/data5/haiyang/equi/AIRS/OpenDFT/QHBench/QH9/QHNet-QH9-mol-300k-geo.pt'
+# mol split; /home/grads/h/haiyang/AIRS/OpenDFT/QHBench/QH9/outputs/2024-02-06/00-29-46/results_best.pt
+# geo split; /home/grads/h/haiyang/AIRS/OpenDFT/QHBench/QH9/outputs/2024-02-06/00-46-20/results_best.pt
 # For evaluating trained model
 seed: 0

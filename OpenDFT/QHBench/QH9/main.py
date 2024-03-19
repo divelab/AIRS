@@ -16,11 +16,6 @@ logger = logging.getLogger()
 def criterion(outputs, target, loss_weights):
     error_dict = {}
     keys = loss_weights.keys()
-<<<<<<< HEAD
-=======
-    row = target.edge_index[0]
-    edge_batch = target.batch[row]
->>>>>>> 033c4bc760359e5872d6df4f68c905407922c07b
     try:
         for key in keys:
             row = target.edge_index[0]
@@ -118,7 +113,8 @@ def main(conf):
     if conf.datasets.dataset_name == 'QH9Stable':
         dataset = QH9Stable(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
     elif conf.datasets.dataset_name == 'QH9Dynamic':
-        dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
+        dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split,
+                             version=conf.datasets.version)
 
     train_dataset = dataset[dataset.train_mask]
     valid_dataset = dataset[dataset.val_mask]

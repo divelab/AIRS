@@ -1,6 +1,13 @@
+# This scripts needs to run DFT for evaluation, and the process needs a long time
 import os
-import time
+NUM_THREADS = 6
+os.environ['OMP_NUM_THREADS'] = str(NUM_THREADS)
+os.environ['MKL_NUM_THREADS'] = str(NUM_THREADS)
+os.environ['NUMEXPR_NUM_THREADS'] = str(NUM_THREADS)
+os.environ["OPENBLAS_NUM_THREADS"] = str(NUM_THREADS)
+os.environ["VECLIB_MAXIMUM_THREADS"] = str(NUM_THREADS)
 
+import sys
 import torch
 import hydra
 import logging
@@ -8,16 +15,15 @@ import pyscf
 from pyscf import dft
 import numpy as np
 from tqdm import tqdm
-from torch_cluster import radius_graph
+from pip._internal.exceptions import InstallationError
+import subprocess
 
 from models import QHNet
 from datasets import QH9Stable, QH9Dynamic
-from torchvision.transforms import Compose
+from load_pretrained_models import load_pretrained_model_parameters
 from torch_geometric.loader import DataLoader
-
 logger = logging.getLogger()
 NUM_EXAMPLES = 50
-
 
 
 def cal_orbital_and_energies(overlap_matrix, full_hamiltonian):
@@ -196,7 +202,6 @@ def test_over_dataset_DFT(test_data_loader, model, guessing_method_name='minao',
             raise NotImplementedError
 
         batch = batch.to(model.device)
-        batch.full_edge_index = radius_graph(batch.pos, 100000, batch.batch).to(batch.pos.device)
         hamiltonian = model.build_final_matrix(
             batch, batch['diagonal_hamiltonian'], batch['non_diagonal_hamiltonian'])
         hamiltonian = hamiltonian.cpu()
@@ -229,7 +234,6 @@ def get_optimization_ratio(num_cycles_model_pred, num_cycles_minao_guessing_init
     return DFT_optimization_ratio
 
 
-
 def get_stable_dataset_split(root_path):
     processed_random = \
         os.path.join(root_path, 'datasets', 'QH9Stable', 'processed', 'processed_QH9Stable_random.pt')
@@ -245,11 +249,11 @@ def get_stable_dataset_split(root_path):
     return test_data_indices_sampled
 
 
-def get_dynamic_dataset_split(root_path):
+def get_dynamic_dataset_split(processed_dir):
     processed_mol = \
-        os.path.join(root_path, 'datasets', 'QH9Dynamic', 'processed', 'processed_QH9Dynamic_mol.pt')
+        os.path.join(processed_dir, 'processed_QH9Dynamic_mol.pt')
     processed_geometry = \
-        os.path.join(root_path, 'datasets', 'QH9Dynamic', 'processed', 'processed_QH9Dynamic_geometry.pt')
+        os.path.join(processed_dir, 'processed_QH9Dynamic_geometry.pt')
     split_idx_mol_test_mask = torch.load(processed_mol)[2]
     split_idx_geometry_test_mask = torch.load(processed_geometry)[2]
     # test_data_mask = np.logical_and(split_idx_mol_test_mask, split_idx_geometry_test_mask)
@@ -268,8 +272,7 @@ def main(conf):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(0)
 
-    # root_path = os.path.join(os.sep.join(os.getcwd().split(os.sep)[:-3]))
-    root_path = '/data/meng/AIRS/OpenDFT/QHBench/QH9'
+    root_path = os.path.join(os.sep.join(os.getcwd().split(os.sep)[:-3]))
     if torch.cuda.is_available():
         device = torch.device(f"cuda:{conf.device}")
     else:
@@ -282,15 +285,35 @@ def main(conf):
         test_data_indices_sampled = get_stable_dataset_split(root_path)
         test_dataset = dataset[test_data_indices_sampled]
 
+
+
     elif conf.datasets.dataset_name == 'QH9Dynamic':
-        dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split)
-        test_data_indices_sampled = get_dynamic_dataset_split(root_path)
+        dataset = QH9Dynamic(os.path.join(root_path, 'datasets'), split=conf.datasets.split, version=conf.datasets.version)
+        test_data_indices_sampled = get_dynamic_dataset_split(dataset.processed_dir)
         test_dataset = dataset[test_data_indices_sampled]
+
+
+    if conf.datasets.dataset_name == 'QH9Dynamic' and conf.datasets.version == '100k':
+        required_pyscf_version = '2.3.0'
+    else:
+        required_pyscf_version = '2.2.1'
+
+    # Check the pyscf version
+    if not pyscf.__version__ == required_pyscf_version:
+        print(f"We install the corresponding pyscf version automatically to make sure the version is correct")
+        try:
+            subprocess.Popen([sys.executable, "-m", "pip", "install", f"pyscf=={required_pyscf_version}"]).wait()
+        except:
+            print("Automatical installation failed. Please install the corresponding package in current environment.")
+            raise InstallationError(f"Installation error occurred: pyscf with version {required_pyscf_version}")
+
 
     # we need to generate the index mask, it should maintain two
     test_data_loader = DataLoader(
         test_dataset, batch_size=1, shuffle=False,
-        num_workers=conf.datasets.num_workers, pin_memory=conf.datasets.pin_memory)
+        num_workers=conf.datasets.num_workers,
+        pin_memory=conf.datasets.pin_memory
+    )
     # define model
     model = QHNet(
         in_node_features=1,
@@ -302,12 +325,17 @@ def main(conf):
         num_nodes=10,
         radius_embed_dim=16
     )
-    model.set(device)
 
-    # load model from the path
-    path_to_the_saved_models = conf.trained_model
-    state_dict = torch.load(path_to_the_saved_models)['state_dict']
-    model.load_state_dict(state_dict)
+    # load the pretrained model parameters automatically or load your model parameters
+    if conf.use_pretrained:
+        model = load_pretrained_model_parameters(model, conf.datasets.dataset_name, dataset, conf.pretrained_model_parameter_dir)
+    else:
+        # load model from the path
+        path_to_the_saved_models = conf.trained_model
+        state_dict = torch.load(path_to_the_saved_models)['state_dict']
+        model.load_state_dict(state_dict)
+
+    model.set(device)
 
     num_params = sum(p.numel() for p in model.parameters())
     logger.info(f"the number of parameters in this model is {num_params}.")

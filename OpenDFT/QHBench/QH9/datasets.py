@@ -8,14 +8,17 @@ import numpy as np
 import os.path as osp
 from argparse import Namespace
 import pickle
+import gdown
 
 from tqdm import tqdm
 from apsw import Connection
 import torch.nn.functional as F
-from torch_scatter import scatter
+from torch_geometric.utils import scatter
 from torch_geometric.data import (InMemoryDataset, download_url, extract_zip, Data)
 
 BOHR2ANG = 1.8897259886
+
+GoogleDriveLink = 'https://drive.google.com/drive/u/0/folders/1LXTC8uaOQzmb76FsuGfwSocAbK5Hshfj'
 
 convention_dict = {
     'pyscf_631G': Namespace(
@@ -105,10 +108,10 @@ def matrix_transform(matrices, atoms, convention='pyscf_631G'):
 
 
 class QH9Stable(InMemoryDataset):
+    url = 'https://drive.google.com/file/d/1LcEJGhB8VUGkuyb0oQ_9ANJdSkky9xMS/view?usp=sharing'
     def __init__(self, root='datasets/', split='random', transform=None, pre_transform=None, pre_filter=None):
         self.folder = osp.join(root, 'QH9Stable')
         self.split = split
-        self.connections = {}
         self.db_dir = os.path.join(self.folder, 'processed')
         self.full_orbitals = 14
         self.orbital_mask = {}
@@ -118,12 +121,19 @@ class QH9Stable(InMemoryDataset):
         for i in range(1, 11):
             self.orbital_mask[i] = orbital_mask_line1 if i <= 2 else orbital_mask_line2
 
-        connection = Connection(os.path.join(self.folder, "raw", 'QH9Stable.db'))
         super(QH9Stable, self).__init__(self.folder, transform, pre_transform, pre_filter)
         self.train_mask, self.val_mask, self.test_mask = torch.load(self.processed_paths[0])
         self.slices = {
             'id': torch.arange(self.train_mask.shape[0] + self.val_mask.shape[0] + self.test_mask.shape[0] + 1)}
 
+    def download(self):
+        try:
+            print(f"Downloading the QH9Stable dataset to through {self.url}")
+            gdown.download(self.url, output=self.raw_paths[0], fuzzy=True)
+        except:
+            print(f"Downloading failed! Please download the QH9Stable dataset to {self.raw_paths[0]} through {self.url}")
+            print(f"Or you can try to download the zip file through {GoogleDriveLink}")
+            raise FileNotFoundError(f"QH9Stable needs to be downloaded.")
 
     @property
     def raw_file_names(self):
@@ -139,27 +149,30 @@ class QH9Stable(InMemoryDataset):
     def process(self):
         if self.split == 'size_ood':
             num_nodes_list = []
+        
         for raw_file_name in self.raw_file_names:
             connection = Connection(os.path.join(self.root, "raw", raw_file_name))
             cursor = connection.cursor()
             data = cursor.execute("select * from data").fetchall()
-
-            # dataloader with lmdb
-            db_env = lmdb.open(os.path.join(self.processed_dir, 'QH9Stable.lmdb'), map_size=1048576000000)
-            for row in tqdm(data):
-                with db_env.begin(write=True) as txn:
-                    ori_data_dict = {
-                        'id': row[0],
-                        'num_nodes': row[1],
-                        'atoms': row[2],
-                        'pos': row[3], # ang
-                        'Ham': row[4]
-                    }
-                    data_dict = pickle.dumps(ori_data_dict)
-                    txn.put(ori_data_dict['id'].to_bytes(length=4, byteorder='big'), data_dict)
-            db_env.close()
-
-        print('Saving...')
+            if not os.path.isdir(os.path.join(self.processed_dir, 'QH9Stable.lmdb')):
+                # dataloader with lmdb
+                db_env = lmdb.open(os.path.join(self.processed_dir, 'QH9Stable.lmdb'), map_size=1048576000000)
+                for row in tqdm(data):
+                    with db_env.begin(write=True) as txn:
+                        ori_data_dict = {
+                            'id': row[0],
+                            'num_nodes': row[1],
+                            'atoms': row[2],
+                            'pos': row[3], # ang
+                            'Ham': row[4]
+                        }
+                        data_dict = pickle.dumps(ori_data_dict)
+                        txn.put(ori_data_dict['id'].to_bytes(length=4, byteorder='big'), data_dict)
+                db_env.close()
+                print('Saving lmdb database...')
+            else:
+                print("lmdb database exists. Jump the lmdb database creation step.")
+            
         if self.split == 'random':
             print('Random splitting...')
             data_ratio = [0.8, 0.1, 0.1]
@@ -172,6 +185,7 @@ class QH9Stable(InMemoryDataset):
 
         elif self.split == 'size_ood':
             print('Size OOD splitting...')
+            num_nodes_list = [row[1] for row in data]
             num_nodes_array = np.array(num_nodes_list)
             train_indices = np.where(num_nodes_array <= 20)
             val_condition = np.logical_and(num_nodes_array >= 21, num_nodes_array <= 22)
@@ -195,7 +209,8 @@ class QH9Stable(InMemoryDataset):
             atom_i = atom_i.item()
             mask_i = self.orbital_mask[atom_i]
             for idx_j, atom_j in enumerate(atoms):  # (dst)
-                edge_index_full.append([idx_j, idx_i])
+                if idx_i != idx_j:
+                    edge_index_full.append([idx_j, idx_i])
                 atom_j = atom_j.item()
                 mask_j = self.orbital_mask[atom_j]
                 matrix_block = torch.zeros(self.full_orbitals, self.full_orbitals).type(torch.float64)
@@ -263,12 +278,25 @@ class QH9Stable(InMemoryDataset):
 
 
 class QH9Dynamic(InMemoryDataset):
-    def __init__(self, root='datasets/', task='', split='geometry', transform=None, pre_transform=None,
+    url = {
+        '100k': 'https://drive.google.com/file/d/1SNWk0GD6Nt96qNAJJU2uedwWDQ4bbB1w/view?usp=sharing',
+        '300k': 'https://drive.google.com/file/d/1sbf-sFhh3ZmhXgTcN2ke_la39MaG0Yho/view?usp=sharing'
+    }
+    def __init__(self, root='datasets/', task='', split='geometry', version='300k', transform=None, pre_transform=None,
                  pre_filter=None):
         assert task in ['']
-        self.folder = osp.join(root, 'QH9Dynamic')
+        self.version = version
+        if self.version == '300k':
+            self.folder = osp.join(root, 'QH9Dynamic_300k')
+        elif self.version == '100k':
+            self.folder = osp.join(root, 'QH9Dynamic_100k')
+        else:
+            print(f"Current version parameter is {version}, which is not included in [100k, 300k].")
+            print(f"Using 300k version instead...")
+            self.folder = osp.join(root, 'QH9Dynamic_300k')
+            self.version = '300k'
+
         self.split = split
-        self.connections = {}
         self.db_dir = os.path.join(self.folder, 'processed')
         self.full_orbitals = 14
         self.orbital_mask = {}
@@ -285,9 +313,23 @@ class QH9Dynamic(InMemoryDataset):
             'id': torch.arange(self.train_mask.shape[0] + self.val_mask.shape[0] + self.test_mask.shape[0] + 1)}
 
 
+    def download(self):
+        try:
+            print(f"Downloading the QH9Dynamic_{self.version} dataset through {self.url}")
+            gdown.download(self.url[self.version], output=self.raw_paths[0], fuzzy=True)
+        except:
+            print(f"Downloading failed! Please download the QH9Dynamic_{self.version} dataset to {self.raw_paths[0]} "
+                  f"through {self.url[self.version]}")
+            print(f"Or you can try to download the zip file through {GoogleDriveLink}")
+            raise FileNotFoundError(f"QH9Dynamic_{self.version} needs to be downloaded.")
+
+
     @property
     def raw_file_names(self):
-        return [f'QH9Dynamic.db']
+        if self.version == '300k':
+            return [f'QH9Dynamic_300k.db']
+        elif self.version == '100k':
+            return [f'QH9Dynamic_100k.db']
 
     @property
     def processed_file_names(self):
@@ -296,7 +338,19 @@ class QH9Dynamic(InMemoryDataset):
         elif self.split == 'mol':
             return ['processed_QH9Dynamic_mol.pt', 'QH9Dynamic.lmdb/data.mdb']
 
-    def process(self, num_geometry_per_mol=100, num_train_geometry_per_mol=80, num_val_geometry_per_mol=10, num_mol=999):
+    def process(self, num_geometry_per_mol=100, num_train_geometry_per_mol=80, num_val_geometry_per_mol=10, num_mol=2998):
+        if self.version == '300k':
+            num_mol = 2998
+        elif self.version == '100k':
+            num_mol = 999
+            
+        if not os.path.isdir(os.path.join(self.processed_dir, 'QH9Dynamic.lmdb')):
+            SAVE_TO_LMDB = True
+            print("lmdb database is created.")
+        else:
+            SAVE_TO_LMDB = False
+            print("lmdb database exists. Jump the lmdb database creation step.")
+        
         db_env = lmdb.open(os.path.join(self.processed_dir, 'QH9Dynamic.lmdb'), map_size=1048576000000)
         if self.split == 'geometry':
             print('Geometry-wise splitting...')
@@ -310,17 +364,19 @@ class QH9Dynamic(InMemoryDataset):
                 data = cursor.execute("select * from data").fetchall()
                 for ind, row in enumerate(tqdm(data)):
                     # dataloader with lmdb
-                    with db_env.begin(write=True) as txn:
-                        ori_data_dict = {
-                            'id': int(np.frombuffer(row[0], dtype=np.int64)),
-                            'geo_id': row[1],
-                            'num_nodes': row[2],
-                            'atoms': row[3],
-                            'pos': row[4], # Bhor, and then transfer to ang
-                            'Ham': row[9]
-                        }
-                        data_dict = pickle.dumps(ori_data_dict)
-                        txn.put(ind.to_bytes(length=4, byteorder='big'), data_dict)
+                    if SAVE_TO_LMDB:
+                        with db_env.begin(write=True) as txn:
+                            ori_data_dict = {
+                                'id': int(np.frombuffer(row[0], dtype=np.int64)),
+                                'geo_id': row[1],
+                                'num_nodes': row[2],
+                                'atoms': row[3],
+                                'pos': row[4], # Bhor, and then transfer to ang
+                                'Ham': row[9]
+                            }
+                            data_dict = pickle.dumps(ori_data_dict)
+                            txn.put(ind.to_bytes(length=4, byteorder='big'), data_dict)
+                
 
                     if (ind + 1) % num_geometry_per_mol == 0:  # Finish traversing one molecule
                         indices = np.random.RandomState(seed=ind).permutation(
@@ -340,21 +396,24 @@ class QH9Dynamic(InMemoryDataset):
                 connection = Connection(os.path.join(self.root, "raw", raw_file_name))
                 cursor = connection.cursor()
                 data = cursor.execute("select * from data").fetchall()
-                for ind, row in enumerate(tqdm(data)):
-                    # dataloader with lmdb
-                    with db_env.begin(write=True) as txn:
-                        ori_data_dict = {
-                            'id': int(np.frombuffer(row[0], dtype=np.int64)),
-                            'geo_id': row[1],
-                            'num_nodes': row[2],
-                            'atoms': row[3],
-                            'pos': row[4], # Bhor, and then transfer to ang
-                            'Ham': row[9]
-                        }
-                        data_dict = pickle.dumps(ori_data_dict)
-                        txn.put(ind.to_bytes(length=4, byteorder='big'), data_dict)
+                if SAVE_TO_LMDB:
+                    for ind, row in enumerate(tqdm(data)):
+                        # dataloader with lmdb
+                        with db_env.begin(write=True) as txn:
+                            ori_data_dict = {
+                                'id': int(np.frombuffer(row[0], dtype=np.int64)),
+                                'geo_id': row[1],
+                                'num_nodes': row[2],
+                                'atoms': row[3],
+                                'pos': row[4], # Bhor, and then transfer to ang
+                                'Ham': row[9]
+                            }
+                            data_dict = pickle.dumps(ori_data_dict)
+                            txn.put(ind.to_bytes(length=4, byteorder='big'), data_dict)
 
-            db_env.close()
+            if SAVE_TO_LMDB:
+                db_env.close()
+
             mol_id_list = [i for i in range(num_mol) for _ in range(num_geometry_per_mol)]
             data_ratio = [0.8, 0.1, 0.1]
             index_list = [i for i in range(max(mol_id_list) + 1)]
@@ -380,12 +439,15 @@ class QH9Dynamic(InMemoryDataset):
         all_diagonal_matrix_block_masks = []
         all_non_diagonal_matrix_block_masks = []
         col_idx = 0
+        edge_index_full = []
         for idx_i, atom_i in enumerate(atoms):  # (src)
             row_idx = 0
             atom_i = atom_i.item()
             mask_i = self.orbital_mask[atom_i]
             for idx_j, atom_j in enumerate(atoms):  # (dst)
                 atom_j = atom_j.item()
+                if idx_i != idx_j:
+                    edge_index_full.append([idx_j, idx_i])
                 mask_j = self.orbital_mask[atom_j]
                 matrix_block = torch.zeros(self.full_orbitals, self.full_orbitals).type(torch.float64)
                 matrix_block_mask = torch.zeros(self.full_orbitals, self.full_orbitals).type(torch.float64)
@@ -412,13 +474,14 @@ class QH9Dynamic(InMemoryDataset):
         return torch.stack(all_diagonal_matrix_blocks, dim=0), \
                torch.stack(all_non_diagonal_matrix_blocks, dim=0), \
                torch.stack(all_diagonal_matrix_block_masks, dim=0), \
-               torch.stack(all_non_diagonal_matrix_block_masks, dim=0)
+               torch.stack(all_non_diagonal_matrix_block_masks, dim=0), \
+               torch.tensor(edge_index_full).transpose(-1, -2)
 
     def get_mol(self, atoms, pos, Ham):
         hamiltonian = torch.tensor(
             matrix_transform(Ham, atoms, convention='pyscf_def2svp'), dtype=torch.float64)
         diagonal_hamiltonian, non_diagonal_hamiltonian, \
-        diagonal_hamiltonian_mask, non_diagonal_hamiltonian_mask \
+        diagonal_hamiltonian_mask, non_diagonal_hamiltonian_mask, edge_index_full \
             = self.cut_matrix(hamiltonian, atoms)
 
         data = Data(
@@ -428,6 +491,7 @@ class QH9Dynamic(InMemoryDataset):
             non_diagonal_hamiltonian=non_diagonal_hamiltonian,
             diagonal_hamiltonian_mask=diagonal_hamiltonian_mask,
             non_diagonal_hamiltonian_mask=non_diagonal_hamiltonian_mask,
+            edge_index_full=edge_index_full
         )
         return data
 
@@ -443,6 +507,7 @@ class QH9Dynamic(InMemoryDataset):
                 np.frombuffer(data_dict['Ham'], np.float64)
             pos = pos.reshape(num_nodes, 3)
             pos = pos / BOHR2ANG  # transfer the unit back to ang
+            # pos = pos
             num_orbitals = sum([5 if atom <= 2 else 14 for atom in atoms])
             Ham = Ham.reshape(num_orbitals, num_orbitals)
             data = self.get_mol(atoms, pos, Ham)
@@ -451,5 +516,5 @@ class QH9Dynamic(InMemoryDataset):
 
 
 if __name__ == '__main__':
-    dataset = QH9Stable(root='/data/haiyang/AIRS/OpenDFT/QHBench/QH9/datasets/')
+    dataset = QH9Dynamic(root='/data5/haiyang/AIRS/tmp/', version='300k')
     print(dataset)
