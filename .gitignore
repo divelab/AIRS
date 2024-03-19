@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 **/__pycache__/
+**/.idea
+**/*.pt
 OpenDFT/**/datasets/
 OpenDFT/**/outputs/
->>>>>>> 033c4bc760359e5872d6df4f68c905407922c07b
-.DS_Store
 OpenDFT/QHBench/QH9/test_codes/*
-**/*.pt
-**/.idea
+.DS_Store
