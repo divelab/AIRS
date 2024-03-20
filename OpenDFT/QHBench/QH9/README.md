@@ -1,6 +1,6 @@
 # QH9: A Quantum Hamiltonian Prediction Benchmark
 
-[[Paper]](https://arxiv.org/abs/2306.09549) (**NeurIPS**, Track on Datasets and Benchmarks, 2023)
+[[Paper]](https://github.com/divelab/AIRS/blob/main/OpenDFT/QHBench/QH9/QH9__A_Quantum_Hamiltonian_Prediction_Benchmark_for_QM9_Molecules.pdf) (**NeurIPS**, Track on Datasets and Benchmarks, 2023)
 
 ## Introduction
 
@@ -9,6 +9,11 @@ QH9 provides precise DFT-calculated Hamiltonian matrices for **999 or 2,998 mole
 In this repo, we provide both the QH9 dataset and the benchmark code, which can be highly valuable for developing machine learning methods and accelerating molecular and materials design for scientific and technological applications.
 
 ![QH9](figs/QH9.png)
+## News
+* We have released QH9-dyn-300k with 2,998 molecular trajectories. The time step is 50 a.u. (~1.2fs) and each trajectory has 100 different geometries.
+* The code has implemented the automatically downloading for datasets and checkpoints. For load the pretrained model parameters, please refer to  function [load_pretrained_model_parameters](https://github.com/divelab/AIRS/blob/635ef085b68f2cb6fccc15c5a590534196176f16/OpenDFT/QHBench/QH9/load_pretrained_models.py#L44).
+* The [dataset generation example code](https://github.com/divelab/AIRS/tree/main/OpenDFT/QHBench/QH9/dataset_generation_examples) is provided for both stable and dynamic dataset based on PySCF.
+
 
 ## Tasks
 
