@@ -35,7 +35,7 @@ To comprehensively evaluate the quantum Hamiltonian prediction performance, we d
 |**QH9-dynamic-300k-geo** | 299, 800 | 2,998               | 239,840 / 29,980 / 29,980 |
 |**QH9-dynamic-300k-mol** | 299, 800 | 2,998          | 239,840 /29, 900/30, 100|
 
-**Note that the cost of training on QH9-dynamic-300k is similar compared to QH9-dynamic-100k, while it contains more data and achieves higher performance in molecule-wise split. Therefore, it is recommended to use QH9-dynamic-300k.**
+**Note that the cost of training on QH9-dynamic-300k is similar compared to QH9-dynamic-100k, while it contains more data and achieves higher performance in molecule-wise split. Therefore, it is recommended to use QH9-dynamic-300k. The trajectory includes molecular geometries and forces for QH9-dynamic can be released upon request.**
 
 ## Requirement
 
