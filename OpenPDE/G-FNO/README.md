@@ -2,7 +2,7 @@
 
 ## Note on Hyperparameters
 
-To choose the number of modes and channels relative to FNO, the extra parameters in *G*-FNO kernels added by the stabilizer dimension should be offset by reducing the number of channels (**as opposed to the number of modes**) as discussed in [Appendix A.2](https://icml.cc/virtual/2023/poster/23875) and Section 8.2 of [Cohen and Welling (2016)](https://arxiv.org/abs/1602.07576).
+To choose the number of modes and channels relative to FNO, the extra parameters in *G*-FNO kernels added by the stabilizer dimension should be offset by reducing the number of channels (**as opposed to the number of modes**) as discussed in [Appendix A.2](https://icml.cc/virtual/2023/poster/23875) and Section 8.2 of [Cohen and Welling (2016)](https://arxiv.org/abs/1602.07576). 
 
 ## Introduction
 
@@ -22,6 +22,8 @@ To create a `GFNO` `conda` environment, run:
 ```bash
 source setup.sh
 ```
+
+This environment will use a version of `pytorch` compiled for CUDA toolkit 11.6. For 11.8, use the `setup.sh` and `experiments.py` scripts in the directory `cu11.8`.
 
 ## Preparing Data
 

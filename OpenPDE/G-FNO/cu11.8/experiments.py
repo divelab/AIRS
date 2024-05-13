@@ -8,8 +8,8 @@ import random
 # os.environ["CUDA_VISIBLE_DEVICES"]="7" # TODO: for debugging
 from models.FNO import FNO2d, FNO3d
 from models.GFNO import GFNO2d, GFNO3d
-from models.GFNO_steerable import GFNO2d_steer
-from models.Unet import Unet_Rot, Unet_Rot_M, Unet_Rot_3D
+#from models.GFNO_steerable import GFNO2d_steer
+#from models.Unet import Unet_Rot, Unet_Rot_M, Unet_Rot_3D
 from models.Ghybrid import Ghybrid2d
 from models.radialNO import radialNO2d, radialNO3d
 from models.GCNN import GCNN2d, GCNN3d
