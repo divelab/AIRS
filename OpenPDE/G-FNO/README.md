@@ -23,7 +23,7 @@ To create a `GFNO` `conda` environment, run:
 source setup.sh
 ```
 
-This environment will use a version of `pytorch` compiled for CUDA toolkit 11.6. For 11.8, use the `setup.sh` and `experiments.py` scripts in the directory `cu11.8`.
+This environment will use a version of `pytorch` compiled for CUDA toolkit 11.6. For 11.8, use the `setup.sh` and `experiments.py` scripts in the directory [`cu11.8`](cu11.8).
 
 ## Preparing Data
 
