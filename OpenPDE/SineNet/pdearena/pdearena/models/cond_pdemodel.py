@@ -84,6 +84,7 @@ class CondPDEModel(LightningModule):
         self.normalizer = normalizer(hparams=self.hparams, pde=self.pde)
 
     def setup(self, stage):
+        self.dts = self.trainer.datamodule.eval_dts
         datamodule = self.trainer.datamodule
         if self.hparams.normalize:
             task = datamodule.hparams.task
