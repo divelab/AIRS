@@ -179,34 +179,34 @@ class RandomTimeStepConditionedPDETrainData(): #dp.iter.IterDataPipe):
 
         self.trajlen = trajlen
         self.reweigh = reweigh
-
-    def __iter__(self):
+    def __len__(self):
+        return self.trajlen * len(self.dp)
+ 
+    def __getitem__(self, idx):
+        dp_idx = idx % len(self.dp)
+        # Length of trajectory
         time_resolution = self.trajlen
 
-        for u, v, cond, grid in self.dp:
-            if self.reweigh:
-                end_time = random.choices(range(1, time_resolution), k=1)[0]
-                start_time = random.choices(range(0, end_time), weights=1 / np.arange(1, end_time + 1), k=1)[0]
-            else:
-                end_time = torch.randint(low=1, high=time_resolution, size=(1,), dtype=torch.long).item()
-                start_time = torch.randint(low=0, high=end_time.item(), size=(1,), dtype=torch.long).item()
+        u, v, cond, grid = self.dp[dp_idx]
+        if self.reweigh:
+            end_time = random.choices(range(1, time_resolution), k=1)[0]
+            start_time = random.choices(range(0, end_time), weights=1 / np.arange(1, end_time + 1), k=1)[0]
+        else:
+            end_time = torch.randint(low=1, high=time_resolution, size=(1,), dtype=torch.long).item()
+            start_time = torch.randint(low=0, high=end_time.item(), size=(1,), dtype=torch.long).item()
 
-            delta_t = end_time - start_time
-            yield (
-                *datautils.create_time_conditioned_data(
-                    self.n_input_scalar_components,
-                    self.n_input_vector_components,
-                    self.n_output_scalar_components,
-                    self.n_output_vector_components,
-                    u,
-                    v,
-                    grid,
-                    start_time,
-                    end_time,
-                    torch.tensor([delta_t]),
-                ),
-                cond,
-            )
+        delta_t = end_time - start_time
+        return (*datautils.create_time_conditioned_data(
+                self.n_input_scalar_components,
+                self.n_input_vector_components,
+                self.n_output_scalar_components,
+                self.n_output_vector_components,
+                u,
+                v,
+                grid,
+                start_time,
+                end_time,
+                torch.tensor([delta_t]), ), cond)
 
 
 class TimestepConditionedPDEEvalData(): # dp.iter.IterDataPipe):
@@ -231,23 +231,56 @@ class TimestepConditionedPDEEvalData(): # dp.iter.IterDataPipe):
 
         self.delta_t = delta_t
 
-    def __iter__(self):
-        for begin in range(self.trajlen - self.delta_t):
-            for u, v, cond, grid in self.dp:
-                newu = u[begin :: self.delta_t, ...]
-                newv = v[begin :: self.delta_t, ...]
-                max_start_time = newu.size(0)
-                for start in range(max_start_time - 1):
-                    end = start + 1
-                    data = torch.cat((newu[start : start + 1], newv[start : start + 1]), dim=1).unsqueeze(0)
-                    if grid is not None:
-                        data = torch.cat((data, grid), dim=1)
-                    label = torch.cat((newu[end : end + 1], newv[end : end + 1]), dim=1).unsqueeze(0)
-                    if data.size(1) == 0:
-                        raise ValueError("Data is empty. Likely indexing issue.")
-                    if label.size(1) == 0:
-                        raise ValueError("Label is empty. Likely indexing issue.")
-                    yield data, label, torch.tensor([self.delta_t]), cond
+        self.time_history = self.time_future = 1
+
+        time_resolution = self.trajlen
+        # Max number of previous points solver can eat
+        reduced_time_resolution = time_resolution - self.time_history
+        # Number of future points to predict
+        max_start_time = reduced_time_resolution - delta_t # self.time_future - self.time_gap
+        # We ignore these timesteps in the testing
+        self.start_time = [t for t in range(0, max_start_time + 1)]
+
+    def __len__(self):
+        return len(self.start_time) * len(self.dp) 
+
+    def __getitem__(self, idx):
+        pde_idx = idx // len(self.start_time)
+        time_idx = idx % len(self.start_time)
+        start = self.start_time[time_idx]
+        u, v, cond, grid = self.dp[pde_idx]
+        
+        end_time = start + self.time_history
+        target_start_time = start + self.delta_t # end_time + self.time_gap
+        target_end_time = target_start_time + self.time_future
+        data_scalar = torch.Tensor()
+        data_vector = torch.Tensor()
+        labels_scalar = torch.Tensor()
+        labels_vector = torch.Tensor()
+        data_scalar = u[
+            start:end_time,
+            ...,
+        ]
+        labels_scalar = u[
+            target_start_time:target_end_time,
+            ...,
+        ]
+        data_vector = v[
+            start:end_time,
+            ...,
+        ]
+        labels_vector = v[
+            target_start_time:target_end_time,
+            ...,
+        ]
+
+        # add batch dim
+        data = torch.cat((data_scalar, data_vector), dim=1).unsqueeze(0)
+
+        # add batch dim
+        labels = torch.cat((labels_scalar, labels_vector), dim=1).unsqueeze(0)
+        return data, labels, torch.tensor([self.delta_t]), cond
+
 
 
 class RandomizedPDETrainData(torch.utils.data.Dataset):

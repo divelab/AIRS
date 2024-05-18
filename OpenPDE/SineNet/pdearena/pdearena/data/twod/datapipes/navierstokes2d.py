@@ -50,10 +50,10 @@ class NavierStokesDatasetOpener(torch.utils.data.Dataset):
             u = torch.tensor(data["u"][pde_idx])
             vx = torch.tensor(data["vx"][pde_idx])
             vy = torch.tensor(data["vy"][pde_idx])
-        if "buo_y" in data:
-            cond = torch.tensor(data["buo_y"][idx]).unsqueeze(0).float()
-        else:
-            cond = None
+            if "buo_y" in data:
+                cond = torch.tensor(data["buo_y"][pde_idx]).unsqueeze(0).float()
+            else:
+                cond = None
 
         v = torch.cat((vx[:, None], vy[:, None]), dim=1)
 
@@ -162,6 +162,17 @@ onestep_valid_datapipe_ns_cond = functools.partial(
     sharder=None, # dp.iter.ShardingFilter,
     mode="valid",
     onestep=True,
+    conditioned=True,
+)
+
+trajectory_valid_datapipe_ns_cond = functools.partial(
+    build_datapipes,
+    dataset_opener=NavierStokesDatasetOpener,
+    filter_fn=_valid_filter,
+    lister=None, # dp.iter.FileLister,
+    sharder=None, # dp.iter.ShardingFilter,
+    mode="valid",
+    onestep=False,
     conditioned=True,
 )
 

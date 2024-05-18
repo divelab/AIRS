@@ -1,5 +1,9 @@
+from pdearena import utils
 from pdearena.modules.twod_resnet import DilatedBasicBlock
-
+from pdearena.modules.conditioned.twod_resnet import (
+    FourierBasicBlock as CondFourierBasicBlock,
+    DilatedBasicBlock as CondDilatedBasicBlock
+)
 
 MODEL_REGISTRY = {
     ## sinenet: zeros
@@ -252,3 +256,127 @@ MODEL_REGISTRY = {
         },
     },
 }
+
+COND_MODEL_REGISTRY = {
+    "sinenet8-add": { 
+        "class_path": "pdearena.modules.conditioned.sinenet_cond.sinenet",
+        "init_args": {
+            "hidden_channels": 64,
+            "num_waves": 8,
+            "mult": 1.425,
+            "padding_mode": "zeros",
+            "par1": 35490219,
+            "use_scale_shift_norm": False,
+        },
+    },
+    "sinenet8-adagn": { 
+        "class_path": "pdearena.modules.conditioned.sinenet_cond.sinenet",
+        "init_args": {
+            "hidden_channels": 64,
+            "num_waves": 8,
+            "mult": 1.425,
+            "padding_mode": "zeros",
+            "par1": 35490219,
+            "use_scale_shift_norm": True,
+        },
+    },
+    "DilResNet-256-norm": {
+        "class_path": "pdearena.modules.conditioned.twod_resnet.ResNet",
+        "init_args": {
+            "hidden_channels": 256,
+            "norm": True,
+            "block": CondDilatedBasicBlock,
+            "num_blocks": [1, 1, 1, 1]
+        },
+    },
+    "FNO-128-16m": {
+        "class_path": "pdearena.modules.conditioned.twod_resnet.ResNet",
+        "init_args": {
+            "hidden_channels": 128,
+            "norm": False,
+            "num_blocks": [1, 1, 1, 1],
+            "block": utils.partialclass("CustomFourierBasicBlock", CondFourierBasicBlock, modes1=16, modes2=16),
+            "diffmode": False,
+            "usegrid": False,
+        },
+    },
+    "Unetmod-64": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.Unet",
+        "init_args": {
+            "hidden_channels": 64,
+            "norm": True,
+            "use_scale_shift_norm": False,
+        },
+    },
+    "Unetmod-64-adagn": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.Unet",
+        "init_args": {
+            "hidden_channels": 64,
+            "norm": True,
+            "use_scale_shift_norm": True,
+        },
+    },
+    "Unetmodattn-64": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.Unet",
+        "init_args": {
+            "hidden_channels": 64,
+            "norm": True,
+            "mid_attn": True,
+            "use_scale_shift_norm": False,
+        },
+    },
+    "Unetmodattn-64-adagn": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.Unet",
+        "init_args": {
+            "hidden_channels": 64,
+            "norm": True,
+            "mid_attn": True,
+            "use_scale_shift_norm": True,
+        },
+    },
+    "U-FNet1-16m": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.FourierUnet",
+        "init_args": {
+            "hidden_channels": 64,
+            "modes1": 16,
+            "modes2": 16,
+            "norm": True,
+            "n_fourier_layers": 1,
+            "use_scale_shift_norm": False,
+        },
+    },
+    "U-FNet2-16m": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.FourierUnet",
+        "init_args": {
+            "hidden_channels": 64,
+            "modes1": 16,
+            "modes2": 16,
+            "norm": True,
+            "n_fourier_layers": 2,
+            "use_scale_shift_norm": False,
+        },
+    },
+    "U-FNet1-16m-adagn": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.FourierUnet",
+        "init_args": {
+            "hidden_channels": 64,
+            "modes1": 16,
+            "modes2": 16,
+            "norm": True,
+            "n_fourier_layers": 1,
+            "use_scale_shift_norm": True,
+        },
+    },
+    "U-FNet2-16m-adagn": {
+        "class_path": "pdearena.modules.conditioned.twod_unet.FourierUnet",
+        "init_args": {
+            "hidden_channels": 64,
+            "modes1": 16,
+            "modes2": 16,
+            "norm": True,
+            "n_fourier_layers": 2,
+            "use_scale_shift_norm": True,
+        },
+    },
+}
+

@@ -46,7 +46,7 @@ python scripts/train.py -c configs/<config>.yaml \
             --model.lr=2e-4 --optimizer.lr=2e-4
 ```
 where `<config>` can be `navierstokes2d`, `cfd` or `shallowwater2d_2day`.
-Valid `<model_name>`'s can be found in `pdearena/models/registry.py`. E.g., `sinenet8-dual`.
+Valid `<model_name>`'s can be found in `pdearena/models/registry.py`, e.g., `sinenet8-dual`.
 
 
 ## Testing
@@ -60,6 +60,22 @@ python scripts/test.py test -c configs/<config>.yaml \
             --ckpt_path=<ckpt_path>
 ```
 
+## Conditional Training
+
+For training on the conditional Navier-Stokes data from [1], use the following command:
+
+```shell
+python scripts/cond_train.py -c configs/cond_navierstokes2d.yaml 
+            --data.data_dir=<data dir> 
+            --trainer.devices=1 
+            --data.num_workers=8 
+            --data.valid_limit_trajectories=5 
+            --data.batch_size=32 
+            --model.name=<model name> \
+            --model.lr=2e-4 --optimizer.lr=2e-4
+```
+
+Valid `<model_name>`'s can be found in `COND_MODEL_REGISTRY` from `pdearena/models/registry.py`, e.g., `sinenet8-adagn`.
 
 [1] Gupta, Jayesh K., and Johannes Brandstetter. "Towards multi-spatiotemporal-scale generalized pde modeling." arXiv preprint arXiv:2209.15616 (2022).
 

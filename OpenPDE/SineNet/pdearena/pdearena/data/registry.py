@@ -16,6 +16,7 @@ from .twod.datapipes.navierstokes2d import (
     trajectory_test_datapipe_ns,
     trajectory_test_datapipe_ns_cond,
     trajectory_valid_datapipe_ns,
+    trajectory_valid_datapipe_ns_cond
 )
 from .twod.datapipes.shallowwater2d import (
     onestep_test_datapipe_2day_vel,
@@ -44,7 +45,7 @@ DATAPIPE_REGISTRY["NavierStokes2D"]["test"] = [onestep_test_datapipe_ns, traject
 
 DATAPIPE_REGISTRY["Cond-NavierStokes2D"] = {}
 DATAPIPE_REGISTRY["Cond-NavierStokes2D"]["train"] = train_datapipe_ns_cond
-DATAPIPE_REGISTRY["Cond-NavierStokes2D"]["valid"] = onestep_valid_datapipe_ns_cond
+DATAPIPE_REGISTRY["Cond-NavierStokes2D"]["valid"] = [onestep_valid_datapipe_ns_cond, trajectory_valid_datapipe_ns_cond]
 DATAPIPE_REGISTRY["Cond-NavierStokes2D"]["test"] = [onestep_test_datapipe_ns_cond, trajectory_test_datapipe_ns_cond]
 
 DATAPIPE_REGISTRY["ShallowWater2DVel-2Day"] = {}

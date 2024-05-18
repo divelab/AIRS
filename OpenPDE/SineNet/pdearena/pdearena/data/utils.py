@@ -137,3 +137,33 @@ def create_time_conditioned_data(
         data = torch.cat((data, grid), dim=1)
 
     return data, targets, delta_t
+
+def create_time_conditioned_data(
+    n_input_scalar_components: int,
+    n_input_vector_components: int,
+    n_output_scalar_components: int,
+    n_output_vector_components: int,
+    scalar_fields,
+    vector_fields,
+    grid,
+    start_time: int,
+    end_time: int,
+    delta_t,
+):
+    assert n_input_scalar_components > 0 or n_input_vector_components > 0
+    assert n_output_scalar_components > 0 or n_output_vector_components > 0
+    if n_input_scalar_components > 0:
+        data_scalar = scalar_fields[start_time : start_time + 1]
+    if n_output_scalar_components > 0:
+        target_scalar = scalar_fields[end_time : end_time + 1]
+
+    if n_input_vector_components > 0:
+        data_vector = vector_fields[start_time : start_time + 1]
+        data = torch.cat((data_scalar, data_vector), dim=1).unsqueeze(0)
+    if n_input_vector_components > 0:
+        target_vector = vector_fields[end_time : end_time + 1]
+        targets = torch.cat((target_scalar, target_vector), dim=1).unsqueeze(0)
+    if grid is not None:
+        data = torch.cat((data, grid), dim=1)
+
+    return data, targets, delta_t
