@@ -5,5 +5,6 @@ This is the folder for our research project codes about **AI for material scienc
 - [PotNet](https://arxiv.org/abs/2306.10045)
 - [SyMat](https://arxiv.org/abs/2307.02707)
 - [ComFormer](https://openreview.net/pdf?id=BnQY9XiRAS)
+- [GMTNet](https://openreview.net/forum?id=BOFjRnJ9mX)
 
 We will add more codes in the future. Stay tuned!
