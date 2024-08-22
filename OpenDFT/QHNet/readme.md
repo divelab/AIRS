@@ -32,7 +32,7 @@ python train_mixed.py dataset=all model=QHNet_w_bias model.version=QHNet_w_bias
 
 ## Test
 
-Testing the QHNet on the MD17 dataset. Note that `$PATH_TO_SAVED_MODEL` is the path to the downloaded model parameters or saved model paramters. The `$Selected_version$` are in `['QHNet', 'QHNet_wo_bias', 'QHNet_w_bias']` according to the model version name in the model filenames. 
+Testing the QHNet on the MD17 dataset. Note that `$PATH_TO_SAVED_MODEL` is the path to the downloaded model parameters or saved model paramters. The `$Selected_version$` are in `['QHNet_wo_bias', 'QHNet_w_bias']` according to the model version name in the model filenames. 
 ```bash
 python test_wH.py dataset=$DATASET model=QHNet_w_bias model.version=$Selected_version model_path=$PATH_TO_SAVED_MODEL
 ```
