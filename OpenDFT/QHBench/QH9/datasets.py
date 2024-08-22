@@ -23,7 +23,7 @@ GoogleDriveLink = 'https://drive.google.com/drive/u/0/folders/1LXTC8uaOQzmb76Fsu
 convention_dict = {
     'pyscf_631G': Namespace(
         atom_to_orbitals_map={1: 'ss', 6: 'ssspp', 7: 'ssspp', 8: 'ssspp', 9: 'ssspp'},
-        orbital_idx_map={'s': [0], 'p': [2, 0, 1], 'd': [0, 1, 2, 3, 4]},
+        orbital_idx_map={'s': [0], 'p': [1, 2, 0], 'd': [0, 1, 2, 3, 4]},
         orbital_sign_map={'s': [1], 'p': [1, 1, 1], 'd':
             [1, 1, 1, 1, 1]},
         orbital_order_map={
