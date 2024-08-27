@@ -12,6 +12,7 @@ The official implementation of Complete and Efficient Graph Transformers for Cry
 ### The Materials Project Dataset
 
 For tasks in The Materials Project, we follow Matformer (Yan et al.) and use the same training, validation, and test sets.
+For bulk and shear datasets, the datasets are avaliable at https://figshare.com/projects/Bulk_and_shear_datasets/165430
 
 ### JARVIS dataset
 
