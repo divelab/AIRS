@@ -5,7 +5,7 @@
 
 The official implementation of A Space Group Symmetry Informed Network for O(3) Equivariant Crystal Tensor Prediction (ICML 2024).
 
-![cover](figures/GMTnet.png)
+![cover](figures/GMTNet.png)
 
 ## Dataset
 
