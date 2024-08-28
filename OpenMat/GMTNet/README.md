@@ -24,6 +24,8 @@ pytorch, pytorch_geometric, pymatgen, jarvis, wandb, e3nn, pandas, spglib, tqdm
 python train.py 
 ```
 
+Experimental code for piezo and elastic tensors will be uploaded soon, stay tunned.
+
 ## Citation
 Please cite our paper if you find the code helpful or if you want to use the benchmark results. Thank you!
 ```
