@@ -238,12 +238,12 @@ class Piezo_block(nn.Module):
         super().__init__()
 
         irrep_seq = [
-            '1x0e + 1x0o + 1x1e + 1x1o + 1x2e + 1x2o + 1x3e + 1x3o',
+            '2x0e + 2x0o + 2x1e + 2x1o + 2x2e + 2x2o + 2x3e + 2x3o',
             f'1x1o',
         ]
         self.nv = nv
-        self.stress = '1x0e + 1x1e + 1x2e'
-        self.converter = CartesianTensor("ij")
+        self.stress = '1x0e + 1x2e'
+        self.converter = CartesianTensor("ij=ji")
         self.tp = tp = o3.FullyConnectedTensorProduct(irrep_seq[0], self.stress, irrep_seq[1], internal_weights=False)
         self.constant_w = nn.Parameter(torch.ones(tp.weight_numel))
         self.idx = [0, 4, 8, 1, 5, 6]
@@ -254,13 +254,12 @@ class Piezo_block(nn.Module):
         outer_S.requires_grad_(True)
         stress = self.converter.from_cartesian(outer_S)
         D_ = self.tp(node_feature, stress, self.constant_w.to(node_feature.device))
-        piezo = torch.zeros((bs, 3, 6)).to(node_feature.device)
-        piezo.requires_grad_(True)
+        piezo = []
         for i in range(3):
             grad_outputs = torch.zeros(bs, 3).to(node_feature.device)
             grad_outputs[:, i] = 1.0
-            piezo[:, i, :] += grad(D_, outer_S, grad_outputs=grad_outputs, create_graph=True, retain_graph=True)[0].view(bs, -1)[self.idx]
-        return piezo
+            piezo.append(grad(D_, outer_S, grad_outputs=grad_outputs, create_graph=True, retain_graph=True)[0].reshape(bs, 9)[:, [0, 4, 8, 1, 5, 6]])
+        return torch.stack(piezo).transpose(0, 1)
 
 class Elastic_block(nn.Module):
     def __init__(
@@ -270,27 +269,30 @@ class Elastic_block(nn.Module):
         super().__init__()
 
         irrep_seq = [
-            '1x0e + 1x0o + 1x1e + 1x1o + 1x2e + 1x2o + 1x3e + 1x3o',
-            f'1x0e + 1x1e + 1x2e',
+            '2x0e + 2x0o + 2x1e + 2x1o + 2x2e + 2x2o + 2x3e + 2x3o + 1x4e',
+            f'1x0e + 1x2e',
         ]
         self.nv = nv
-        self.strain = '1x0e + 1x1e + 1x2e'
-        self.converter = CartesianTensor("ij")
+        self.strain = '1x0e + 1x2e'
+        self.converter = CartesianTensor("ij=ji")
         self.tp = tp = o3.FullyConnectedTensorProduct(irrep_seq[0], self.strain, irrep_seq[1], internal_weights=False)
         self.constant_w = nn.Parameter(torch.ones(tp.weight_numel))
         self.idx = [0, 4, 8, 1, 5, 6]
 
     def forward(self, node_feature):
         bs = node_feature.shape[0]
-        outer_Strain = torch.ones(bs, 3, 3).to(node_feature.device)
-        outer_Strain.requires_grad_(True)
+        outer_Strain = torch.ones(bs, 3, 3, device=node_feature.device, requires_grad=True)
         strain = self.converter.from_cartesian(outer_Strain)
-        stress = self.tp(node_feature, strain, self.constant_w.to(node_feature.device))
+        stress = self.tp(node_feature, strain, self.constant_w)
         final_stress = self.converter.to_cartesian(stress).view(bs, -1)
-        elastic = torch.zeros((bs, 6, 6)).to(node_feature[0].device)
-        elastic.requires_grad_(True)
+        grad_outputs = torch.zeros(bs, 9, device=node_feature.device)
+        elastic = []
         for i in range(6):
-            grad_outputs = torch.zeros(bs, 9).to(node_feature.device)
+            grad_outputs.zero_()
             grad_outputs[:, self.idx[i]] = 1.0
-            elastic[:, i, :] += grad(final_stress, outer_Strain, grad_outputs=grad_outputs, create_graph=True, retain_graph=True)[0].view(bs, -1)[self.idx]
-        return elastic
+            grad_elastic = grad(final_stress, outer_Strain, grad_outputs=grad_outputs, create_graph=True, retain_graph=True)[0]
+            elastic.append(grad_elastic.reshape(bs, -1)[:, [self.idx]].reshape(bs, -1))
+        outer_Strain, strain = outer_Strain.detach(), strain.detach()
+        outer_Strain.grad, strain.grad = None, None
+        del outer_Strain, strain
+        return torch.stack(elastic).transpose(0, 1)
