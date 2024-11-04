@@ -24,7 +24,7 @@ pytorch, pytorch_geometric, pymatgen, jarvis, wandb, e3nn, pandas, spglib, tqdm
 python train.py 
 ```
 
-Experimental code for piezo and elastic tensors will be uploaded soon, stay tunned.
+Experimental code for piezo and elastic tensors in GMTNet_elast and GMTNet_piezo folders is not cleaned thoroughly, please use with caution. The dataset for dielectric and piezoelctric is released in the /data folder, and the dataset for elastic will be released soon.
 
 ## Citation
 Please cite our paper if you find the code helpful or if you want to use the benchmark results. Thank you!
