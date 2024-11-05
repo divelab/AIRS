@@ -11,7 +11,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument("--hidden", type=str, default="256x0e + 256x1o + 256x2e + 256x3o")
     parser.add_argument("--batch_size", type=int, default=5)
     parser.add_argument("--val_batch_size", type=int, default=15)
-    parser.add_argument("--epochs", type=int, default=100)
+    parser.add_argument("--epochs", type=int, default=5001)
     parser.add_argument("--eval_interval", type=int, default=2)
     parser.add_argument("--cutoff", type=float, default=5.0)
     parser.add_argument("--num_bessel", type=int, default=8)
