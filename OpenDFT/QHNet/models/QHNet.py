@@ -1,3 +1,4 @@
+# fix the issue that invariant feature in Convnet should come from src and dst nodes.
 import time
 
 import torch.nn.functional as F
