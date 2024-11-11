@@ -1,4 +1,5 @@
 # fix the issue that invariant feature in Convnet should come from src and dst nodes.
+# https://github.com/divelab/AIRS/issues/23
 import time
 
 import torch.nn.functional as F
