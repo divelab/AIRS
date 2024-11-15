@@ -34,4 +34,4 @@ CUDA_VISIBLE_DEVICES=$gpu python ingestion.py -1 GeoMPNN/ ./ GeoMPNN/
 
 ## Acknowledgments
 
-This work was supported in part by National Science Foundation grants IIS-2243850 and CNS-2328395.
+This work was supported in part by National Science Foundation under grant IIS-2243850.
