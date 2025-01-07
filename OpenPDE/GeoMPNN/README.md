@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is the official implementation of GeoMPNN, winner of the best Student Submission award at the NeurIPS 2024 ML4CFD Competition, placing fourth overall.  
+This is the official implementation of [GeoMPNN](https://arxiv.org/abs/2412.09399), winner of the best Student Submission award at the NeurIPS 2024 ML4CFD Competition, placing fourth overall.  
 
 **Team**: Jacob Helwig, Xuan Zhang, Haiyang Yu, and Shuiwang Ji
 
