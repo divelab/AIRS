@@ -92,6 +92,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
             <li><a href="OpenPDE/G-FNO">G-FNO</a></li>
             <li><a href="OpenPDE/CFRF">CFRF</a></li>
             <li><a href="OpenPDE/SineNet">SineNet</a></li>
+            <li><a href="OpenPDE/GeoMPNN">GeoMPNN</a></li>
           </ul>
       </td>
     </tr>
