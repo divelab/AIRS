@@ -1,0 +1,27 @@
+out_dir: 'out/crystallm_v1_minus_mpts_52_small'
+eval_interval: 250  # how often to evaluate against the validation set
+eval_iters_train: 200
+log_interval: 1  # how often to print to the console (1 = every iteration)
+
+# whether to always save a checkpoint
+always_save_checkpoint: True
+
+# whether to validate with a validation set
+validate: False
+
+dataset: '/mnt/data/shared/tokens_v1_mpts_52_all'
+batch_size: 32
+block_size: 1024
+
+n_layer: 8
+n_head: 8
+n_embd: 512
+dropout: 0.1
+
+learning_rate: 1e-3
+max_iters: 100000
+lr_decay_iters: 100000
+min_lr: 1e-4
+beta2: 0.99
+
+warmup_iters: 100
