@@ -80,6 +80,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
             <li><a href="OpenMat/SyMat">SyMat</a></li>
               <li><a href="OpenMat/ComFormer">ComFormer</a></li>
               <li><a href="OpenMat/GMTNet">GMTNet</a></li>
+              <li><a href="OpenMat/Mat2Seq">Mat2Seq</a></li>
           </ul>
           <img src="https://placehold.co/50x50/8D55F7/8D55F7.png" height="12" width="12"> <b>OpenMI</b>
           <ul>
