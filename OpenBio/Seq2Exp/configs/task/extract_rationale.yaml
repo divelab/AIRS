@@ -1,0 +1,7 @@
+_name_: extract_rationale
+loss:
+  _name_: extract_rationale_loss
+  select_weight: 0.0
+  continuity_weight: 0.0
+  bio_mask_weight: 0.0
+  kl_loss_weight: 0.0

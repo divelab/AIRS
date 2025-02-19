@@ -1,0 +1,66 @@
+# @package _global_
+defaults:
+  - /pipeline: CAGE_pred
+  - /dataset: promo_enhan_inter
+  - /model: CAGE_promo_enhan  # Specify a model, e.g. model=mamba or model=hyena
+  - override /scheduler: constant
+
+task:
+  _name_: pe_inter
+  loss:
+    _name_: smooth_l1_loss
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  accumulate_grad_batches: ${div_up:${train.global_batch_size}, ${eval:${trainer.devices} * ${dataset.batch_size} * ${trainer.num_nodes}}}
+  max_epochs: 20
+  max_steps: -1
+  precision: 16  # bf16 only a100
+  gradient_clip_val: 1.0
+  limit_val_batches: 1.0
+#  limit_test_batches: 3
+#  limit_train_batches: 10
+  val_check_interval: 1.0
+
+dataset:
+  dataset_name: 'EPInformer'
+  expr_type: 'CAGE'  # or RNA
+  usePromoterSignal: True  # what is promoter signal?
+  signal_type: 'H3K27ac'  # promoter signal type
+  cell_type: 'K562'
+  n_extraFeat: 3
+  seq_range: 200_000
+
+  tokenizer_name: one_hot
+  batch_size: 16
+  batch_size_eval: ${.batch_size}
+
+  zero_dist: False
+  zero_activity: False
+  zero_hic: False
+  omit_enhancers: False
+  only_seqs: False
+
+
+model:
+  n_encoder: 3
+  out_dim: 64
+  head: 4
+  pre_trained_encoder: ~
+
+
+optimizer:
+  lr: 5e-4
+  weight_decay: 1e-6
+  betas: [0.9, 0.95]
+
+train:
+  gpu_mem: ${eval:"round(float(__import__('subprocess').check_output('nvidia-smi -i 0 --query-gpu=memory.total --format=csv,noheader,nounits', shell=True).strip().decode()) / 1000)"}
+  seed: 2222
+  global_batch_size: ${dataset.batch_size}  # effects the scheduler, need to set properly
+  cross_validation: true
+  remove_test_loader_in_eval: true  # test only at the end of training
+  monitor: val/mse
+  mode: min

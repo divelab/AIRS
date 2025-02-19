@@ -1,5 +1,6 @@
 This is the official implement of Paper [Learning to Discover Regulatory Elements for Gene Expression Prediction]().
 
+The Dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/GeneExp.
 
 $Cell_Type=K562 or GM12878  
 $DATA_ROOT is the data root path  

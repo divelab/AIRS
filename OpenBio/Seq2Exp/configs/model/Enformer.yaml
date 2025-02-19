@@ -1,0 +1,10 @@
+# Use open-source version of Mamba
+_name_: Enformer
+config:
+  _target_: src.models.sequence.Enformer.EnformerConfig
+
+  use_pretrain: True
+  freeze: False
+  d_model: 128
+  rna_feat_dim: 9
+  useRNAFeat: True

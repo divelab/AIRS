@@ -1,0 +1,9 @@
+# Use open-source version of Mamba
+_name_: EPInformer
+base_size: 4
+n_enhancers: ${dataset.n_enhancers}
+useBN: True
+usePromoterSignal: ${dataset.usePromoterSignal}
+useFeat: True
+n_extraFeat: ${dataset.n_extraFeat}
+useLN: True

@@ -1,0 +1,3 @@
+num_workers: ${eval:"len(__import__('os').sched_getaffinity(0))"}
+pin_memory: True
+drop_last: True
