@@ -15,7 +15,7 @@ This is the official implement of PACE Paper [Equivariant Graph Network Approxim
   $ pip install e3nn
   $ pip install torch-ema
   $ pip install prettytable
-  $ pip install ase
+  $ pip install ase==3.22.1
   ```
 
 ## Data
