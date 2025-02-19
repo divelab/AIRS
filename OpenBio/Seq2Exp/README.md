@@ -2,7 +2,7 @@
 
 This is the official implement of Paper [Learning to Discover Regulatory Elements for Gene Expression Prediction]().
 
-![causal_figure.jpg](..%2F..%2F..%2F..%2F..%2FDocuments%2Ficlr2025%2FArxiv%2Fcausal_figure.jpg)
+![causal_figure](images/causal_figure.jpg)
 
 # Dataset
 
