@@ -1,62 +1,49 @@
+# Seq2Exp
+
 This is the official implement of Paper [Learning to Discover Regulatory Elements for Gene Expression Prediction]().
 
-The Dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/GeneExp.
+![causal_figure.jpg](..%2F..%2F..%2F..%2F..%2FDocuments%2Ficlr2025%2FArxiv%2Fcausal_figure.jpg)
 
-$Cell_Type=K562 or GM12878  
-$DATA_ROOT is the data root path  
+# Dataset
 
-To get the results of Seq2Exp
+The Dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/GeneExp. Set the data directory as $DATA_ROOT.
+
+# Reproduce
+
+To reproduce the results of Seq2Exp
 ```bash
-CUDA_VISIBLE_DEVICES=0 python -m train experiment=hg38/gene_express \
-    wandb.mode=online \
-    wandb.group=CAGE_$Cell_Type_bimambaRNP_MI \
-    wandb.name=sigall_sigscale10_kl001_r01_evalsoft \
-    hydra.run.dir="./outputs/gene_exp_CAGE_$Cell_Type_bimambaRNP/sigall_sigscale10_kl001_r01_evalsoft" \
-    train.single_CV=11 \
-    dataset.expr_type=CAGE \
-    dataset.cell_type=$Cell_Type \
-    model="gene_express_bimamba_MI_RNP" \
-    task="extract_rationale" \
-    task.loss.kl_loss_weight=0.01 \
-    model.config.prior_scale_factor=10.0 \
-    model.config.marginal_mean=0.1 \
-    model.config.beta_min=1 \
-    dataset.data_folder=$DATA_ROOT
+sh Seq2Exp.sh $DATA_ROOT
 ```
 
-To reproduce the results of EPInformer, run the following
+To reproduce the results of different baselines, run the following
 ```bash
-CUDA_VISIBLE_DEVICES=0 python -m train experiment=hg38/CAGE_pred_promo_enhan_inter \
-  wandb.mode=online \
-  wandb.group=CAGE_pe_inter_$Cell_Type \
-  wandb.name=$Cell_Type_CAGE_feat3 \
-  hydra.run.dir="./outputs/$Cell_Type_CAGE_pred_pe/feat3" \
-  dataset.expr_type=CAGE \
-  dataset.cell_type=$Cell_Type \
-  dataset.n_extraFeat=3 \
-  dataset.data_folder=$DATA_ROOT
+sh baselines.sh $DATA_ROOT
 ```
 
-To reproduce the results of Enformer, run the following
-```bash
-CUDA_VISIBLE_DEVICES=3 python -m train experiment=hg38/gene_express \
-  wandb.mode=online \
-  wandb.group=Enformer_CAGE_$Cell_Type \
-  wandb.name=pretrainFalse \
-  hydra.run.dir="./outputs/Enformer_CAGE_$Cell_Type/pretrainFalse" \
-  dataset.expr_type=CAGE \
-  dataset.cell_type=$Cell_Type \
-  model="Enformer" \
-  task="gene_pred" \
-  model.config.use_pretrain=False \
-  dataset.batch_size=4 \
-  dataset.tokenizer_name=char \
-  optimizer.lr=7e-6 \
-  trainer.max_steps=200000 \
-  scheduler.warmup_lr_init=0.0 \
-  scheduler.warmup_t=50000 \
-  scheduler.lr_min=7e-6 \
-  dataset.data_folder=$DATA_ROOT
-```
 
-The dataset is huge, and we will release all the raw & processed data, and model weights in the future.
+[//]: # (## Citation)
+
+[//]: # ()
+[//]: # (Please cite our paper if you find our paper useful.)
+
+[//]: # (```)
+
+[//]: # (@inproceedings{yu2023efficient,)
+
+[//]: # (  title={Efficient and Equivariant Graph Networks for Predicting Quantum Hamiltonian},)
+
+[//]: # (  author={Yu, Haiyang and Xu, Zhao and Qian, Xiaofeng and Qian, Xiaoning and Ji, Shuiwang},)
+
+[//]: # (  booktitle={International Conference on Machine Learning},)
+
+[//]: # (  year={2023},)
+
+[//]: # (  organization={PMLR})
+
+[//]: # (})
+
+[//]: # (```)
+
+## Acknowledgments
+
+This work was supported in part by the National Institute on Aging of the National Institutes of Health under Award Number U01AG070112 and ARPA-H under Award Number 1AY1AX000053. The content is solely the responsibility of the authors and does not necessarily represent the official views of the funding agencies.
