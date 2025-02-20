@@ -9,11 +9,11 @@ This is the official implement of Paper [Learning to Discover Regulatory Element
 - clone this repo
 - create the env and install the requirements
   
-  ```bash
-  $ git clone https://github.com/divelab/AIRS.git
-  $ cd AIRS/OpenBio/Seq2Exp
-  $ source ./install.sh
-  ```
+```bash
+git clone https://github.com/divelab/AIRS.git
+cd AIRS/OpenBio/Seq2Exp
+source ./install.sh
+```
 
 # Dataset
 
