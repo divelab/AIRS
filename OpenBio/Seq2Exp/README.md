@@ -4,6 +4,17 @@ This is the official implement of Paper [Learning to Discover Regulatory Element
 
 ![causal_figure](images/causal_figure.jpg)
 
+## Installation
+
+- clone this repo
+- create the env and install the requirements
+  
+  ```bash
+  $ git clone https://github.com/divelab/AIRS.git
+  $ cd AIRS/OpenBio/Seq2Exp
+  $ source ./install.sh
+  ```
+
 # Dataset
 
 The Dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/GeneExp. Set the data directory as $DATA_ROOT.
