@@ -1,6 +1,6 @@
 # Seq2Exp
 
-This is the official implement of Paper [Learning to Discover Regulatory Elements for Gene Expression Prediction]().
+This is the official implement of Paper [Learning to Discover Regulatory Elements for Gene Expression Prediction](https://arxiv.org/abs/2502.13991).
 
 ![causal_figure](images/causal_figure.jpg)
 
