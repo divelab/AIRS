@@ -32,28 +32,20 @@ sh baselines.sh $DATA_ROOT
 ```
 
 
-[//]: # (## Citation)
+## Citation
 
-[//]: # ()
-[//]: # (Please cite our paper if you find our paper useful.)
 
-[//]: # (```)
+Please cite our paper if you find our paper useful.
 
-[//]: # (@inproceedings{yu2023efficient,)
+```
 
-[//]: # (  title={Efficient and Equivariant Graph Networks for Predicting Quantum Hamiltonian},)
+@inproceedings{sulearning,
+  title={Learning to Discover Regulatory Elements for Gene Expression Prediction},
+  author={Su, Xingyu and Yu, Haiyang and Zhi, Degui and Ji, Shuiwang},
+  booktitle={The Thirteenth International Conference on Learning Representations}
+}
 
-[//]: # (  author={Yu, Haiyang and Xu, Zhao and Qian, Xiaofeng and Qian, Xiaoning and Ji, Shuiwang},)
-
-[//]: # (  booktitle={International Conference on Machine Learning},)
-
-[//]: # (  year={2023},)
-
-[//]: # (  organization={PMLR})
-
-[//]: # (})
-
-[//]: # (```)
+```
 
 ## Acknowledgments
 
