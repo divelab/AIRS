@@ -5,7 +5,7 @@ This is the official implementation of the **Frag2Seq** method proposed in the f
 Cong Fu*, Xiner Li*, Blake Olson, Heng Ji, Shuiwang Ji ["Fragment and Geometry Aware Tokenization of Molecules for Structure-Based Drug Design Using Language Models"](https://openreview.net/pdf?id=MBZVrtbi06), The Thirteenth International Conference on Learning Representations (ICLR) 2025
 
 <p align="center">
-<img src="https://github.com/divelab/AIRS/blob/main/OpenProt/Frag2Seq/assets/Frag2Seq.png" width="800" class="center" alt=""/>
+<img src="https://github.com/divelab/AIRS/blob/main/OpenMI/Frag2Seq/assets/Frag2Seq.png" width="800" class="center" alt=""/>
     <br/>
 </p>
 
