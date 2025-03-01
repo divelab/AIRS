@@ -1,0 +1,1 @@
+Files taken from: https://github.com/rdkit/rdkit/tree/master/Contrib/SA_Score
