@@ -86,6 +86,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
           <img src="https://placehold.co/50x50/8D55F7/8D55F7.png" height="12" width="12"> <b>OpenMI</b>
           <ul>
             <li><a href="OpenMI/GraphBP">GraphBP</a></li>
+            <li><a href="OpenMI/Frag2Seq">Frag2Seq</a></li>
           </ul>
       </td>
       <td> 
