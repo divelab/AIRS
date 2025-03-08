@@ -290,6 +290,7 @@ class QH9Dynamic(InMemoryDataset):
             self.folder = osp.join(root, 'QH9Dynamic_300k')
         elif self.version == '100k':
             self.folder = osp.join(root, 'QH9Dynamic_100k')
+            print("It is recommended to use the 300k version which contains a longer MD trajectory")
         else:
             print(f"Current version parameter is {version}, which is not included in [100k, 300k].")
             print(f"Using 300k version instead...")
