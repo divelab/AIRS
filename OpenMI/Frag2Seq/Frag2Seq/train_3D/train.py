@@ -60,8 +60,7 @@ def run(args, rank=None):
     os.environ["WANDB_MODE"] = "dryrun"
 
     print("making tokenizer")
-    # tokenizer = RobertaTokenizerFast.from_pretrained(tokenizer_path, max_len=FLAGS.max_tokenizer_len)
-    # print("tokenizer:", tokenizer)
+
     max_len = args.max_len
     print("tokenizer:")
     tokenizer_path = args.output_tokenizer_dir
@@ -98,12 +97,7 @@ def run(args, rank=None):
             tokenizer.fit_on_lmdb(args.rag_db_val_path)
             tokenizer.fit_on_lmdb(args.rag_db_test_path)
             
-            
-        # tokenizer.fit_on_file(args.root_path + '_test.txt')
-        # data_dir = '/mnt/data/shared/xinerli/drug_seq'
-        # chunk_files = [f for f in os.listdir(data_dir) if f.startswith(f'invariant_cord_spherical_seq')]
-        # for chunk_file in chunk_files:
-        #     tokenizer.fit_on_file(os.path.join(data_dir, chunk_file))
+
         tokenizer.save_vocab(tokenizer_path)
         print("tokenizer saved")
 
@@ -119,11 +113,11 @@ def run(args, rank=None):
     with open(args.root_path + '.txt', 'r') as file:
         train_data = file.readlines()
     file.close()
-    # train_data = load_dataset_from_files(args.root_path, 'train', 56)
+
     with open(args.root_path + '_val.txt', 'r') as file:
         val_data = file.readlines()
     file.close()
-    # val_data = load_dataset_from_files(args.root_path, 'valid', 7)
+
     if args.conditions_path is not None:
         print("loading conditions")
         with open(args.conditions_path + '.txt', 'r') as file:
@@ -145,7 +139,7 @@ def run(args, rank=None):
         conditions_split_id = None
         conditions_split_id_val = None
 
-    # import pdb; pdb.set_trace()
+
     if args.ESM_protein:
         train_dataset = NewMol3DDataset(train_data, tokenizer, max_len, conditions_data, conditions_split_id, 
                                         db_path=args.protein_embedding_path)
@@ -166,9 +160,12 @@ def run(args, rank=None):
 
     print("loading model")
     if args.model == 'gpt':
-        mconf = GPTConfig(vocab_size, max_len, num_props=args.num_props,  # args.num_props,
-                          n_layer=args.n_layer, n_head=args.n_head, n_embd=args.n_embd, scaffold=args.scaffold,
-                          scaffold_maxlen=max_len, lstm=args.lstm, lstm_layers=args.lstm_layers, isconditional=isconditional, 
+        # mconf = GPTConfig(vocab_size, max_len, num_props=args.num_props,  # args.num_props,
+        #                   n_layer=args.n_layer, n_head=args.n_head, n_embd=args.n_embd, scaffold=args.scaffold,
+        #                   scaffold_maxlen=max_len, lstm=args.lstm, lstm_layers=args.lstm_layers, isconditional=isconditional, 
+        #                   mode=args.mode, ESM_protein=args.ESM_protein, rag=args.rag, alpha=args.alpha)
+        mconf = GPTConfig(vocab_size, max_len,
+                          n_layer=args.n_layer, n_head=args.n_head, n_embd=args.n_embd,isconditional=isconditional, 
                           mode=args.mode, ESM_protein=args.ESM_protein, rag=args.rag, alpha=args.alpha)
         model = GPT(mconf)
     else:
@@ -235,15 +232,8 @@ if __name__ == '__main__':
                         help="name for wandb run", required=False)
     parser.add_argument('--debug', action='store_true',
                         default=False, help='debug')
-    parser.add_argument('--scaffold', action='store_true',
-                        default=False, help='')
-    parser.add_argument('--lstm', action='store_true',
-                        default=False, help='use lstm for transforming scaffold')
     parser.add_argument('--data_name', type=str, default='',
                         help="name of the dataset to train on", required=False)
-    parser.add_argument('--props', nargs="+", default=['qed'],
-                        help="properties to be used for condition", required=False)
-    parser.add_argument('--num_props', type=int, default = 0, help="number of properties to use for condition", required=False)
     parser.add_argument('--model', type=str, default='gpt',
                         help="name of the model", required=False)
     parser.add_argument('--tokenizer', type=str, default='simple',
@@ -266,8 +256,6 @@ if __name__ == '__main__':
                         help="save model epoch interval", required=False)
     parser.add_argument('--learning_rate', type=float,
                         default=4e-4, help="learning rate", required=False)
-    parser.add_argument('--lstm_layers', type=int, default=0,
-                        help="number of layers in lstm", required=False)
     parser.add_argument('--max_len', type=int, default=512,
                         help="max_len", required=False)
     parser.add_argument('--grad_norm_clip', type=float, default=1.0,

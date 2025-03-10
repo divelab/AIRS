@@ -15,7 +15,6 @@ from torch.optim.lr_scheduler import LambdaLR
 from torch.utils.data.dataloader import DataLoader
 from torch.cuda.amp import GradScaler
 
-from utils import check_novelty, sample
 from utils import get_mol
 import re
 import pandas as pd
@@ -127,10 +126,13 @@ class Trainer:
 
             losses = []
             pbar = tqdm(enumerate(loader), total=len(loader)) if is_train else enumerate(loader)
-            # import pdb; pdb.set_trace()
+
             for it, (input_ids, targets, condition_split_id, protein_padded_embedding, protein_embedding_mask) in pbar:
             # for it, (input_ids, targets, condition_split_id) in pbar:
-                # import pdb; pdb.set_trace()
+                ### sanity check training
+                # if it == 20 and split == 'train':
+                #     break
+                
                 # place data on the correct device
                 input_ids = input_ids.to(self.device)
                 targets = targets.to(self.device)

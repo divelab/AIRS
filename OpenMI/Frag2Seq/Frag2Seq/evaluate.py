@@ -63,8 +63,6 @@ from tqdm.auto import tqdm
 import seaborn as sns
 from collections import Counter
 
-from rdkit.Chem.Descriptors import MolLogP
-
 
 def rotation_vector_to_axis_angle(v):
     theta = np.linalg.norm(v)
@@ -151,12 +149,6 @@ def seq_to_mol(seq, fragments_dict, R_m2w, t_m2w, gt_atom_positions_list=None, n
         R_f2m_from_seq = axis_angle_to_rotation_matrix(R_axis, R_angle)
         t_f2m_from_seq = centroid_coord - t_f2c
         
-        
-        # # get atom position in the molecule local frame
-        # frag_atom_coord_in_molecule = (frag_atom_coord @ R_f2m.T) + t_f2m
-        # # get atom position in the world frame
-        # frag_atom_coord_world = (frag_atom_coord_in_molecule @ R_m2w.T) + t_m2w
-        # print(np.allclose(atom_positions, frag_atom_coord_world))
         
         # get atom position in the molecule local frame
         frag_atom_coord_in_molecule = (frag_atom_coord @ R_f2m_from_seq.T) + t_f2m_from_seq
@@ -376,6 +368,8 @@ if __name__ == '__main__':
     parser.add_argument('--transformation_file_path', type=str, help='')
     parser.add_argument('--no_SPH', action='store_true')
     parser.add_argument('--train_data_foler', type=str, help='')
+    parser.add_argument('--min_size', type=int, help='', default=15)
+    parser.add_argument('--max_size', type=int, help='', default=35)
     
     args = parser.parse_args()
 
@@ -400,8 +394,6 @@ base_path = Path('./sample_output/')
 if not os.path.exists(base_path / args.save_dir / 'raw_seq'):
     os.makedirs(base_path / args.save_dir / 'raw_seq')
 
-# if not os.path.exists(base_path / args.save_dir / 'coord_seq'):
-#     os.makedirs(base_path / args.save_dir / 'coord_seq')
 
 if not os.path.exists(base_path / args.save_dir / 'processed_mol_sdf'):
     os.makedirs(base_path / args.save_dir / 'processed_mol_sdf')
@@ -464,6 +456,10 @@ for idx, path in tqdm(enumerate(path_list), total=len(path_list)):
 
             mol = process_molecule(mol, add_hydrogens=False, sanitize=True, relax_iter=200, largest_frag=args.largest_frag)
             
+            if mol is not None:
+                # make average molecule size similar to other methods and testset
+                if mol.GetNumAtoms() < args.min_size or mol.GetNumAtoms() > args.max_size:
+                    continue
             
             if mol is not None:
                 mol_list.append(mol)

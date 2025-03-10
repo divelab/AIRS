@@ -11,7 +11,6 @@ CUDA_VISIBLE_DEVICES=${gpu} \
 python train_3D/generate.py \
 --run_name frag2seq \
 --batch_size 32 \
---num_props 0 \
 --max_epochs 250 \
 --root_path ./seq/two_digit_smiles_reorder_cutoff_15_ligand_only_frag/train_frag_seq \
 --output_tokenizer_dir ./seq/storage/two_digit_smiles_reorder_cutoff_15_ligand_only_frag/train_frag_seq/tokenizer \

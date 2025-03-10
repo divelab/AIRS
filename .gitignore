@@ -5,6 +5,8 @@ OpenDFT/**/datasets/
 OpenDFT/**/outputs/
 OpenDFT/QHBench/QH9/test_codes/*
 .DS_Store
-
+OpenMI/**/seq/
+OpenMI/**/train_test.sh
+OpenMI/**/generate_test.sh
 
 

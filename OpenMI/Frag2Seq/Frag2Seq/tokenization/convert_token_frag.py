@@ -439,15 +439,6 @@ def generate_frag_seq(data, base_dir, test=False, process_lig_only=False, max_le
                 
                 with open(str(base_dir / f'{prefix}_names.txt'), 'a') as file:
                     file.write(names[i] + '\n')
-            
-            ## write ligand coord
-            #     lig_atom_type_index = np.argmax(lig_one_hot[lig_mask==i], axis=1)
-            #     lig_atom_pos = lig_coords[lig_mask==i]
-            #     ligand_length_list.append(lig_atom_pos.shape[0])
-            #     for k in range(lig_atom_type_index.shape[0]):
-            #         lig_atom_type = atom_swapped_dict[lig_atom_type_index[k]]
-            #         f.write(f'{lig_atom_type} {lig_atom_pos[k][0]:.6f} {lig_atom_pos[k][1]:.6f} {lig_atom_pos[k][2]:.6f} ')
-            # f.write('\n')
                 
                 if seq_out_list is None:
                     seq = " "

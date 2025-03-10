@@ -45,16 +45,8 @@ class CausalSelfAttention(nn.Module):
         self.resid_drop = nn.Dropout(config.resid_pdrop)
         # output projection
         self.proj = nn.Linear(config.n_embd, config.n_embd)
-        # causal mask to ensure that attention is only applied to the left in the input sequence
-        if config.num_props:
-            if config.scaffold_maxlen:
-                num = int(bool(config.num_props)) + int(config.scaffold_maxlen)
-            else:
-                num = int(bool(config.num_props))
-        else:
-            num = 0
-        # num = int(bool(config.num_props)) + int(config.scaffold_maxlen)   #int(config.lstm_layers)    #  int(config.scaffold)
-        # num = 1
+
+        num = 0
         self.register_buffer("mask", torch.tril(torch.ones(config.block_size + num, config.block_size + num))
                                      .view(1, 1, config.block_size + num, config.block_size + num))
 
@@ -91,10 +83,6 @@ class CrossAttention(nn.Module):
     def __init__(self, config):
         super().__init__()
         assert config.n_embd % config.n_head == 0
-        # key, query, value projections for all heads
-        # self.key = nn.Linear(config.n_embd, config.n_embd)
-        # self.query = nn.Linear(config.n_embd, config.n_embd)
-        # self.value = nn.Linear(config.n_embd, config.n_embd)
         
         # cross attention
         self.cross_key = nn.Linear(config.n_embd, config.n_embd)
@@ -107,18 +95,8 @@ class CrossAttention(nn.Module):
         self.cross_crop = nn.Dropout(config.cross_pdrop)
         # output projection
         self.proj = nn.Linear(config.n_embd, config.n_embd)
-        # causal mask to ensure that attention is only applied to the left in the input sequence
-        if config.num_props:
-            if config.scaffold_maxlen:
-                num = int(bool(config.num_props)) + int(config.scaffold_maxlen)
-            else:
-                num = int(bool(config.num_props))
-        else:
-            num = 0
-        # num = int(bool(config.num_props)) + int(config.scaffold_maxlen)   #int(config.lstm_layers)    #  int(config.scaffold)
-        # num = 1
-        # self.register_buffer("mask", torch.tril(torch.ones(config.block_size + num, config.block_size + num))
-        #                              .view(1, 1, config.block_size + num, config.block_size + num))
+
+        num = 0
 
         self.n_head = config.n_head
         
@@ -145,19 +123,6 @@ class CrossAttention(nn.Module):
     def forward(self, x, layer_past=None, encoder_embedding=None, encoder_mask=None, mode='concat'):
         B, T, C = x.size()
 
-        # # calculate query, key, values for all heads in batch and move head forward to be the batch dim
-        # k = self.key(x).view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
-        # q = self.query(x).view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
-        # v = self.value(x).view(B, T, self.n_head, C // self.n_head).transpose(1, 2) # (B, nh, T, hs)
-
-        # # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
-        # att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
-        # att = att.masked_fill(self.mask[:,:,:T,:T] == 0, float('-inf'))
-        # att = F.softmax(att, dim=-1)
-        # attn_save = att
-        # att = self.attn_drop(att)
-        # y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
-        # y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
 
 
         if encoder_embedding is not None and encoder_mask is not None:
@@ -210,11 +175,9 @@ class CrossAttention(nn.Module):
                 # softmax 
                 cross_att = F.softmax(cross_att, dim=-1)
                 cross_att = self.attn_drop(cross_att)
-                # import pdb; pdb.set_trace()
             
                 cross_y = cross_att @ cross_v
                 cross_y = cross_y.transpose(1, 2).contiguous().view(B, T, C)
-                # import pdb; pdb.set_trace()
             
             else:
                 raise ValueError('mode should be "concat" or "cross"')
@@ -272,8 +235,6 @@ class GPT(nn.Module):
         self.padding_token_id = 0
         self.tok_emb = nn.Embedding(config.vocab_size, config.n_embd)
         self.type_emb = nn.Embedding(2, config.n_embd)
-        if config.num_props:
-            self.prop_nn = nn.Linear(config.num_props, config.n_embd)
      
         self.pos_emb = nn.Parameter(torch.zeros(1, config.block_size, config.n_embd))
         self.drop = nn.Dropout(config.embd_pdrop)
@@ -286,8 +247,6 @@ class GPT(nn.Module):
         self.block_size = config.block_size
         self.isconditional = config.isconditional
 
-        if config.lstm:
-            self.lstm = nn.LSTM(input_size = config.n_embd, hidden_size = config.n_embd, num_layers = config.lstm_layers, dropout = 0.3, bidirectional = False)
         self.apply(self._init_weights)
 
         logger.info("number of parameters: %e", sum(p.numel() for p in self.parameters()))
@@ -355,36 +314,12 @@ class GPT(nn.Module):
         b, t = idx.size()
         assert t <= self.block_size, "Cannot forward, model block size is exhausted."
 
-        # if self.config.num_props:
-        #     assert prop.size(-1) == self.config.num_props, "Num_props should be equal to last dim of property vector"           
-
         # forward the GPT model
         token_embeddings = self.tok_emb(idx) # each index maps to a (learnable) vector
         position_embeddings = self.pos_emb[:, :t, :] # each position maps to a (learnable) vector
         type_embeddings = self.type_emb(torch.ones((b,t), dtype = torch.long, device = idx.device))
         x = self.drop(token_embeddings + position_embeddings + type_embeddings)
 
-        # if self.config.num_props:
-        #     type_embd = self.type_emb(torch.zeros((b, 1), dtype = torch.long, device = idx.device))
-        #     if prop.ndim == 2:
-        #         p = self.prop_nn(prop.unsqueeze(1))    # for single property
-        #     else:
-        #         p = self.prop_nn(prop)    # for multiproperty
-        #     p += type_embd
-        #     x = torch.cat([p, x], 1)
-
-        # if self.config.scaffold:
-        #     type_embd = self.type_emb(torch.zeros((b, 1), dtype = torch.long, device = idx.device))
-
-        #     scaffold_embeds = self.tok_emb(scaffold)     # .mean(1, keepdim = True)
-        #     if self.config.lstm:
-        #         scaffold_embeds = self.lstm(scaffold_embeds.permute(1,0,2))[1][0]
-        #         # scaffold_embeds = scaffold_embeds.reshape(scaffold_embeds.shape[1], scaffold_embeds.shape[0], 2, self.config.n_embd).mean(2)
-        #         scaffold_embeds = scaffold_embeds.permute(1,0,2)   # mean(0, keepdim = True)
-        #         # scaffold_embeds = scaffold_embeds.reshape(self.config.lstm_layers, 1, -1, self.config.n_embd)[-1].permute(1,0,2)
-        #         # scaffold_embeds = scaffold_embeds.reshape(scaffold_embeds.shape[1], scaffold_embeds.shape[0], self.config.n_embd)
-        #     scaffold_embeds += type_embd
-        #     x = torch.cat([scaffold_embeds, x], 1)
 
         # x = self.blocks(x)
         attn_maps = []
@@ -398,26 +333,10 @@ class GPT(nn.Module):
 
         x = self.ln_f(x)
         logits = self.head(x)
-
-        # print(logits.shape)
-        if self.config.num_props and self.config.scaffold:
-            num = int(bool(self.config.num_props)) + int(self.config.scaffold_maxlen)
-        elif self.config.num_props:
-            num = int(bool(self.config.num_props))
-        elif self.config.scaffold:
-            num = int(self.config.scaffold_maxlen) 
-        else:
-            num = 0
+        
+        num = 0
 
         logits = logits[:, num:, :]
-
-
-        # if self.config.num_props or self.config.scaffold:
-
-        #     num = int(bool(self.config.num_props)) + int(self.config.scaffold_maxlen)  #int(self.config.lstm_layers)   # int(self.config.scaffold)      # int(self.config.scaffold)
-            
-
-        # print(logits.shape)
 
         # if we are given some desired targets also calculate the loss
         loss = None

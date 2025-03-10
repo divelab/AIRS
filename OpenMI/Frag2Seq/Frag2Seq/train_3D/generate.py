@@ -21,7 +21,6 @@ import random
 from collections import Counter
 from tqdm import tqdm
 
-from utils import sample
 from rdkit import Chem
 
 import lmdb
@@ -83,12 +82,11 @@ def generate_sample(model, tokenizer, first_tokens, max_length, top_k=100, temp=
     model.eval()
     first_token_ids = [tokenizer.generation_encode(token) for token in first_tokens]
     input_ids = pad_sequence([torch.tensor(ids, dtype=torch.long) for ids in first_token_ids], batch_first=True, padding_value=tokenizer.vocab["<pad>"]).cuda()
-    # if beam_size is not None:
-    #     return beam_search(model, input_ids, max_length, beam_size, top_k)
+
     init_len = input_ids.size(1)
     with torch.no_grad():
         for _ in range(max_length - init_len):
-            # import pdb; pdb.set_trace()
+
             output = model(input_ids,
                            protein_embedding_mask = protein_embedding_mask.cuda(),
                            protein_padded_embedding = protein_padded_embedding.cuda())
@@ -110,16 +108,8 @@ if __name__ == '__main__':
                         help="name for wandb run", required=False)
     parser.add_argument('--debug', action='store_true',
                         default=False, help='debug')
-
-    parser.add_argument('--scaffold', action='store_true',
-                        default=False, help='condition on scaffold')
-    parser.add_argument('--lstm', action='store_true',
-                        default=False, help='use lstm for transforming scaffold')
     parser.add_argument('--data_name', type=str, default='',
                         help="name of the dataset to train on", required=False)
-    parser.add_argument('--props', nargs="+", default=['qed'],
-                        help="properties to be used for condition", required=False)
-    parser.add_argument('--num_props', type=int, default = 0, help="number of properties to use for condition", required=False)
     parser.add_argument('--n_layer', type=int, default=8,
                         help="number of layers", required=False)
     parser.add_argument('--n_head', type=int, default=8,
@@ -142,8 +132,6 @@ if __name__ == '__main__':
                         help="number of workers for data loaders", required=False)
     parser.add_argument('--learning_rate', type=float,
                         default=1e-4, help="learning rate", required=False)
-    parser.add_argument('--lstm_layers', type=int, default=0,
-                        help="number of layers in lstm", required=False)
     parser.add_argument('--max_len', type=int, default=512,
                         help="max_len", required=False)
     parser.add_argument('--epoch', type=int, default=0,
@@ -193,9 +181,8 @@ if __name__ == '__main__':
         isconditional = False
 
     if args.model_name == 'gpt':
-        mconf = GPTConfig(vocab_size, max_len, num_props=args.num_props,  # args.num_props,
-                            n_layer=args.n_layer, n_head=args.n_head, n_embd=args.n_embd, scaffold=args.scaffold,
-                            scaffold_maxlen=max_len, lstm=args.lstm, lstm_layers=args.lstm_layers,
+        mconf = GPTConfig(vocab_size, max_len,
+                            n_layer=args.n_layer, n_head=args.n_head, n_embd=args.n_embd,
                             isconditional=isconditional, ESM_protein=args.ESM_protein, mode=args.mode)
     else:
         raise ValueError("model is not supported")
@@ -265,13 +252,11 @@ if __name__ == '__main__':
         protein_padded_embedding = protein_embedding_dict['padded_embedding']
         protein_embedding_mask = protein_embedding_dict['mask']
         
-        # import pdb; pdb.set_trace()
         protein_padded_embedding = protein_padded_embedding.unsqueeze(0).expand(num_samples, -1,-1)
         protein_embedding_mask = protein_embedding_mask.unsqueeze(0).expand(num_samples,-1)
-        # import pdb; pdb.set_trace()
         
         batch_first_tokens = [sample_first_token(token_probs) for _ in range(num_samples)]
-        # batch_first_tokens = [first_token for _ in range(num_samples)]
+
         samples = generate_sample(model, 
                                   tokenizer, 
                                   batch_first_tokens, 
@@ -281,11 +266,7 @@ if __name__ == '__main__':
                                   beam_size=None,
                                   protein_embedding_mask=protein_embedding_mask,
                                   protein_padded_embedding=protein_padded_embedding)
-        # first_token_ids = torch.tensor([tokenizer.generation_encode(first_token) for _ in range(num_samples)],
-        #                                dtype=torch.long).to(device)
-        # out = generate(
-        #     first_token_ids)  # Ensure this function supports batched input and generates a sequence for each input
-        # samples = [tokenizer.decode(ids) for ids in out.sequences.cpu()]
+
         print(f'Completed {idx} with {len(samples)} samples')
         print(f'Sub-time taken: {time.time() - substart}')
         time_list.append(time.time() - substart)
