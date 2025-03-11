@@ -37,7 +37,7 @@ sh baselines.sh $DATA_ROOT
 The pretrained model can be downloaded from https://huggingface.co/xingyusu/GeneExp_Seq2Exp. 
 Set the target model path (`.ckpt` file) as `$MODEL_PATH`.
 
-To evaluate based on a trained model, append the following parameters to the model training command
+To evaluate based on a trained model, append the following parameters to the model training command inside the above `Seq2Exp.sh` file
 ```bash
 train.only_test=True \
 train.only_test_model_path=$MODEL_PATH
@@ -49,13 +49,11 @@ train.only_test_model_path=$MODEL_PATH
 Please cite our paper if you find our paper useful.
 
 ```
-
 @inproceedings{sulearning,
   title={Learning to Discover Regulatory Elements for Gene Expression Prediction},
   author={Su, Xingyu and Yu, Haiyang and Zhi, Degui and Ji, Shuiwang},
   booktitle={The Thirteenth International Conference on Learning Representations}
 }
-
 ```
 
 ## Acknowledgments
