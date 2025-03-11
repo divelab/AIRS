@@ -1,10 +1,10 @@
 # A Materials Foundation Model via Hybrid Invariant-Equivariant Architectures
 
-[[arXiv](https://arxiv.org/abs/2503.05771)]
+[[preprint](https://arxiv.org/abs/2503.05771)]
 
 The official implementation for the HIENet model from our preprint "A Materials Foundation Model via Hybrid Invariant-Equivariant Architectures"
 
-![cover](figures/HIENet-overview.pdf)
+![cover](figures/HIENet-overview.png)
 
 ## Tutorial
 
