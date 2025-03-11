@@ -6,9 +6,61 @@ The official implementation for the HIENet model from our preprint "A Materials 
 
 ![cover](figures/HIENet-overview.png)
 
-## Tutorial
+## Installation
 
-TODO: Add directions on how to use model
+### Requirements
+- Python >= 3.8
+- PyTorch >= 1.12.0
+
+We have tested the model with the following configuration:
+- Python 3.9
+- PyTorch 2.1.2
+
+
+
+After installing PyTorch, you can install HIENet from source:
+
+```bash
+git clone https://github.com/divelab/AIRS.git
+cd AIRS/OpenMat/HIENet
+pip install .
+```
+
+## Usage
+
+### ASE Calculator
+HIENet provides an interface with the Atomic Simulation Environment (ASE) through its calculator implementation. You can use the pretrained model as follows:
+
+```python
+from hienet.hienet_calculator import HIENetCalculator
+from ase.io import read
+
+# Load a structure from a file
+atoms = read('your_structure.cif')
+
+# Initialize the calculator with default settings
+# This will use the pretrained model on the available device (GPU if available)
+calc = HIENetCalculator()
+
+# Attach the calculator to the atoms object
+atoms.calc = calc
+
+# Calculate energy, forces, and stress
+energy = atoms.get_potential_energy()
+forces = atoms.get_forces()
+stress = atoms.get_stress()
+```
+
+### Using a specific checkpoint
+You can also load a specific model checkpoint:
+
+```python
+# Load from a specific checkpoint file
+calc = HIENetCalculator(model='path/to/your/checkpoint.pth')
+
+# Specify device
+calc = HIENetCalculator(device='cuda:0')  # or 'cpu' for CPU only
+```
 
 ## Citation
 
