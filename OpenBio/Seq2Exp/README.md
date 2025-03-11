@@ -49,10 +49,11 @@ train.only_test_model_path=$MODEL_PATH
 Please cite our paper if you find our paper useful.
 
 ```
-@inproceedings{sulearning,
+@article{su2025learning,
   title={Learning to Discover Regulatory Elements for Gene Expression Prediction},
   author={Su, Xingyu and Yu, Haiyang and Zhi, Degui and Ji, Shuiwang},
-  booktitle={The Thirteenth International Conference on Learning Representations}
+  journal={arXiv preprint arXiv:2502.13991},
+  year={2025}
 }
 ```
 
