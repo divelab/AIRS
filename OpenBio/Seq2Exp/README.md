@@ -20,7 +20,7 @@ source ./install.sh
 The dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/GeneExp. 
 Set the dataset directory as `$DATA_ROOT` before running any experiments.
 
-# Training with Evaluation
+# Training and Evaluation
 
 To reproduce the results of Seq2Exp, run the following
 ```bash
@@ -32,7 +32,7 @@ To reproduce the results of different baselines, run the following
 sh baselines.sh $DATA_ROOT
 ```
 
-# Evaluation with Trained Models
+# Evaluation by Trained Models
 
 The pretrained model can be downloaded from https://huggingface.co/xingyusu/GeneExp_Seq2Exp. 
 Set the target model path (`.ckpt` file) as `$MODEL_PATH`.
