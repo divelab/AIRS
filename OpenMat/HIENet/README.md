@@ -17,7 +17,6 @@ We have tested the model with the following configuration:
 - PyTorch 2.1.2
 
 
-
 After installing PyTorch, you can install HIENet from source:
 
 ```bash
@@ -61,6 +60,8 @@ calc = HIENetCalculator(model='path/to/your/checkpoint.pth')
 # Specify device
 calc = HIENetCalculator(device='cuda:0')  # or 'cpu' for CPU only
 ```
+
+We provide a pretrained HIENet checkpoint under the checkpoints/ folder.
 
 ## Citation
 
