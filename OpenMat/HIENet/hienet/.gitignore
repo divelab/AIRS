@@ -1,0 +1,12 @@
+__pycache__
+LOG
+raw_data_from_parse_structure.pickle
+script_model.py
+deployed_ref.pt
+deployed_test_0.pt
+deployed_test_1.pt
+deployed_test_2.pt
+wandb/debug-cli*.log
+wandb/debug-internal.log
+wandb/debug.log
+wandb/latest-run
