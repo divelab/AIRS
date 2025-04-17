@@ -13,7 +13,9 @@ Please refer to `enviroment.yml`.
 ### Mamba additional environment setup:
 
 ```bash
-conda install -c "nvidia/label/cuda-11.8.0" cuda-toolkit
+conda install nvidia/label/cuda-12.1.0::cuda-toolkit
+
+conda install nvidia/label/cuda-12.1.0::cuda-nvcc
 
 pip install causal-conv1d>=1.1.0
 
