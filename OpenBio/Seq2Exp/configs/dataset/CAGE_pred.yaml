@@ -1,0 +1,5 @@
+_name_: cage_pred
+shuffle: True
+num_workers: 16
+drop_last: False
+pin_memory: True

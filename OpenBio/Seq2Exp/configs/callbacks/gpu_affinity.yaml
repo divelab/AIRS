@@ -1,0 +1,2 @@
+gpu_affinity:
+  _name_: gpu_affinity

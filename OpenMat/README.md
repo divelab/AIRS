@@ -7,5 +7,6 @@ This is the folder for our research project codes about **AI for material scienc
 - [ComFormer](https://openreview.net/pdf?id=BnQY9XiRAS)
 - [GMTNet](https://openreview.net/forum?id=BOFjRnJ9mX)
 - [Mat2Seq](https://openreview.net/forum?id=18FGRNd0wZ)
+- [HIENet](https://arxiv.org/abs/2503.05771)
 
 We will add more codes in the future. Stay tuned!

@@ -1,0 +1,147 @@
+# Use open-source version of Mamba
+_name_: BiMambaMIRNP
+config:
+  _target_: caduceus.configuration_caduceus.CaduceusConfig
+  d_model: 128  # 128, 256
+  enc_n_layer: 4
+  gen_n_layer: ${.enc_n_layer}
+  center_len: 2000
+  aux_loss_kl: True
+  aux_loss_con: True
+  pretrained_model: ${dataset.pretrained_model}
+  pretrained_model_name: ${dataset.pretrained_model_name}
+  pretrained_freeze: True
+  interact: concat  # concat, no_signal
+  gen_signal: False  # ///
+
+  # gumbel params
+  mask_threshold: 0.0
+  mv_size: 1
+  gumbel_temp: 1.0
+
+  # mask
+  node_merge_mask: False
+  node_merge_range: 100
+
+  # x signal - prior   # ///
+  prior_signal: 'all'  # all, DHS, h3k27ac, hic
+  prior_beta: "1.5,0.2,1.0"
+  prior_weight: "2,2,1"  # h3, dhs, hic
+  prior_scale_factor: 1.0
+  merge_peak_mask: False
+  max_pool_size: 0
+
+  # seq - posterior
+  post_sample: True
+  sample_threshold: 0.5  # ///
+  post_dist: 'beta'  # beta, kuma
+  post_hard_dist: False
+
+  # x_seq & x_sig
+  decouple_x: True
+  only_x_sig: False  # ///
+
+  # include list  # ///
+  use_include_list: False
+  mask_region_hard: True
+  include_alpha: 10.0  # make include list be a distribution
+
+  # marginal dist of z  # ///
+  marginal_mean: 0.1
+  marginal_scale: 10.0
+
+  # bio mask & peak mask  # ///
+  use_bio_mask: False
+  use_peak_mask: False
+
+  # dist params grad
+  dist_param_grad: False
+
+  # based on the learned model path
+  use_mask_model: False
+  mask_model: ''
+  top_mask_percent: 0.0
+
+  # parameter share btw encoder & predictor
+  enc_prd_ps: False
+
+  # positional encoding
+  pos_enc: False
+
+  # pool the mask
+  pool_mask: 0
+  merge_mask: 0
+
+  # beta dist, at least > 1
+  beta_min: 0
+
+  # z dist scale
+  z_scale: 1.0
+
+  # top % mask in test
+  test_top: False
+  test_top_percent: ${.marginal_mean}
+  test_top_soft: False
+  test_soft: True
+  test_hard: False
+
+  # gumbel softmax
+  use_gumbel: False
+  beta_step: 200
+
+  base_size: 4
+  signal_size: 3
+  rna_feat_dim: 9
+  useRNAFeat: True
+  vocab_size: 12
+  ssm_cfg:
+    d_state: 16
+    d_conv: 4
+    expand: 2
+    dt_rank: "auto"
+    dt_min: 0.001
+    dt_max: 0.1
+    dt_init: "random"
+    dt_scale: 1.0
+    dt_init_floor: 1e-4
+    conv_bias: true
+    bias: false
+    use_fast_path: true
+  rms_norm: true
+  fused_add_norm: true
+  residual_in_fp32: false
+  pad_vocab_size_multiple: 8
+  # Not in original MambaConfig, but default arg in create_block in mamba_ssm repo; used in layer norm
+  norm_epsilon: 1e-5
+
+  # Used in init_weights
+  initializer_cfg:
+    initializer_range: 0.02
+    rescale_prenorm_residual: true
+    n_residuals_per_layer: 1
+
+  # Caduceus-specific params
+  bidirectional: true
+  bidirectional_strategy: "add"
+  bidirectional_weight_tie: true
+  rcps: false
+
+  # Used for RCPSEmbedding / RCPSLMHead (will be filled in during model instantiation using info from tokenizer)
+  complement_map: null
+
+  # encoder params
+  encoder:
+    base_size: ${..base_size}
+    n_enhancers: 60
+    useBN: True
+    usePromoterSignal: True
+    useFeat: True
+    n_extraFeat: ${..signal_size}
+    useLN: True
+
+    n_encoder: 3
+    out_dim: 64
+    head: 4
+    pre_trained_encoder: ~
+
+

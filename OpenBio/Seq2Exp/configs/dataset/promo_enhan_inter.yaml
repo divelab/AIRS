@@ -1,0 +1,10 @@
+_name_: promo_enhan_inter
+shuffle: True
+num_workers: 8
+drop_last: False
+pin_memory: True
+data_folder: ''
+distance_threshold: 100000
+hic_threshold: ~
+n_enhancers: 60
+k_fold: 'enformer'  # if use cross-validation, train.py will set this

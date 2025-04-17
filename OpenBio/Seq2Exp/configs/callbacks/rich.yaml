@@ -1,0 +1,5 @@
+rich_model_summary:
+  max_depth: 2
+
+rich_progress_bar:
+  refresh_rate_per_second: 1.0

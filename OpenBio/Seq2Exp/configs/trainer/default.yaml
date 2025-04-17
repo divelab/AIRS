@@ -1,0 +1,12 @@
+_target_: pytorch_lightning.Trainer
+
+devices: 1
+accelerator: gpu
+accumulate_grad_batches: 1 # Gradient accumulation every n batches
+max_epochs: 200
+                           # accelerator: ddp # Automatically set if gpus > 1
+gradient_clip_val: 0.0
+log_every_n_steps: 10
+limit_train_batches: 1.0   # train on full dataset, can be used to toggle quick run
+limit_val_batches: 1.0     # validate on full dataset, can be used to toggle quick run
+num_sanity_val_steps: 2    # default value: 2; override to 0 to skip sanity checking
