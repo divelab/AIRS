@@ -36,7 +36,7 @@ The current `process_data_qm9.py` and `process_data_drug.py` show the simple exa
 
 Single-GPU:
 ```bash
-CUDA_VISIBLE_DEVICES=0 python train.py --run_name unconditional_mamba_qm9 --batch_size 32 --num_props 0 --max_epochs 250 --model mamba --n_layer 32 --root_path qm9_sph3_seq --output_tokenizer_dir qm9_sph3_seq/tokenizer
+CUDA_VISIBLE_DEVICES=0 python train.py --run_name unconditional_mamba_qm9 --batch_size 32 --num_props 0 --max_epochs 250 --model mamba --n_layer 24 --root_path qm9_sph3_seq --output_tokenizer_dir qm9_sph3_seq/tokenizer
 ```
 
 Multi-GPU:
@@ -48,7 +48,7 @@ CUDA_VISIBLE_DEVICES=1,3,5,7 python train.py --run_name unconditional_mamba_drug
 
 `--output_tokenizer_dir` is the path to save the tokenizer model and vocab file. The script will save the tokenizer (vocab) file in this directory if it does not exist.
 
-## Generation example (gpt/mamba use different scripts)
+## Generation example
 
 Model architecture parameters and `--root_path`, `--output_tokenizer_dir` should be the same as the training in order to load the checkpoint and tokenizer.
 1. `run_name` is the name of the checkpoint's training run
@@ -57,12 +57,15 @@ Model architecture parameters and `--root_path`, `--output_tokenizer_dir` should
 4. `sample_repeats` is the total number of samples to be generated (suggest > 10000 for statistical significance)
 5. `temperature`/`temp` is for the trade off between validity/diversity during generation
 
-```bash
-CUDA_VISIBLE_DEVICES=7 python train_3D/generate.py  --run_name unconditional_gpt_qm9 --batch_size 80 --num_props 0 --root_path XXXXX_seq --output_tokenizer_dir XXXXX/tokenizer --n_layer 32 --max_len 512 --epoch 200 --top_k 50 --temp 0.7 --sample_repeats 10000
-```
+GPT/Mamba use different scripts.
 
+GPT:
 ```bash
-CUDA_VISIBLE_DEVICES=6 python train_3D/generate_mamba.py --run_name unconditional_mamba_qm9 --batch_size 80 --num_props 0 --root_path XXXXX_seq --output_tokenizer_dir XXXXX/tokenizer --model mamba --n_layer 32 --max_len 512 --epoch 200 --topk 50 --temperature 0.7 --repeats 10000
+CUDA_VISIBLE_DEVICES=7 python train_3D/generate.py  --run_name unconditional_gpt_qm9 --batch_size 80 --num_props 0 --root_path XXXXX_seq --output_tokenizer_dir XXXXX/tokenizer --n_layer 12 --max_len 512 --epoch 200 --top_k 50 --temp 0.7 --sample_repeats 10000
+```
+Mamba:
+```bash
+CUDA_VISIBLE_DEVICES=6 python train_3D/generate_mamba.py --run_name unconditional_mamba_qm9 --batch_size 80 --num_props 0 --root_path XXXXX_seq --output_tokenizer_dir XXXXX/tokenizer --model mamba --n_layer 24 --max_len 512 --epoch 200 --topk 50 --temperature 0.7 --repeats 10000
 ```
 
 ## Evaluation example
