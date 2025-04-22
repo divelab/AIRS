@@ -90,3 +90,7 @@ If you find this work useful in your research, please cite:
   year={2024}
 }
 ```  
+
+## Acknowledgments
+
+This work was supported partially by National Science Foundation grant IIS-2006861 and National Institutes of Health grant U01AG070112 (to S.J.), and by the Molecule Maker Lab Institute (to H.J.): an AI research institute program supported by NSF under award No. 2019897. The views and conclusions contained herein are those of the authors and should not be interpreted as necessarily representing the official policies, either expressed or implied, of the U.S. Government. The U.S. Government is authorized to reproduce and distribute reprints for governmental purposes notwithstanding any copyright annotation therein.
