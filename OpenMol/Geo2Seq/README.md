@@ -1,6 +1,7 @@
 # Geometry Informed Tokenization of Molecules for Language Model Generation
 
-This code accompanies the paper [Geometry Informed Tokenization of Molecules for Language Model Generation](https://arxiv.org/abs/2408.10120).
+This code accompanies the paper [Geometry Informed Tokenization of Molecules for Language Model Generation](https://arxiv.org/abs/2408.10120), published at ICML 2025.
+
 Our work applies LMs to the task of 3D molecule generation by translating the intricate geometry of molecules into a format that can be effectively processed by LMs. 
 Our proposed tokenization method Geo2Seq is based on canonical labeling, which allows dimension reduction with no information loss outside graph isomorphism groups, and invariant spherical representations, which guarantees SE(3)-invariance under the equivariant global frame.
 We harness the advanced sequence-processing capabilities and efficiency of LMs while retaining essential geometric and atomic information.
