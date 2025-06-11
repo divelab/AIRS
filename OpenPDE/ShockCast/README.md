@@ -28,25 +28,15 @@ Supersonic flow datasets can be found on [HuggingFace](https://huggingface.co/da
 
 ## Data Download
 
-```
-python download_data.py
-```
 
-## Create Session
-
-```
-python create_session.py
-```
 
 ## Train
 
 ```
-conda activate GeoMPNN
-gpu=8
-CUDA_VISIBLE_DEVICES=$gpu python ingestion.py -1 GeoMPNN/ ./ GeoMPNN/
+
 ```
 
+-->
 ## Acknowledgments
 
-This work was supported in part by National Science Foundation under grant IIS-2243850.
--->
+This work was supported in part by the National Science Foundation under grant IIS-2243850. The authors express their gratitude to Professor Ryan Houim of the University of Florida for providing access to HyBurn, the computational fluid dynamics (CFD) code utilized for the simulations presented in this study. The CFD calculations presented in this work were partly performed on the Texas A\&M high-performance computing cluster Grace.
