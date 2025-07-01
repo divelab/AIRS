@@ -1,7 +1,9 @@
 import warnings
 from collections import OrderedDict
+from typing import Callable, Dict, List, Tuple
 
 from e3nn.o3 import Irreps
+from torch.nn import Module
 
 import hienet._const as _const
 import hienet._keys as KEY
@@ -41,6 +43,72 @@ warnings.filterwarnings(
     ),
 )
 
+
+def NequIP_interaction_block(
+    irreps_x: Irreps,
+    irreps_filter: Irreps,
+    irreps_out_tp: Irreps,
+    irreps_out: Irreps,
+    weight_nn_layers: List[int],
+    conv_denominator: float,
+    train_conv_denominator: bool,
+    self_connection_pair: Tuple[Callable, Callable],
+    act_scalar: Dict[str, Callable],
+    act_gate: Dict[str, Callable],
+    act_radial: Callable,
+    bias_in_linear: bool,
+    num_species: int,
+    t: int,   # interaction layer index
+    data_key_x: str = KEY.NODE_FEATURE,
+    data_key_weight_input: str = KEY.EDGE_EMBEDDING,
+    parallel: bool = False,
+    **conv_kwargs,
+) -> Dict[str, Module]:
+    block = {}
+    irreps_node_attr = Irreps(f'{num_species}x0e')
+    sc_intro, sc_outro = self_connection_pair
+
+    gate_layer = EquivariantGate(irreps_out, act_scalar, act_gate)
+    irreps_for_gate_in = gate_layer.get_gate_irreps_in()
+
+    block[f'{t}_self_connection_intro'] = sc_intro(
+        irreps_x,
+        irreps_operand=irreps_node_attr,
+        irreps_out=irreps_for_gate_in,
+    )
+
+    block[f'{t}_self_interaction_1'] = IrrepsLinear(
+        irreps_x, irreps_x,
+        data_key_in=data_key_x,
+        biases=bias_in_linear,
+    )
+
+    # convolution part, l>lmax is dropped as defined in irreps_out
+    block[f'{t}_convolution'] = IrrepsConvolution(
+        irreps_x=irreps_x,
+        irreps_filter=irreps_filter,
+        irreps_out=irreps_out_tp,
+        data_key_weight_input=data_key_weight_input,
+        weight_layer_input_to_hidden=weight_nn_layers,
+        weight_layer_act=act_radial,
+        denominator=conv_denominator,
+        train_denominator=train_conv_denominator,
+        is_parallel=parallel,
+        **conv_kwargs,
+    )
+
+    # irreps of x increase to gate_irreps_in
+    block[f'{t}_self_interaction_2'] = IrrepsLinear(
+        irreps_out_tp,
+        irreps_for_gate_in,
+        data_key_in=data_key_x,
+        biases=bias_in_linear,
+    )
+
+    block[f'{t}_self_connection_outro'] = sc_outro()
+    block[f'{t}_equivariant_gate'] = gate_layer
+
+    return block
 
 def init_self_connection(config):
     self_connection_type = config[KEY.SELF_CONNECTION_TYPE]
@@ -91,7 +159,6 @@ def init_cutoff_function(config):
     raise RuntimeError('something went very wrong...')
 
 
-# TODO: it gets bigger and bigger. refactor it
 def build_E3_equivariant_model(config: dict, parallel=False):
     """
     IDENTICAL to nequip model
@@ -243,24 +310,6 @@ def build_E3_equivariant_model(config: dict, parallel=False):
         ),
     })
 
-    # Parallel code is not changed
-    if parallel:
-        layers.update({
-            # Do not change its name (or see deploy.py before change)
-            'one_hot_ghost': OnehotEmbedding(
-                data_key_x=KEY.NODE_FEATURE_GHOST,
-                num_classes=num_species,
-                data_key_save=None,
-                data_key_additional=None,
-            ),
-            # Do not change its name (or see deploy.py before change)
-            'ghost_onehot_to_feature_x': IrrepsLinear(
-                irreps_in=one_hot_irreps,
-                irreps_out=irreps_x,
-                data_key_in=KEY.NODE_FEATURE_GHOST,
-                biases=use_bias_in_linear,
-            ),
-        })
 
     # ~~ edge feature(convoluiton filter) ~~ #
 
@@ -309,8 +358,44 @@ def build_E3_equivariant_model(config: dict, parallel=False):
 
         node_features_in = irrep_seq[i]
         node_features_out = irrep_seq[i+1]
+
+        irreps_out_tp = util.infer_irreps_out(
+            Irreps(node_features_in),
+            edge_embedding.spherical.irreps_out,
+            Irreps(node_features_out).lmax,
+            parity_mode,
+            False
+        )
+        layers.update(NequIP_interaction_block(
+            irreps_x=Irreps(node_features_in),
+            irreps_filter=edge_embedding.spherical.irreps_out,
+            irreps_out_tp=irreps_out_tp,
+            irreps_out=Irreps(node_features_out),
+            weight_nn_layers=weight_nn_layers,
+            conv_denominator=conv_denominator[0],
+            train_conv_denominator=train_conv_denominator,
+            self_connection_pair=(SelfConnectionLinearIntro, SelfConnectionOutro),
+            act_scalar=act_scalar,
+            act_gate=act_gate,
+            act_radial=act_radial,
+            bias_in_linear=use_bias_in_linear,
+            num_species=num_species,
+            t=i,
+        ))
+
+        '''layers.update({
+            f'{i}_equivariant_convolution': IrrepsConvolution(
+                irreps_x=Irreps(node_features_in),
+                irreps_filter=edge_embedding.spherical.irreps_out,
+                irreps_out=Irreps(node_features_out),
+                weight_layer_input_to_hidden=weight_nn_layers,
+                weight_layer_act=act_radial,
+                denominator=conv_denominator[0],
+                train_denominator=train_conv_denominator,
+            )
+        })'''
             
-        layers.update({
+        '''layers.update({
             f'{i}_eComf_equiv_convolution': eComfEquivariantConvLayer(
                 node_features_in = node_features_in,
                 node_features_out = node_features_out,
@@ -328,7 +413,7 @@ def build_E3_equivariant_model(config: dict, parallel=False):
                 sh = sh
             )
 
-        })
+        })'''
 
     if config[KEY.USE_DENOISING]:
         layers.update({

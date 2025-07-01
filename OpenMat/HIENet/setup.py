@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='hienet',
-    version='1.0.0',
+    version='1.0.1',
     description='HIENet',
     author='Keqiang Yan, Montgomery Bohde, Andrii Kryvenko, Ziyu Xiang',
     python_requires='>=3.8',

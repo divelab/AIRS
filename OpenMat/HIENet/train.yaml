@@ -1,0 +1,93 @@
+model:
+    chemical_species: 'auto'
+    cutoff: 5.0
+    is_parity: False
+    lmax: 3
+    num_invariant_conv: 1
+    inv_features:
+        - 384 
+        - 384
+    irreps_manual:
+        - "384x0e"
+        - "512x0e+128x1e+64x2e"
+        - "512x0e+128x1e+64x2e+32x3e"
+        - "512x0e+128x1e+64x2e+32x3e"
+        - "512x0e"
+    sh: "1x0e + 1x1e + 1x2e + 1x3e"
+    weight_nn_hidden_neurons: [64, 64]
+    use_edge_conv: False
+    radial_basis:
+        radial_basis_name: 'bessel'
+        bessel_basis_num: 8
+    cutoff_function:
+        cutoff_function_name: poly_cut
+        poly_cut_p_value: 6
+
+    act_gate: {'e': 'silu', 'o': 'tanh'}
+    act_scalar: {'e': 'silu', 'o': 'tanh'}
+    conv_denominator: 35.989574  # 'avg_num_neigh'
+    train_shift_scale: False # allow shift/scale to be trainable params
+    train_denominator: False
+    self_connection_type: 'linear'
+    ema_decay: 0.999
+    use_comf_embedding: False
+    use_cgcnn_embedding: False
+    use_bias_in_linear: False
+train:
+    train_shuffle: True
+    random_seed: 1
+    is_train_stress : True
+    epoch: 200
+
+    energy_loss: 'Huber'
+    energy_loss_param:
+        delta: 0.01
+
+    force_loss: 'Huber'
+    force_loss_param:
+        delta: 0.01
+
+    stress_loss: 'Huber'
+    stress_loss_param:
+        delta: 0.01
+
+    dropout: 0.04 # dropout for mlps
+    dropout_attn: 0.08 # dropout on attention weigths
+
+    optimizer: 'adamw'
+    optim_param:
+        lr: 0.01
+        weight_decay: 0.001
+    scheduler: 'cosinewarmuplr'
+    scheduler_param:
+        warmup_factor: 0.2
+        warmup_epochs: 0.1
+        lr_min_factor: 0.0005
+        total_epochs: 200
+
+    energy_loss_weight : 1.00
+    force_loss_weight : 1.00
+    stress_loss_weight: 0.01
+
+    error_record:
+        - ['Energy', 'RMSE']
+        - ['Force', 'RMSE']
+        - ['Stress', 'RMSE']
+        - ['Energy', 'MAE']
+        - ['Force', 'MAE']
+        - ['Stress', 'MAE']
+        - ['Energy', 'Loss']
+        - ['Force', 'Loss']
+        - ['Stress', 'Loss']
+        - ['TotalLoss', 'None']
+
+    per_epoch: 10
+data:
+    data_shuffle: True
+    batch_size: 48
+    scale: 0.799 # forces_rms
+    shift: 'elemwise_reference_energies'
+
+    data_format: 'ase'
+    save_by_train_valid: False
+    load_dataset_path: ["/dataset/path"]
