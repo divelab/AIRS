@@ -79,6 +79,14 @@ Please cite our preprint if you use our model or benchmark results. Thank you!
 ```
 
 ## Acknowledgement
+This project builds upon [SevenNet](https://github.com/MDIL-SNU/SevenNet) as starter code, which is licensed under the GNU General Public License v3.0. In addition to adding our own files, we made significant changes to the following files to implement HIENet architecture within the SevenNet's training pipeline:
+- hienet/model_build.py
+- hienet/nn/linear.py
+- hienet/nn/edge_embedding.py
+- hienet/train/loss.py
+- hienet/train/optim.py
+
+We have also adjusted function and file names and made other slight changes in other files for consistency
 
 K.Y., M.B., A.K. and S.J. acknowledge partial support from
 National Science Foundation (NSF) under grant IIS-2243850,
