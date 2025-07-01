@@ -66,6 +66,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
             <li><a href="OpenMol/GraphDF">GraphDF</a></li>
             <li><a href="OpenMol/G-SphereNet">G-SphereNet</a></li>
             <li><a href="OpenMol/PACE">PACE</a></li>
+            <li><a href="OpenMol/Geo2Seq">Geo2Seq</a></li>
           </ul>
           <img src="https://placehold.co/50x50/D790FF/D790FF.png" height="12" width="12"> <b>OpenProt</b>
           <ul>
@@ -97,6 +98,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
             <li><a href="OpenPDE/CFRF">CFRF</a></li>
             <li><a href="OpenPDE/SineNet">SineNet</a></li>
             <li><a href="OpenPDE/GeoMPNN">GeoMPNN</a></li>
+            <li><a href="OpenPDE/ShockCast">ShockCast</a></li>
           </ul>
       </td>
     </tr>
@@ -117,7 +119,7 @@ To cite the survey paper, please use the BibTeX entry provided below.
 ```
 @article{zhang2023artificial,
   title={Artificial Intelligence for Science in Quantum, Atomistic, and Continuum Systems},
-  author={Xuan Zhang and Limei Wang and Jacob Helwig and Youzhi Luo and Cong Fu and Yaochen Xie and Meng Liu and Yuchao Lin and Zhao Xu and Keqiang Yan and Keir Adams and Maurice Weiler and Xiner Li and Tianfan Fu and Yucheng Wang and Haiyang Yu and YuQing Xie and Xiang Fu and Alex Strasser and Shenglong Xu and Yi Liu and Yuanqi Du and Alexandra Saxton and Hongyi Ling and Hannah Lawrence and Hannes St{\"a}rk and Shurui Gui and Carl Edwards and Nicholas Gao and Adriana Ladera and Tailin Wu and Elyssa F. Hofgard and Aria Mansouri Tehrani and Rui Wang and Ameya Daigavane and Montgomery Bohde and Jerry Kurtin and Qian Huang and Tuong Phung and Minkai Xu and Chaitanya K. Joshi and Simon V. Mathis and Kamyar Azizzadenesheli and Ada Fang and Al{\'a}n Aspuru-Guzik and Erik Bekkers and Michael Bronstein and Marinka Zitnik and Anima Anandkumar and Stefano Ermon and Pietro Li{\`o} and Rose Yu and Stephan G{\"u}nnemann and Jure Leskovec and Heng Ji and Jimeng Sun and Regina Barzilay and Tommi Jaakkola and Connor W. Coley and Xiaoning Qian and Xiaofeng Qian and Tess Smidt and Shuiwang Ji},
+  author={Xuan Zhang and Limei Wang and Jacob Helwig and Youzhi Luo and Cong Fu and Yaochen Xie and Meng Liu and Yuchao Lin and Zhao Xu and Keqiang Yan and Keir Adams and Maurice Weiler and Xiner Li and Tianfan Fu and Yucheng Wang and Alex Strasser and Haiyang Yu and YuQing Xie and Xiang Fu and Shenglong Xu and Yi Liu and Yuanqi Du and Alexandra Saxton and Hongyi Ling and Hannah Lawrence and Hannes St{\"a}rk and Shurui Gui and Carl Edwards and Nicholas Gao and Adriana Ladera and Tailin Wu and Elyssa F. Hofgard and Aria Mansouri Tehrani and Rui Wang and Ameya Daigavane and Montgomery Bohde and Jerry Kurtin and Qian Huang and Tuong Phung and Minkai Xu and Chaitanya K. Joshi and Simon V. Mathis and Kamyar Azizzadenesheli and Ada Fang and Al{\'a}n Aspuru-Guzik and Erik Bekkers and Michael Bronstein and Marinka Zitnik and Anima Anandkumar and Stefano Ermon and Pietro Li{\`o} and Rose Yu and Stephan G{\"u}nnemann and Jure Leskovec and Heng Ji and Jimeng Sun and Regina Barzilay and Tommi Jaakkola and Connor W. Coley and Xiaoning Qian and Xiaofeng Qian and Tess Smidt and Shuiwang Ji},
   journal={arXiv preprint arXiv:2307.08423},
   year={2023}
 }
