@@ -80,8 +80,8 @@ When you are running the sweeping jobs, you can check the results in your wandb 
 
 Then you can get something like this:
 
-![wandb dashboard1](/docs/figures/wandb_fig_Page_1.jpg)
-![wandb dashboard2](/docs/figures/wandb_fig_Page_2.jpg)
+![wandb dashboard1](./docs/figures/wandb_fig_Page_1.jpg)
+![wandb dashboard2](./docs/figures/wandb_fig_Page_2.jpg)
 
 ### Visualization
 
