@@ -1,0 +1,27 @@
+class_path: SeriesDataLoader
+init_args:
+  dataset:
+    class_path: getLotkaVolterra2Dataset
+    init_args:
+      root: ${oc.env:STORAGE_DIR}/datasets/${..class_path}
+      datatype: inv_check
+      num_env: 5
+      n_samples: 1000
+#      diff_friction: [fix, kinetic, air, damped, none]
+#      diff_friction: [energy, spring, freq, mul, none]
+#       --exp.init_args.dataloader.init_args.dataset.init_args.diff_friction="[energy, spring, freq, mul, none]"
+#      diff_friction: [season, kill, limited, omnivore, none]
+#      diff_friction: [season, comp, limited, omnivore, none]
+#      diff_friction: [pseason, comp, limited, omnivore, none]
+      diff_friction: [value2, fight2, limited, omnivore2, none]
+#      diff_friction: [value2, fight2, none] # ablation only
+      input_length_factor: 2
+#      reload: True
+      diverse_env_param: True
+  i_fold: 0
+  batch_size:
+    train: 32
+    test: 200
+  num_workers: 0
+  pin_memory: True
+  drop_last: False

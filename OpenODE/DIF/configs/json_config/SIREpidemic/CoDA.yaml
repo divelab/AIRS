@@ -1,0 +1,33 @@
+exp:
+  class_path: CoDAExperiment
+  init_args:
+    weight_decay: 0.
+    lr: 1e-3
+    max_epoch: 1000
+    ctn_epoch: 0
+    device: 0
+    log_interval: 1
+    wandb_logger: True
+    DEBUG: False
+    num_sampling_per_batch: 10
+    partial_eval: False
+    lambda_reg: 1e-4
+    inv_type: Invariant
+    inference_out: inv
+    adapt_steps: 100
+    adapt_lr: 1e-2
+    model:
+      class_path: CoDA
+      init_args:
+        y_channels: 3
+        W_channels: 2
+        dfunc_hidden_channels: 64
+        func_embedding_channels: 32
+        hyper_hidden_channels: 64
+        hyper_mlp_depth: 3
+        depth_enc: 2
+        num_envs: 4
+    dataloader: dataset.yaml
+name: 'df{cfg.exp.model.dfunc_hidden_channels}x{cfg.exp.model.depth_enc}+emb{cfg.exp.model.func_embedding_channels}-h{cfg.exp.model.hyper_hidden_channels}x{cfg.exp.model.hyper_mlp_depth}/reg_fe{cfg.exp.lambda_reg:.1e}/lr{cfg.exp.lr:.1e}'
+#tags:
+#  - InvariantFunc

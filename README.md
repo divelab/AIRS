@@ -25,6 +25,7 @@ AIRS is a collection of open-source software tools, datasets, and benchmarks ass
 - [**OpenMI**](https://github.com/divelab/AIRS/tree/main/OpenMI): AI for Molecular Interactions
 - [**OpenBio**](https://github.com/divelab/AIRS/tree/main/OpenBio): AI for Biological Science
 - [**OpenPDE**](https://github.com/divelab/AIRS/tree/main/OpenPDE): AI for Partial Differential Equations
+- [**OpenODE**](https://github.com/divelab/AIRS/tree/main/OpenODE): AI for Ordinary Differential Equations
 
 
 
@@ -99,6 +100,10 @@ Here is the summary of methods we have in AIRS. More methods will be included as
             <li><a href="OpenPDE/SineNet">SineNet</a></li>
             <li><a href="OpenPDE/GeoMPNN">GeoMPNN</a></li>
             <li><a href="OpenPDE/ShockCast">ShockCast</a></li>
+          </ul>
+            <img src="https://placehold.co/50x50/1EAAEE/1EAAEE.png" height="12" width="12"> <b>OpenODE</b>
+          <ul>
+            <li><a href="OpenODE/DIF">IFL-DIF</a></li>
           </ul>
       </td>
     </tr>

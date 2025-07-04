@@ -1,0 +1,30 @@
+exp:
+  class_path: MAMLExperiment
+  init_args:
+    weight_decay: 0.
+    lr: 1e-3
+    max_epoch: 1000
+    ctn_epoch: 0
+    device: 0
+    log_interval: 1
+    wandb_logger: True
+    DEBUG: False
+    num_sampling_per_batch: 10
+    partial_eval: False
+    inv_type: Invariant
+    inference_out: inv
+    adapt_steps: 100
+    adapt_lr: 1e-2
+    model:
+      class_path: MAML
+      init_args:
+        y_channels: 3
+        W_channels: 2
+        dfunc_hidden_channels: 64
+        depth_enc: 2
+        num_envs: 4
+        lr: 1e-1  # Meta learning rate
+    dataloader: dataset.yaml
+name: 'df{cfg.exp.model.dfunc_hidden_channels}x{cfg.exp.model.depth_enc}/lr{cfg.exp.lr:.1e}/meta_lr{cfg.exp.model.lr:.1e}'
+#tags:
+#  - InvariantFunc

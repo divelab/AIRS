@@ -1,0 +1,23 @@
+class_path: SeriesDataLoader
+init_args:
+  dataset:
+    class_path: getDampedPendulumDataset
+    init_args:
+      root: ${oc.env:STORAGE_DIR}/datasets/${..class_path}
+      datatype: inv_check
+      num_env: 5 # not used anymore
+      n_samples: 1000
+#      diff_friction: [fix, kinetic, air, damped, none]
+#      diff_friction: [energy, spring, freq, mul, none]
+#       --exp.init_args.dataloader.init_args.dataset.init_args.diff_friction="[energy, spring, freq, mul, none]"
+      diff_friction: [energy, thick_air, spring, damped, none]
+#      diff_friction: [energy, thick_air, none] # ablation
+#      reload: True
+      diverse_env_param: True
+  i_fold: 0
+  batch_size:
+    train: 32
+    test: 200
+  num_workers: 0
+  pin_memory: True
+  drop_last: False

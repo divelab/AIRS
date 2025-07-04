@@ -1,0 +1,81 @@
+program:
+  CEL.kernel.main
+#method: grid
+method: random
+name: Ablation_types_SIR_FOND_MI_2k_epoch_final
+parameters:
+  config:
+    values:
+      - configs/json_config/SIREpidemic/InvariantFuncEncMI.yaml
+  'exp.init_args.dataloader.init_args.dataset.init_args.diff_friction':
+    values:
+      - [ fake, orig, new, none ]
+      - [ fake, orig, none ]
+  'exp.init_args.dataloader.init_args.dataset.init_args.input_length_factor':
+    value: 3
+  'exp.init_args.dataloader.init_args.dataset.init_args.diverse_env_param':
+    values: [  True ]
+  'exp.init_args.model.init_args.depth_enc':
+    values: [ 2] #[2, 4]
+  'exp.init_args.model.init_args.dfunc_hidden_channels':
+    values: [ 16] #[32, 64]
+  'exp.init_args.model.init_args.func_embedding_channels':
+    values: [ 64] #[16, 64 ]
+  'exp.init_args.model.init_args.hyper_hidden_channels':
+    values: [ 64] #[16, 64 ]
+  'exp.init_args.model.init_args.hyper_mlp_depth':
+    values: [ 4]
+  'exp.init_args.model.init_args.discrim_hidden_channels':
+    values: [ 64]
+  'exp.init_args.model.init_args.discrim_mlp_depth':
+    values: [ 3, 4, 5]
+  'exp.init_args.model.init_args.transformer_dim_ffn':
+    values: [ 256]
+  'exp.init_args.model.init_args.transformer_num_heads':
+    values: [ 8]
+  'exp.init_args.model.init_args.transformer_num_layers':
+    values: [ 6]
+  'exp.init_args.model.init_args.lambda_e_detach':
+    values: [ False ]
+  'exp.init_args.only_train_disen_projection':
+    values: [ False, True ]
+  'exp.init_args.use_alpha':
+    values: [ False ]
+  'exp.init_args.lr':
+    distribution: log_uniform_values
+    min: 2e-4
+    max: 1e-3
+  'exp.init_args.max_epoch':
+    values: [ 2000 ]
+  'exp.init_args.lambda_pred_f':
+    value: 1
+  'exp.init_args.lambda_pred_fc':
+    distribution: log_uniform_values
+    min: 1e-7 # orig 1e-6
+    max: 1e-5
+  'exp.init_args.control_mi':
+    value: False
+  'exp.init_args.lambda_dis':
+    #    values: [ 1, 1e-2, 1e-4 ]
+    distribution: log_uniform_values
+    min: 1e-1
+    max: 1e0
+  'exp.init_args.lambda_fet_ent':
+    value: 0
+  #    distribution: log_uniform_values
+  #    min: 1e-5
+  #    max: 1e0
+  'exp.init_args.lambda_adv':
+    distribution: log_uniform_values
+    min: 1e3
+    max: 1e6  #1e1
+  'exp.init_args.temp':
+    distribution: log_uniform_values
+    min: 0.01
+    max: 0.5
+command:
+  - ${env}
+  - python
+  - "-m"
+  - ${program}
+  - ${args}

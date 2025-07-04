@@ -1,0 +1,35 @@
+program:
+  CEL.kernel.main
+#method: grid
+method: random
+name: Pendulum_ETSD_CoDA
+parameters:
+  config:
+    values:
+      - configs/json_config/DampedPendulum/CoDA.yaml
+  'exp.init_args.dataloader.init_args.dataset.init_args.diff_friction':
+    value: [energy, thick_air, spring, damped, none]
+  'exp.init_args.model.init_args.depth_enc':
+    values: [2] #[2, 4]
+  'exp.init_args.model.init_args.dfunc_hidden_channels':
+    values: [32] #[32, 64]
+  'exp.init_args.model.init_args.func_embedding_channels':
+    values: [ 32 ] #[16, 64 ]
+  'exp.init_args.model.init_args.hyper_hidden_channels':
+    values: [ 32] #[16, 64 ]
+  'exp.init_args.model.init_args.hyper_mlp_depth':
+    values: [ 3] #[16, 64 ]
+  'exp.init_args.lr':
+    distribution: log_uniform_values
+    min: 1e-4
+    max: 1e-3
+  'exp.init_args.lambda_reg':
+    distribution: log_uniform_values
+    min: 1e-5
+    max: 1e-3
+command:
+  - ${env}
+  - python
+  - "-m"
+  - ${program}
+  - ${args}

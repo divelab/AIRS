@@ -1,0 +1,31 @@
+program:
+  CEL.kernel.main
+#method: grid
+method: random
+name: SIR_FOND_MAML
+parameters:
+  config:
+    values:
+      - configs/json_config/SIREpidemic/MAML.yaml
+  'exp.init_args.dataloader.init_args.dataset.init_args.diff_friction':
+    value: [ fake, orig, new, dead, none ]
+  'exp.init_args.dataloader.init_args.dataset.init_args.input_length_factor':
+    value: 3
+  'exp.init_args.model.init_args.depth_enc':
+    values: [ 1, 2 ] #[2, 4]
+  'exp.init_args.model.init_args.dfunc_hidden_channels':
+    values: [ 16, 32 ] #[32, 64]
+  'exp.init_args.lr':
+    distribution: log_uniform_values
+    min: 1e-4
+    max: 1e-3
+  'exp.init_args.model.init_args.lr':
+    distribution: log_uniform_values
+    min: 1e-3
+    max: 1e0
+command:
+  - ${env}
+  - python
+  - "-m"
+  - ${program}
+  - ${args}

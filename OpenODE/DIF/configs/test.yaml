@@ -1,0 +1,12 @@
+test:
+  dataset:
+    class_path: getLotkaVolterraDataset
+    init_args:
+      root: data
+      datatype: 2 # OOD
+      n_samples: 1000
+#test:
+#  dataset:
+#    class_path: CalendarFromStr
+#    init_args:
+#      firstweekday: Monday

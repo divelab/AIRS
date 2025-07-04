@@ -1,0 +1,30 @@
+exp:
+  class_path: InvariantExperiment
+  init_args:
+    weight_decay: 0.
+    lr: 1e-3
+    max_epoch: 100
+    ctn_epoch: 0
+    device: 0
+    log_interval: 1
+    wandb_logger: True
+    DEBUG: False
+    num_sampling_per_batch: 1000
+    partial_eval: False
+    lambda_inv: 1
+    lambda_side: 0
+    inv_type: VREx
+    inference_out: inv
+    model:
+      class_path: InvariantPhy
+      init_args:
+        y_channels: 2
+        Wc_channels: 1
+        hidden_channels: 64
+        depth_enc: 2
+        inv_type: ${...inv_type}
+        num_envs: 4
+    dataloader: dataset.yaml
+name: '{cfg.exp.model.hidden_channels}_{cfg.exp.model.depth_enc}_{cfg.exp.inv_type}{cfg.exp.lambda_inv}_side{cfg.exp.lambda_side}'
+tags:
+  - Capability_corrected

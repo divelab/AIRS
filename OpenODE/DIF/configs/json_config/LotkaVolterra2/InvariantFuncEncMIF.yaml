@@ -1,0 +1,48 @@
+exp:
+  class_path: InvariantFuncEncMIFExperiment
+  init_args:
+    weight_decay: 0.
+    lr: 1e-3
+    max_epoch: 1000
+    ctn_epoch: 0
+    device: 0
+    log_interval: 1
+    wandb_logger: True
+    DEBUG: False
+    num_sampling_per_batch: 10
+    partial_eval: False
+    lambda_pred_f: 0.1
+    lambda_pred_fc: 1e-4
+    lambda_dis: 0.1
+    lambda_fet_ent: 0.1
+    lambda_adv: 10.
+#    control_mi: True
+#    mean_mi: 0.7
+    temp: 2
+    only_train_disen_projection: True
+    use_alpha: False
+    inv_type: Invariant
+    inference_out: inv
+    adapt_steps: 100
+    adapt_lr: 1e-2
+    model:
+      class_path: InvariantFuncEncMIF
+      init_args:
+        y_channels: 2
+        W_channels: 2
+        dfunc_hidden_channels: 64
+        func_embedding_channels: 32
+        hyper_hidden_channels: 64
+        hyper_mlp_depth: 3
+        depth_enc: 2
+        discrim_hidden_channels: 32
+        discrim_mlp_depth: 4
+        transformer_dim_ffn: 256
+        transformer_num_heads: 8
+        transformer_num_layers: 6
+        lambda_e_detach: True
+        num_envs: 4
+    dataloader: dataset.yaml
+name: 'df{cfg.exp.model.dfunc_hidden_channels}x{cfg.exp.model.depth_enc}+TF{cfg.exp.model.transformer_dim_ffn}={cfg.exp.model.transformer_num_heads}x{cfg.exp.model.transformer_num_layers}+emb{cfg.exp.model.func_embedding_channels}-h{cfg.exp.model.hyper_hidden_channels}x{cfg.exp.model.hyper_mlp_depth}+discrim{cfg.exp.model.discrim_hidden_channels}x{cfg.exp.model.discrim_mlp_depth}{"-Fed" if cfg.exp.model.lambda_e_detach else ""}{"-po" if cfg.exp.only_train_disen_projection else ""}/f{cfg.exp.lambda_pred_f:.0e}/{f"MI{cfg.exp.mean_mi:.0e}" if cfg.exp.control_mi else f"fc{cfg.exp.lambda_pred_fc:.0e}"}/dis{cfg.exp.lambda_dis:.0e}/adv{cfg.exp.lambda_adv:.0e}{"Alpha" if cfg.exp.use_alpha else ""}T{cfg.exp.temp:.0e}/lr{cfg.exp.lr:.0e}'
+#tags:
+#  - InvariantFunc
