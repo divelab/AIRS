@@ -17,32 +17,34 @@ source ./install.sh
 
 # Dataset
 
-The dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/DNA_Gen. 
-
+The dataset for this repo can be downloaded from https://huggingface.co/datasets/xingyusu/DNA_Gen. \
 Please place the downloaded contents into a newly created folder named `data/`.
 
 
 # Training and Evaluation
 
-All the training and evaluation codes are under `scripts/`
+All training and evaluation scripts are located in the `scripts/` directory.
 
-For example, users could run the training code
+For example, to run the training process of promoter design, execute
 ```bash
 sh scripts/bert_train_promo.sh
 ```
 
-After the training, run the evaluation codes
+After training completes, you can perform evaluation with
 ```bash
 sh scripts/bert_gen_promo.sh
 ```
-Note to potentially change the ROOT_PATH and the model_path.
-Other datasets follow similar logics
+
+> **Note:** Please ensure that `ROOT_PATH` and `model_path` are correctly set in the script before running.  
+> Other datasets follow similar logic and structure.
+
 
 
 # Evaluation by Trained Models
 
-The pretrained model can be downloaded from https://huggingface.co/xingyusu/GeneExp_Seq2Exp. 
-Set the model_path of the corresponding generation bash file as the downloaded model path (`.ckpt` file).
+The pretrained models are available at: https://huggingface.co/xingyusu/DNA_ATGC_Gen. \
+To use it, set the `model_path` in the corresponding generation script to point to the downloaded `.ckpt` file.
+
 
 
 [//]: # (## Citation)
