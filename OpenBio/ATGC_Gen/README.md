@@ -11,7 +11,7 @@
   
 ```bash
 git clone https://github.com/divelab/AIRS.git
-cd AIRS/OpenBio/Seq2Exp
+cd AIRS/OpenBio/ATGC_Gen
 source ./install.sh
 ```
 
