@@ -1,0 +1,42 @@
+# Use open-source version of Mamba
+_name_: caduceus_lm
+config:
+  _target_: caduceus.configuration_caduceus.CaduceusConfig
+  # From original MambaConfig
+  d_model: 128
+  n_layer: 2
+  vocab_size: 12
+  ssm_cfg:
+    d_state: 16
+    d_conv: 4
+    expand: 2
+    dt_rank: "auto"
+    dt_min: 0.001
+    dt_max: 0.1
+    dt_init: "random"
+    dt_scale: 1.0
+    dt_init_floor: 1e-4
+    conv_bias: true
+    bias: false
+    use_fast_path: true
+  rms_norm: true
+  fused_add_norm: true
+  residual_in_fp32: false
+  pad_vocab_size_multiple: 8
+  # Not in original MambaConfig, but default arg in create_block in mamba_ssm repo; used in layer norm
+  norm_epsilon: 1e-5
+
+  # Used in init_weights
+  initializer_cfg:
+    initializer_range: 0.02
+    rescale_prenorm_residual: true
+    n_residuals_per_layer: 1
+
+  # Caduceus-specific params
+  bidirectional: true,
+  bidirectional_strategy: "add"
+  bidirectional_weight_tie: true
+  rcps: false
+
+  # Used for RCPSEmbedding / RCPSLMHead (will be filled in during model instantiation using info from tokenizer)
+  complement_map: null

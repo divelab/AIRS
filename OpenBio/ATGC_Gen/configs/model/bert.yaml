@@ -1,0 +1,15 @@
+# Use open-source version of Mamba
+_name_: bert_lm
+config:
+  vocab_size: 4  # A,C,G,T
+  pred_vocab_size: 5  # A, C, G, T, N
+  n_embd: 768
+  embd_pdrop: 0.1
+  resid_pdrop: 0.1
+  attn_pdrop: 0.1
+  cond_dim: 2
+  tokenizer_name: ${dataset.tokenizer_name}
+
+  generation_step: 2
+  greedy_gen: True
+

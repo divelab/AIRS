@@ -1,0 +1,88 @@
+# @package _global_
+defaults:
+  - /trainer: default
+  - /loader: null
+  - /dataset: generator
+  - /optimizer: adamw
+  - /callbacks: [base, checkpoint]
+  - /task: DNA_generator
+  - /model: transformer  # Specify a model, e.g. model=mamba or model=hyena
+  - /scheduler: constant_warmup
+
+
+encoder: null
+decoder: null
+
+loader:
+  num_workers: ${dataset.num_workers}
+  pin_memory: ${dataset.pin_memory}
+  drop_last: ${dataset.drop_last}
+
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  accumulate_grad_batches: ${div_up:${train.global_batch_size}, ${eval:${trainer.devices} * ${dataset.batch_size} * ${trainer.num_nodes}}}
+  max_epochs: null
+  max_steps: -1
+  precision: bf16  # bf16 only a100
+  gradient_clip_val: 1.0
+  limit_val_batches: 0.2
+  limit_test_batches: 1.0
+  limit_train_batches: 1.0
+#  val_check_interval: 4
+  check_val_every_n_epoch: 5
+
+dataset:
+  dataset_name: promoter
+  batch_size: 16
+  batch_size_eval: ${.batch_size}
+  condition: front_signal
+  max_length: 1024
+  max_length_val: ${dataset.max_length}
+  max_length_test: ${dataset.max_length}
+  reverse_aug: False
+  rc_aug: False
+
+
+#  batch_size: ${eval:1024//${trainer.devices}}
+#  pad_max_length: null  # needed for bpe tokenizer
+#  add_eos: true
+#  num_workers: 12
+#  use_fixed_len_val: false  # placing a fixed length val here, but it's really the test
+#  mlm: false
+#  mlm_probability: 0.0
+
+model:
+  config:
+    n_layer: 16
+    n_head: 16
+    block_size: 1026
+    num_classes: ??
+#    bi_direction: ??
+    condition: ${dataset.condition}
+    dataset_name: ${dataset.dataset_name}
+
+
+scheduler:
+  num_warmup_steps: 5000
+
+
+optimizer:
+  lr: 1e-4
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+
+train:
+  gpu_mem: ${eval:"round(float(__import__('subprocess').check_output('nvidia-smi -i 0 --query-gpu=memory.total --format=csv,noheader,nounits', shell=True).strip().decode()) / 1000)"}
+  seed: 2222
+  global_batch_size: ${eval:${dataset.batch_size}*${trainer.devices}}  # effects the scheduler, need to set properly
+  cross_validation: true
+  remove_val_loader_in_eval: False
+  remove_test_loader_in_eval: true  # test only at the end of training
+  monitor: val/sei_promoter
+  mode: min
+
+  # generation
+  temp: 1.0

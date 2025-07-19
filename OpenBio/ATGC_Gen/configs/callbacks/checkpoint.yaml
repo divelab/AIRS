@@ -1,0 +1,31 @@
+model_checkpoint:
+  monitor: ${train.monitor} # name of the logged metric which determines when model is improving
+  mode: ${train.mode} # can be "max" or "min"
+  save_top_k: 1 # save k best models (determined by above metric)
+  save_last: False # True = additionally always save model from last epoch
+  dirpath: "checkpoints/"
+  filename: ${train.monitor}
+  auto_insert_metric_name: False
+  verbose: True
+
+#model_checkpoint_every_n_steps:
+##  monitor: train/loss # name of the logged metric which determines when model is improving
+##  mode: min # can be "max" or "min"
+#  save_top_k: -1 # Do not save any "best" models; this callback is being used to save every n train steps
+#  save_last: True # additionally always save model from last epoch
+#  dirpath: "checkpoints/"
+#  filename: 'step-{step:04d}'
+#  auto_insert_metric_name: False
+#  verbose: True
+#  every_n_train_steps: 500
+
+model_checkpoint_every_epoch:
+#  monitor: trainer/epoch  # name of the logged metric which determines when model is improving
+#  mode: max # can be "max" or "min"
+  save_top_k: 0 # 0: no save. -1: save every models
+  save_last: False # additionally always save model from last epoch
+  dirpath: "checkpoints/"
+  filename: 'epoch={epoch:02d}-step={step:04d}'
+  auto_insert_metric_name: False
+  verbose: True
+  every_n_epochs: 3

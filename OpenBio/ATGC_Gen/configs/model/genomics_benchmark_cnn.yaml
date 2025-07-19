@@ -1,0 +1,6 @@
+# Use open-source version of Mamba
+_name_: genomics_benchmark_cnn
+number_of_classes: ${dataset.d_output}
+vocab_size: 12
+embedding_dim: 100  # See: https://github.com/ML-Bioinfo-CEITEC/genomic_benchmarks/tree/main/experiments/torch_cnn_experiments
+input_len: ${dataset.__l_max}

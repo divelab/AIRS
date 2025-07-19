@@ -1,0 +1,9 @@
+# _target_:
+_name_: base
+loss: binary_cross_entropy
+metrics: null
+torchmetrics:
+  - MultilabelAUROC # AUROC
+  - MultilabelAveragePrecision # Precision
+#  - Recall # not supported in torchmetrics
+#  - F1 # not supported in torchmetrics

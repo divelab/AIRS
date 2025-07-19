@@ -1,0 +1,78 @@
+# @package _global_
+defaults:
+  - /pipeline: generator
+  - /model: transformer  # Specify a model, e.g. model=mamba or model=hyena
+  - override /scheduler: cosine_warmup_timm
+
+task:
+  _name_: generator
+  loss:
+    _name_: cross_entropy
+    ignore_index: 4  # Bake in tokenizer value for padding / EOS tokens
+#  torchmetrics: ['fbd_mel', 'diversity', 'fluency']
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  accumulate_grad_batches: ${div_up:${train.global_batch_size}, ${eval:${trainer.devices} * ${dataset.batch_size} * ${trainer.num_nodes}}}
+  max_epochs: null
+  max_steps: 100000
+  precision: 16  # bf16 only a100
+  gradient_clip_val: 1.0
+  limit_val_batches: 0.2
+#  limit_train_batches: 10
+#  val_check_interval: 1.0
+  check_val_every_n_epoch: 5
+
+
+dataset:
+  dataset_name: mel_enhancer
+  batch_size: 64
+  batch_size_eval: ${.batch_size}
+  condition: front_discrete
+  max_length: 500
+  max_length_val: ${dataset.max_length}
+  max_length_test: ${dataset.max_length}
+  reverse_aug: False
+  rc_aug: False
+
+
+model:
+  config:
+    n_layer: 16
+    n_head: 16
+    block_size: 502
+    num_classes: 47
+#    bi_direction: ??
+    condition: ${dataset.condition}
+
+
+scheduler:
+  t_in_epochs: False
+  t_initial: ${eval:${trainer.max_steps}-${.warmup_t}}
+  warmup_prefix: True
+  warmup_lr_init: 1e-6
+  warmup_t: ${eval:0.1*${trainer.max_steps}}
+  lr_min: 1e-5
+
+optimizer:
+  lr: 1e-4
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+
+train:
+  gpu_mem: ${eval:"round(float(__import__('subprocess').check_output('nvidia-smi -i 0 --query-gpu=memory.total --format=csv,noheader,nounits', shell=True).strip().decode()) / 1000)"}
+  seed: 2222
+  global_batch_size: ${eval:${dataset.batch_size}*${trainer.devices}}  # effects the scheduler, need to set properly
+  cross_validation: true
+  remove_test_loader_in_eval: true  # test only at the end of training
+  monitor: val/fbd
+  mode: min
+
+  # generation
+  temp: 1.0
+
+callbacks:
+  model_checkpoint:
+    filename: ${train.monitor}-${now:%Y-%m-%d_%H-%M-%S}

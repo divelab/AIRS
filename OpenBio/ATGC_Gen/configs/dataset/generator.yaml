@@ -1,0 +1,33 @@
+_name_: generator
+tokenizer_name: char
+shuffle: True
+strand: both  # both, pos, neg
+n_tsses: 100000
+validate_on_test: False
+overfit: False
+num_workers: 8
+drop_last: False
+pin_memory: True
+load_prob: False
+normalize_method: 'none'
+# chipseq
+top_score: True
+OOD: False
+
+#bed_file: null
+#fasta_file: null
+#dataset_name: hg38
+##tokenizer_name: null
+#cache_dir: null
+#max_length: 1024
+#add_eos: True
+#batch_size: 8  # per GPU
+#batch_size_eval: ${eval:${.batch_size} * 2}
+##num_workers: 4  # For preprocessing only
+##shuffle: True
+#__train_len: 34021
+#__l_max: ${.max_length}
+#
+#mlm: false
+#mlm_probability: 0
+#rc_aug: false

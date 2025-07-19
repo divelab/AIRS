@@ -1,0 +1,19 @@
+# @package _global_
+defaults:
+  - /trainer: default
+  - /loader: null
+  - /dataset: generator
+  - /optimizer: adamw
+  - /scheduler: cosine_warmup
+  - /callbacks: [base, checkpoint]
+
+
+encoder: null
+decoder: null
+
+loader:
+#  num_workers: ${eval:"len(__import__('os').sched_getaffinity(0))"}
+  num_workers: ${dataset.num_workers}
+  pin_memory: ${dataset.pin_memory}
+  drop_last: ${dataset.drop_last}
+  # shuffle: True

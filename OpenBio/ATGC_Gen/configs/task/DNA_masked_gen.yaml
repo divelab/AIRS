@@ -1,0 +1,4 @@
+_name_: mask_generator
+loss:
+  _name_: cross_entropy
+  ignore_index: -1  # Bake in tokenizer value for padding / EOS tokens

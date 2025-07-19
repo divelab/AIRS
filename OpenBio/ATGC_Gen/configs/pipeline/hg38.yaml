@@ -1,0 +1,29 @@
+# @package _global_
+defaults:
+  - /trainer: default
+  - /loader: null
+  - /dataset: hg38
+  - /optimizer: adamw
+  - /scheduler: cosine_warmup
+  - /callbacks: [base, checkpoint]
+
+train:
+  monitor: test/loss
+  mode: min
+
+task:
+  _name_: lm
+  loss:
+    _name_: cross_entropy
+    ignore_index: 4  # Bake in tokenizer value for padding / EOS tokens
+  torchmetrics: ['perplexity', 'num_tokens']
+
+encoder: null
+decoder: null
+
+loader:
+#  num_workers: ${eval:"len(__import__('os').sched_getaffinity(0))"}
+  num_workers: 16
+  pin_memory: True
+  drop_last: True  # There's enough data and epochs, ignore the edge case
+  # shuffle: True
