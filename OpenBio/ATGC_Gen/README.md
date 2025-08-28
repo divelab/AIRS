@@ -1,6 +1,6 @@
 # ATGC-Gen
 
-[//]: # (This is the official implement of Paper [Learning to Discover Regulatory Elements for Gene Expression Prediction]&#40;https://arxiv.org/abs/2502.13991&#41;. You can also find our [paper]&#40;https://huggingface.co/papers/2502.13991&#41; and [material collections]&#40;https://huggingface.co/collections/xingyusu/seq2exp-67daf57c1cfc53d3a4642d44&#41; on <b> 🤗 HuggingFace </b>!)
+This is the official implement of Paper [Language Models for Controllable DNA Sequence Design](https://arxiv.org/abs/2507.19523). 
 
 ![framework](images/framework.png)
 
@@ -47,28 +47,19 @@ To use it, set the `model_path` in the corresponding generation script to point 
 
 
 
-[//]: # (## Citation)
+## Citation
 
-[//]: # ()
-[//]: # ()
-[//]: # (Please cite our paper if you find our paper useful.)
 
-[//]: # ()
-[//]: # (```)
+Please cite our paper if you find our paper useful.
 
-[//]: # (@article{su2025learning,)
-
-[//]: # (  title={Learning to Discover Regulatory Elements for Gene Expression Prediction},)
-
-[//]: # (  author={Su, Xingyu and Yu, Haiyang and Zhi, Degui and Ji, Shuiwang},)
-
-[//]: # (  journal={arXiv preprint arXiv:2502.13991},)
-
-[//]: # (  year={2025})
-
-[//]: # (})
-
-[//]: # (```)
+```
+@article{su2025language,
+  title={Language Models for Controllable DNA Sequence Design},
+  author={Su, Xingyu and Li, Xiner and Lin, Yuchao and Xie, Ziqian and Zhi, Degui and Ji, Shuiwang},
+  journal={arXiv preprint arXiv:2507.19523},
+  year={2025}
+}
+```
 
 ## Acknowledgments
 
