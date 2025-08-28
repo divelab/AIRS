@@ -3,9 +3,10 @@ import warnings
 
 import numpy as np
 import torch
-from e3nn.o3 import Irreps, FullTensorProduct
 
+from e3nn.o3 import Irreps, FullTensorProduct
 import hienet._keys as KEY
+
 
 
 class AverageNumber:
@@ -204,7 +205,7 @@ def model_from_checkpoint(checkpoint):
     from hienet.model_build import build_E3_equivariant_model
 
     if isinstance(checkpoint, str):
-        checkpoint = torch.load(checkpoint, map_location='cpu')
+        checkpoint = torch.load(checkpoint, map_location='cpu', weights_only=False)
     elif isinstance(checkpoint, dict):
         pass
     else:
@@ -306,7 +307,7 @@ def load_model_from_checkpoint(checkpoint):
     warnings.warn(f'This method is deprecated, use model_from_checkpoint instead', DeprecationWarning)
 
     if isinstance(checkpoint, str):
-        checkpoint = torch.load(checkpoint, map_location='cpu')
+        checkpoint = torch.load(checkpoint, map_location='cpu', weights_only=False)
     elif isinstance(checkpoint, dict):
         pass
     else:

@@ -10,8 +10,8 @@ from hienet.nn.activation import ShiftedSoftPlus
 HIENET_VERSION = '1.0.0'
 
 
-_prefix = os.path.abspath(f'{os.path.dirname(__file__)}/pretrained')
-HIENET_0 = f'{_prefix}/lmax3_01-24-2025.ckpt'
+_prefix = os.path.abspath(f'{os.path.dirname(__file__)}')
+HIENET_0 = f'{_prefix}/../checkpoints/HIENet-V3.pth'
 
 
 IMPLEMENTED_RADIAL_BASIS = ['bessel', 'rbf', 'orbit_rbf']
