@@ -11,7 +11,7 @@ The official implementation of A Space Group Symmetry Informed Network for O(3) 
 
 ### Dielectric, Piezoelectric, Elasticity
 
-In our research, a dataset is curated specifically focusing on crystal tensor properties, including dielectric, piezoelectric, and elastic tensors, sourced from the JARVIS-DFT database. This dataset has been constructed with a keen emphasis on ensuring congruence between the properties and structures, achieved by extracting both the tensor property values and corresponding crystal structures directly from the DFT calculation files. This approach guarantees that the symmetry of the properties aligns with that of the structures. Notably, each tensor property within this dataset is computed using a consistent DFT core, ensuring uniformity in the calculation method.
+In our research, a dataset is curated specifically focusing on crystal tensor properties, including dielectric, piezoelectric, and elastic tensors, sourced from the JARVIS-DFT database. This dataset has been constructed with a keen emphasis on ensuring congruence between the properties and structures, achieved by extracting both the tensor property values and corresponding crystal structures directly from the DFT calculation files. This approach guarantees that the symmetry of the properties aligns with that of the structures. Notably, each tensor property within this dataset is computed using a consistent DFT core, ensuring uniformity in the calculation method. 
 
 ![cover](figures/dataset_sta.png)
 
@@ -25,6 +25,8 @@ python train.py
 ```
 
 Experimental code for piezo and elastic tensors in GMTNet_elast and GMTNet_piezo folders is not cleaned thoroughly, please use with caution. The datasets for dielectric, piezoelctric, and elastic are released in the /data folder.
+
+F norm for piezoelectric prediction in Table 5 should be 0.39 instead of 0.37. Pretrained model is available in the folder.
 
 ## Citation
 Please cite our paper if you find the code helpful or if you want to use the benchmark results. Thank you!
