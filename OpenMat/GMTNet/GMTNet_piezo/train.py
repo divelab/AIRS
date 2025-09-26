@@ -952,7 +952,7 @@ def main():
     parser.add_argument('--project', type=str, default='test', help='name of project for wandb visualization')
     parser.add_argument('--name', type=str, default='test', help='name of project for storage')
     parser.add_argument('--reduce_cell', type=bool, default=False, help='reduce the cell into irreducible atom sets')
-    parser.add_argument('--use_mask', type=bool, default=False, help='mask out error high rotation order channels')
+    parser.add_argument('--use_mask', type=bool, default=True, help='mask out error high rotation order channels')
     # dataset parameters
     parser.add_argument('--split_seed', type=int, default=32, help='the random seed of spliting data')
     parser.add_argument('--train_ratio', type=float, default=0.8, help='training ratio used in data split')
