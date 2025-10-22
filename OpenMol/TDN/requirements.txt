@@ -1,0 +1,9 @@
+numpy
+pandas
+mendeleev
+lmdb
+tqdm
+periodictable
+torch_ema
+typed-argument-parser
+e3nn
