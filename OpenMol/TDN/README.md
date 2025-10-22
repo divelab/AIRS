@@ -52,12 +52,6 @@ The TDN architecture is partially based on [Equiformer](https://github.com/atomi
 
 
 
-## License
-
-This work is under the CC BY 4.0 license.
-
-
-
 ## Citation
 
 ```latex
