@@ -62,7 +62,7 @@ This work is under the CC BY 4.0 license.
 
 ```latex
 @inproceedings{
-    yuchao2025tensor,
+    lin2025tensor,
     title={Tensor Decomposition Networks for Accelerating Machine Learning Force Field Computations},
     author={Yuchao Lin, Cong Fu, Zachary Krueger, Haiyang Yu, Maho Nakata, Jianwen Xie, Emine Kucukbenli, Xiaofeng Qian, Shuiwang Ji},
     booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems},
