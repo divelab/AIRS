@@ -1,5 +1,5 @@
 # TDN
-Official code repository of paper “[Tensor Decomposition Networks for Fast Machine Learning Interatomic Potential Computations](https://arxiv.org/abs/2507.01131)” by Yuchao Lin, Cong Fu, Zachary Krueger, Haiyang Yu, Maho Nakata, Jianwen Xie, Emine Kucukbenli, Xiaofeng Qian, Shuiwang Ji. [[NeurIPS 2025 Poster](https://openreview.net/forum?id=9vKJyCUfMH)]
+Official code repository of paper “[Tensor Decomposition Networks for Fast Machine Learning Force Field Computations](https://arxiv.org/abs/2507.01131)” by Yuchao Lin, Cong Fu, Zachary Krueger, Haiyang Yu, Maho Nakata, Jianwen Xie, Emine Kucukbenli, Xiaofeng Qian, Shuiwang Ji. [[NeurIPS 2025 Poster](https://openreview.net/forum?id=9vKJyCUfMH)]
 
 ![tdn](CPDecompFig-1.png)
 
