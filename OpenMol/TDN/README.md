@@ -76,6 +76,12 @@ loss = energy_weight * energy_loss + force_weight * force_loss
 
 
 
+### Tensor product
+
+TDN uses `uvu` connection mode and saves the precomputed tensor decomposition result to `tmp` as default, corresponding to `CPTensorProductSH`. Before training, remember `mkdir tmp`.
+
+
+
 ### Single GPU training
 
 Example of subset TDN training:
