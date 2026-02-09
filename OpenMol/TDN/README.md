@@ -13,7 +13,7 @@ See [ENVIRONMENT.md](ENVIRONMENT.md) for environment setup instructions.
 
 ## Dataset Preparation for PubChemQCR
 
-PubChemQCR [1] provides relaxation trajectories for ~3.5M small molecules (PM3 → HF → DFT), totaling ~300M snapshots (≈105M at DFT). The dataset is available as a **subset** and a **full** split. For comprehensive details and benchmarks, please refer to the [preprint](https://arxiv.org/abs/2506.23008) and the [original repository](https://huggingface.co/datasets/divelab/PubChemQCR). **Before training, download the LMDB shards to your target directory.**
+PubChemQCR [1] provides relaxation trajectories for ~3.5M small molecules (PM3 → HF → DFT), totaling ~300M snapshots (≈105M at DFT). The dataset is available as a **subset** and a **full** split. The format of each data is provided in [DATABASE.md](DATABASE.md). For comprehensive details and benchmarks, please refer to the [preprint](https://arxiv.org/abs/2506.23008) and the [original repository](https://huggingface.co/datasets/divelab/PubChemQCR). **Before training, download the LMDB shards to your target directory.**
 
 #### Important Flags
 
@@ -34,12 +34,12 @@ In this repository, all training uses **DFT first-stage** data with **full traje
 
 ## Training and Evaluation
 
-This project trains and evaluates atomistic machine-learning potentials that predict:
+This project trains and evaluates machine-learning interatomic potentials that predict:
 
 - **Energies** (graph-level target: `data.y`)
 - **Forces** (atom-level target: `data.y_force`)
 
-Supported models (selected by `--model_name`):
+Supported models (by `--model_name`):
 
 - `schnet` → `models/schnet.py::SchNet`
 - `painn` → `models/painn.py::PaiNN`
@@ -64,9 +64,9 @@ The split ratios are determined by `--subset`:
 
 ### Loss metrics
 
-- **Energy criterion**: `nn.L1Loss()`
-- **Force criterion**: `RMSE()`
-- **Total training objective:**
+- Energy criterion: `nn.L1Loss()`
+- Force criterion: `RMSE()`
+- Total training objective:
 
 ```
 loss = energy_weight * energy_loss + force_weight * force_loss
@@ -74,9 +74,9 @@ loss = energy_weight * energy_loss + force_weight * force_loss
 
 
 
-### Tensor product
+### Tensor decomposition
 
-TDN uses `uvu` connection mode and saves the precomputed tensor decomposition result to `tmp` as default, corresponding to `CPTensorProductSH`. Before training, remember `mkdir tmp`.
+TDN uses `uvu` connection mode, `quadratic` rank scheduling, and saves the precomputed tensor decomposition result to `tmp` as default, corresponding to `CPTensorProductSH` in [_tensor_product.py](https://github.com/divelab/AIRS/blob/main/OpenMol/TDN/models/_tensor_product.py). Before training, remember `mkdir tmp`.
 
 
 
@@ -136,7 +136,7 @@ torchrun --standalone --nproc_per_node=4 main.py \
 
 ### Evaluation
 
-Example of TDN evaluation with checkpoint `tdn_checkpoint_True_6_64_0.0005.pth`
+Example of subset TDN evaluation with checkpoint `tdn_checkpoint_True_6_64_0.0005.pth`
 
 ```
 python main.py \
