@@ -1,6 +1,6 @@
 """
 ===============================================================================
-File:           painn
+File:           schnet
 Date:           6/16/2024
 Description:    Code is adapted from torch geometric implementation https://github.com/pyg-team/pytorch_geometric/blob/master/torch_geometric/nn/models/schnet.py.
 
