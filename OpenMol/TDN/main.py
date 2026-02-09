@@ -18,9 +18,7 @@ from models.schnet import SchNet
 from models.tdn import TensorDecompositionNetwork
 
 
-# -----------------------------
 # Loss helpers
-# -----------------------------
 def compute_training_force_loss(forces, data, mask, loss_name: str):
     name = loss_name.lower()
 
@@ -91,9 +89,7 @@ class RMSE:
         )
 
 
-# -----------------------------
 # Train / eval loops
-# -----------------------------
 def train(
     model,
     rank,
@@ -178,9 +174,7 @@ def evaluate(model, rank, device, loader, criterion, criterion_force, ema):
     return total_energy_loss / n, total_force_loss / n
 
 
-# -----------------------------
-# Main
-# -----------------------------
+
 def main(
     root: str,
     model_name: str,
