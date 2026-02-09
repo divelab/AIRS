@@ -64,11 +64,9 @@ The split ratios are determined by `--subset`:
 
 ### Loss metrics
 
-**Energy criterion**: `nn.L1Loss()`
-
-**Force criterion**: `RMSE()`
-
-**Total training objective:**
+- **Energy criterion**: `nn.L1Loss()`
+- **Force criterion**: `RMSE()`
+- **Total training objective:**
 
 ```
 loss = energy_weight * energy_loss + force_weight * force_loss
