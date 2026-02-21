@@ -1,0 +1,42 @@
+_target_: model.painn.PaiNNLightning
+
+model_name: "PaiNN"
+model:
+  _target_: model.painn.PaiNN
+  hidden_channels: 128
+  num_rbf: 128 
+  num_layers: 4 
+  cutoff: 4.5 
+  gradient_force: false
+
+
+target_index: ${target_index}
+
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 1e-3
+  weight_decay: 0
+
+lr_scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  _partial_: true
+  factor: 0.8
+  patience: 100
+  min_lr: 1e-6
+
+losses:
+  out:
+    _target_: torch.nn.L1Loss
+
+loss_coefs:
+  out: 1.0
+
+
+metric:
+  _target_: torchmetrics.MultitaskWrapper
+  _convert_: all
+  task_metrics:
+    out:
+      _target_: torchmetrics.MeanAbsoluteError

@@ -1,0 +1,47 @@
+task_name: homo_lumo
+target_index: 5
+finetune_type: null # null (train from scratch), property, geometry
+conformer: GT
+
+# Global variables
+name: subset_${split_mode}_PaiNN
+dataset_name: Molecule3D
+max_steps: 2000000
+job_type: train
+pretrained: null # name of pretrained split or 'null'
+ckpt_path: null # path to checkpoint for training resume or test run
+
+
+# Datamodule parameters
+root: ./
+batch_size: 256
+num_workers: 8
+split_mode: random # scaffold
+processed_folder: processed_relax_subset_new
+sample_relaxed_traj: false
+position_noise_scale: 0.02
+
+# Devices
+devices: [4]
+
+# Trainer parameters
+gradient_clip_algorithm: null
+gradient_clip_val: null
+
+# configs
+defaults:
+  - _self_
+  - datamodule: pyg.yaml  # dataset config
+  - model: painn.yaml  # model config
+  - callbacks: default.yaml  # pl callbacks config
+  - loggers: wandb.yaml  # pl loggers config
+  - trainer: train.yaml  # trainer config
+
+# need this to set working dir as current dir
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+original_work_dir: ${hydra:runtime.cwd}
+
+seed: 42

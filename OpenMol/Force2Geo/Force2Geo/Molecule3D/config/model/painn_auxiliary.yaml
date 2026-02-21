@@ -1,0 +1,54 @@
+_target_: model.painn.PaiNNLightning
+
+model_name: "PaiNN"
+model:
+  _target_: model.painn.PaiNN
+  hidden_channels: 128
+  num_rbf: 128 
+  num_layers: 4 
+  cutoff: 4.5 
+  gradient_force: false
+  conformer: ${conformer}
+  return_vec: ${return_vec}
+  noise_std: ${noise_std}
+  add_noise_to_relax: ${add_noise_to_relax}
+
+
+target_index: ${target_index}
+auxilary_task: true
+mix_GT_relax: true
+
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 5e-4
+  weight_decay: 0
+
+lr_scheduler:
+  _target_: torch.optim.lr_scheduler.StepLR
+  _partial_: true
+  step_size: 40 # 30
+  gamma: 0.5
+
+
+losses:
+  out:
+    _target_: torch.nn.L1Loss
+  position:
+    _target_: model.painn.loss.CosineLoss
+    # _target_: model.painn.loss.L2Loss
+    # _target_: torch.nn.L1Loss
+loss_coefs:
+  out: 1.0
+  position: ${position_weight}
+
+
+metric:
+  _target_: torchmetrics.MultitaskWrapper
+  _convert_: all
+  task_metrics:
+    out:
+      _target_: torchmetrics.MeanAbsoluteError
+    position:
+      _target_: torchmetrics.MeanAbsoluteError

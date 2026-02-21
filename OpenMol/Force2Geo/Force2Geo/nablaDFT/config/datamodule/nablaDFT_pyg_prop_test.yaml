@@ -1,0 +1,10 @@
+# Dataset config for torch geometric nablaDFT
+_target_: nablaDFT.dataset.PyGNablaDFTPropDataModule
+
+root: ${root}
+dataset_name: ${dataset_name}
+# Dataloader args
+batch_size: ${batch_size}
+num_workers: ${num_workers}
+persistent_workers: True
+pin_memory: True

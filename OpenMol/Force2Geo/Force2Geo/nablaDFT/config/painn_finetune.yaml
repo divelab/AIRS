@@ -1,0 +1,41 @@
+target_index: 6 # homo_lumo
+
+# Global variables
+name: PaiNN_finetune_target_${target_index}
+dataset_name: dataset_train_large # dataset_train_large, dataset_test_structures
+max_steps: 2000000
+job_type: train
+pretrained_foundation: <path to the pre-trained model checkpoint>
+pretrained: null  # name of pretrained split or 'null'
+ckpt_path: null # path to checkpoint for training resume or test run
+
+# Datamodule parameters
+root: ./datasets/nablaDFT/${.job_type}
+batch_size: 256
+num_workers: 16
+
+# Devices
+devices: [1]
+
+# Trainer parameters
+gradient_clip_algorithm: null
+gradient_clip_val: null
+
+
+# configs
+defaults:
+  - _self_
+  - datamodule: nablaDFT_pyg_prop.yaml  # dataset config
+  - model: painn.yaml  # model config
+  - callbacks: default.yaml  # pl callbacks config
+  - loggers: wandb_prop.yaml  # pl loggers config
+  - trainer: train.yaml  # trainer config
+
+# need this to set working dir as current dir
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+original_work_dir: ${hydra:runtime.cwd}
+
+seed: 23

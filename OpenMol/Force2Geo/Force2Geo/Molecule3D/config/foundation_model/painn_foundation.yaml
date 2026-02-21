@@ -1,0 +1,6 @@
+_target_: model.painn.PaiNNFoundation
+hidden_channels: 128
+num_rbf: 128 
+num_layers: 4 
+cutoff: 4.5 
+gradient_force: true

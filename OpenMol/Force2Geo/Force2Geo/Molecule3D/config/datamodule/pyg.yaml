@@ -1,0 +1,17 @@
+# Dataset config for torch geometric nablaDFT
+_target_: dataset.PyGMolecule3DDataModule
+
+root: ${root}
+dataset_name: ${dataset_name}
+seed: ${seed}
+# Dataloader args
+batch_size: ${batch_size}
+num_workers: ${num_workers}
+persistent_workers: True
+pin_memory: True
+drop_last: True
+allowed_cids_path: ./data/raw/allowed_test_cids_${split_mode}.txt
+processed_folder: ${processed_folder}
+split_mode: ${split_mode}
+sample_relaxed_traj: ${sample_relaxed_traj}
+position_noise_scale: ${position_noise_scale}

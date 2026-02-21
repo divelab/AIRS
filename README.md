@@ -69,6 +69,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
             <li><a href="OpenMol/PACE">PACE</a></li>
             <li><a href="OpenMol/Geo2Seq">Geo2Seq</a></li>
             <li><a href="OpenMol/TDN">TDN</a></li>
+            <li><a href="OpenMol/Force2Geo">Force2Geo</a></li>
           </ul>
           <img src="https://placehold.co/50x50/D790FF/D790FF.png" height="12" width="12"> <b>OpenProt</b>
           <ul>
