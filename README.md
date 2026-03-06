@@ -57,6 +57,7 @@ Here is the summary of methods we have in AIRS. More methods will be included as
           <ul>
             <li><a href="OpenDFT/QHNet">QHNet</a></li>
             <li><a href="OpenDFT/QHBench">QHBench</a></li>
+            <li><a href="OpenDFT/OrbEvo">OrbEvo</a></li>
           </ul>
       </td>
       <td> 
