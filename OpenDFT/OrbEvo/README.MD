@@ -10,8 +10,8 @@ Official codebase for **OrbEvo**, accepted at **ICLR 2026**.
 This repository contains code for training and evaluating autoregressive models for TDDFT dynamics.
 
 Core entry points:
-- Training: `python -m dft_v2.train`
-- Evaluation: `python dft_v2/eval.py`
+- Training: `python -m orbevo.train`
+<!-- - Evaluation: `python orbevo/eval.py` -->
 
 ## Installation
 
@@ -55,10 +55,10 @@ Place data under the project `data/` directory, for example:
 - `data/QM9_tddftv2`
 
 Raw-data generation and preprocessing references:
-- `dft_v2/datagen_abacus/preprocess`
+- `orbevo/datagen_abacus/preprocess`
 
 Dataset conventions, initialization, and `collate_fn` usage are documented in:
-- `dft_v2/datasets/README.md`
+- `orbevo/datasets/README.md`
 
 ## Training
 
@@ -71,15 +71,15 @@ CUDA_VISIBLE_DEVICES=0 python -m dft_v2.train +experiment=debug
 For custom launches, edit experiment configs in `dft_v2/configs/experiment/` and run:
 
 ```bash
-python -m dft_v2.train +experiment=<experiment_name>
+python -m orbevo.train +experiment=<experiment_name>
 ```
 
-## Evaluation
+<!-- ## Evaluation
 
 Example:
 
 ```bash
-python dft_v2/eval.py \
+python orbevo/eval.py \
   --dataset QM9_ood \
   --ckpt_path /path/to/ckpt/best_s1.pt \
   --split test
@@ -88,7 +88,7 @@ python dft_v2/eval.py \
 Supported datasets in eval are:
 - `MDA`
 - `QM9`
-- `QM9_ood`
+- `QM9_ood` -->
 
 
 ## Citation
