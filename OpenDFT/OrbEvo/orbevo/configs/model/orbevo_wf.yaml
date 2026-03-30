@@ -1,0 +1,4 @@
+name: EquiformerV2_Eband_Pool
+args:
+  num_distance_basis: 250
+  use_eband_interaction: true

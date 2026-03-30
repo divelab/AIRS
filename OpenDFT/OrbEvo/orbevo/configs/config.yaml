@@ -1,0 +1,49 @@
+hydra:
+  output_subdir: 'config'
+  run:
+    dir: ${save_root}
+  job:
+    chdir: false
+
+defaults:
+  - _self_
+  - dataset: QM9
+  - model: orbevo_dm
+
+batch_size: 20
+num_epochs: 500 
+num_sessions: 1
+ddp_port: 12355
+num_workers: 4
+pin_memory: true
+lr: 1e-3
+clip_grad_norm: 1
+
+warmup: 0
+
+valid_every: 1
+save_best: 1
+save_root: 'outputs'
+
+predictor_path: ''
+model_path: ''
+
+debug: false
+
+use_ddp: false
+find_unused_parameters: false
+
+push_forward: false
+pf_clip: null
+pf_prob: 0.5
+add_noise: false
+pf_warmup: 100000
+
+time_start: 0
+time_cond: 8
+time_future: 8
+
+loss: 'atomwise'
+pred_phase: false
+
+max_state_samples: null

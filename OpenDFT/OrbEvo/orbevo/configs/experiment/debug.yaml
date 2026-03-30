@@ -1,0 +1,29 @@
+# @package _global_
+
+defaults:
+  - override /model: orbevo_dm
+  - override /dataset: QM9
+  # - override /dataset: MDA
+
+batch_size: 4
+
+num_sessions: 2
+num_epochs: [0, 3]
+
+pred_phase: false
+
+push_forward: true
+add_noise: false
+# pf_clip: 0.1
+pf_clip: null
+pf_warmup: 0
+
+time_start: 0
+time_cond: 8
+time_future: 8
+max_state_samples: 8
+
+debug: true
+
+pin_memory: false
+use_amp: true

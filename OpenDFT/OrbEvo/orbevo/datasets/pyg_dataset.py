@@ -9,6 +9,45 @@ from tqdm import tqdm
 from torch_geometric.data import Data, Dataset
 
 
+QM9_GOOD_INDEX_FILENAME = 'QM9_abs_max_lt_1e-03.txt'
+
+
+def load_qm9_good_split_filter(dataset_name: str):
+    """
+    Load QM9 trajectory indices that should be kept *after* the split.
+
+    Returns:
+        torch.LongTensor of trajectory indices to keep. For non-QM9 datasets,
+        returns None.
+    """
+    if dataset_name not in {'QM9', 'QM9_ood'}:
+        return None
+
+    filter_path = osp.join(osp.dirname(__file__), QM9_GOOD_INDEX_FILENAME)
+    if not osp.isfile(filter_path):
+        return None
+
+    good_inds = np.loadtxt(filter_path, dtype=np.int64)
+    good_inds = np.atleast_1d(good_inds)
+    return torch.as_tensor(good_inds, dtype=torch.long)
+
+
+def keep_qm9_good_after_split(dataset_name: str, split_inds):
+    """
+    Keep only QM9 good samples from an already-defined split.
+
+    This keeps the original random / OOD split assignment intact and only
+    filters the already-formed split.
+    """
+    good_inds = load_qm9_good_split_filter(dataset_name)
+    if good_inds is None:
+        return split_inds
+
+    split_inds = torch.as_tensor(split_inds, dtype=torch.long)
+    keep_mask = torch.isin(split_inds, good_inds)
+    return split_inds[keep_mask]
+
+
 def ar_transform(data, t, time_cond=1, time_future=1, time_gap=1, rms_0=1.0, rms_t=1.0):  # ar
     """
     Get input and target for auto-regressive prediction
@@ -93,6 +132,8 @@ class TDDFTv2_pyg(Dataset):
 
     @property
     def raw_file_names(self):
+        if not osp.isdir(self.raw_dir):
+            return []
         files = sorted([fn for fn in os.listdir(self.raw_dir) if fn.endswith('.pt')])
         return files
 
@@ -100,10 +141,55 @@ class TDDFTv2_pyg(Dataset):
     def processed_file_names(self):
         return self.raw_file_names
 
-    # def download(self):
-    #     # Download to `self.raw_dir`.
-    #     path = download_url(url, self.raw_dir)
-    #     ...
+    @property
+    def raw_download_spec(self):
+        dataset_name = osp.basename(osp.abspath(self.root))
+        if dataset_name == 'QM9_tddft':
+            return {
+                'repo_id': 'divelab/OrbEvo',
+                'repo_type': 'dataset',
+                'allow_patterns': ['QM9_tddft/raw/*'],
+                'target_root': 'QM9_tddft',
+            }
+        return None
+
+    def download(self):
+        spec = self.raw_download_spec
+        if spec is None:
+            raise RuntimeError(
+                f'No automatic raw-data download is configured for dataset root: {self.root}. '
+                'Expected a local raw/ directory.'
+            )
+
+        try:
+            from huggingface_hub import snapshot_download
+        except ImportError as exc:
+            raise ImportError(
+                'Automatic download for TDDFTv2_pyg requires huggingface_hub. '
+                'Install it with `pip install huggingface_hub` or place the raw `.pt` files '
+                f'manually under `{self.raw_dir}`.'
+            ) from exc
+
+        root_abs = osp.abspath(self.root)
+        target_root = osp.join(osp.dirname(root_abs), spec['target_root'])
+        if root_abs != target_root:
+            raise RuntimeError(
+                f'Automatic download expects dataset root `{target_root}`, but got `{root_abs}`. '
+                'Use root `data/QM9_tddft` when running from the repository directory.'
+            )
+
+        os.makedirs(osp.dirname(target_root), exist_ok=True)
+        snapshot_download(
+            repo_id=spec['repo_id'],
+            repo_type=spec['repo_type'],
+            allow_patterns=spec['allow_patterns'],
+            local_dir=osp.dirname(target_root),
+        )
+
+        if not osp.isdir(self.raw_dir):
+            raise RuntimeError(
+                f'Download completed but raw directory `{self.raw_dir}` was not created as expected.'
+            )
 
     def process(self):
         for raw_path in tqdm(self.raw_paths):
@@ -139,11 +225,16 @@ class TDDFTv2_pyg(Dataset):
             # N, 9, 2
             coef_mask = coef_mask[:, self.abacus_to_tfn].contiguous().reshape(num_atoms, 2, 9).transpose(-1, -2)
 
+            # legacy naming convention
+            phase_key = 'state_phase_t'
+            if 'state_phase_t' not in data_torch.keys():
+                phase_key = 'eband_phase_t'
+
             data_pyg = Data(atom_type=data_torch['atom_type'],
                             atom_pos=data_torch['atom_pos'],
                             coef_0=coef_data['coef_0'],
                             delta_coef_t=coef_data['delta_coef_t'],
-                            state_phase_t=data_torch['state_phase_t'],
+                            state_phase_t=data_torch[phase_key],
                             occ=data_torch['occs'][0], # assume the occupancy number does not change with time
                             coef_mask=coef_mask,
                             efield=data_torch['efield'])
@@ -165,7 +256,8 @@ class TDDFTv2_pyg(Dataset):
         data = torch.load(osp.join(self.processed_dir, f'{traj_idx:05d}.pt'))
 
         # legacy naming convention
-        data.state_phase_t = data.eband_phase_t
+        if 'state_phase_t' not in data.keys():
+            data.state_phase_t = data.eband_phase_t
 
         data = ar_transform(data, t=t, time_cond=self.time_cond, time_future=self.time_future, time_gap=self.time_gap, rms_0=self.rms_0, rms_t=self.rms_t)
         # data.last_step = t == (self.num_targets - 1)

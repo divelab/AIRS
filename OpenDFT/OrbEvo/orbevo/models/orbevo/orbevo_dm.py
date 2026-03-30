@@ -478,6 +478,7 @@ class EquiformerV2_Eband_DM(BaseModel):
             o3.Irreps(f'{9 * self.dm_dim}x0e+{17 * self.dm_dim}x1e+{13 * self.dm_dim}x2e+{5 * self.dm_dim}x3e+{1 * self.dm_dim}x4e'),
             o3.Irreps(f'{self.sphere_channels}x0e+{self.sphere_channels}x1e+{self.sphere_channels}x2e+{self.sphere_channels}x3e+{self.sphere_channels}x4e'),
             biases=True
+            # biases=False
         )
 
     def to_e3nn(self, x):

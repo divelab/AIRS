@@ -1,7 +1,7 @@
 import os
 import torch
 from torch.utils.data import DataLoader
-from orbevo.datasets.pyg_dataset import TDDFTv2_pyg, collate_fn
+from orbevo.datasets.pyg_dataset import TDDFTv2_pyg, collate_fn, keep_qm9_good_after_split
 
 from torch.utils.data.distributed import DistributedSampler
 import numpy as np
@@ -40,6 +40,9 @@ class DataModule:
             valid_inds = all_inds['val']
         else:
             raise ValueError('Unknown dataset.')
+
+        train_inds = keep_qm9_good_after_split(self.cfg.dataset.name, train_inds)
+        valid_inds = keep_qm9_good_after_split(self.cfg.dataset.name, valid_inds)
 
         if cfg.debug:
             train_inds = train_inds[:5]

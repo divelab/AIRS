@@ -53,6 +53,7 @@ from .transformer_block import (
     TransBlockV2, 
 )
 from .input_block import EdgeDegreeEmbedding
+from .graph_expansion_helper import broadcast_edge_features
 # from .activation import SeparableS2Activation
 
 # @registry.register_model("equiformer_v2")
@@ -222,7 +223,7 @@ class EquiformerV2_Eband_Pool(BaseModel):
         self._AVG_NUM_NODES  = avg_num_nodes
         self._AVG_DEGREE     = avg_degree 
 
-        self.use_eband_interaction = use_eband_interaction
+        self.use_state_interaction = use_eband_interaction
 
         assert self.weight_init in ['normal', 'uniform']
 
@@ -353,7 +354,7 @@ class EquiformerV2_Eband_Pool(BaseModel):
             self.eband_attn_blocks.append(block)
             # self.global_in_projs.append(SO3_LinearV2(self.sphere_channels, self.sphere_channels, lmax=self.lmax_list[0]))
 
-            if self.use_eband_interaction and i < self.num_layers - 1:
+            if self.use_state_interaction and i < self.num_layers - 1:
                 block = TransBlockV2(
                     self.sphere_channels,
                     self.attn_hidden_channels,
@@ -416,7 +417,7 @@ class EquiformerV2_Eband_Pool(BaseModel):
         self.apply(self._init_weights)
         self.apply(self._uniform_init_rad_func_linear_weights)
 
-    def forward(self, batch_data, max_eband_samples=None):
+    def forward(self, batch_data, max_state_samples=None):
 
         graph_data = batch_data['state_data']
         global_data = batch_data['molecule_data']
@@ -457,67 +458,17 @@ class EquiformerV2_Eband_Pool(BaseModel):
             global_neighbors,
         ) = self.generate_graph(global_data)
 
-        # For broadcasting edge feature information across ebands
-        # which mol the edge belongs to
-        global_edge_mol_batch = global_data.batch[global_edge_index[0]]
-        edge_inds = torch.arange(global_edge_index.shape[1]).to(global_edge_index.device)
-        batch_size = max(global_data.batch).item() + 1
-
-        all_eband_edge_batch = []
-        all_eband_edge_index = []
-        all_eband_edge_index_offset = 0
-
-        sampled_mask = []
-        sampled_eband_edge_batch = []
-        sampled_eband_edge_index = []
-        sampled_eband_edge_index_offset = 0
-        sampled_graph_batch = []
-        sampled_graph_batch_counter = 0
-
-        for i in range(batch_size):
-            # all eband graphs
-            num_ebands_mol = batch_data['state_data'].num_ebands[i].item()
-            num_atoms_mol = global_data.natoms[i].item()
-            # inds of edges that belong to a mol
-            eband_edge_batch_mol = edge_inds[global_edge_mol_batch == i]
-            # repeat num_ebands times
-            all_eband_edge_batch.append(eband_edge_batch_mol.repeat(num_ebands_mol))
-            all_eband_edge_index_mol = global_edge_index[:, global_edge_mol_batch == i]
-            all_eband_edge_index_mol = all_eband_edge_index_mol.unsqueeze(1) + (torch.arange(num_ebands_mol).to(self.device) * num_atoms_mol).unsqueeze(0).unsqueeze(2) # 2, num_ebands_mol, E
-            all_eband_edge_index_mol = all_eband_edge_index_mol.flatten(start_dim=1) + all_eband_edge_index_offset
-            all_eband_edge_index_offset += num_atoms_mol * (num_ebands_mol - 1) # how many additional repeats
-            all_eband_edge_index.append(all_eband_edge_index_mol)
-
-            # sample eband graphs
-            if max_eband_samples is not None:
-                sampled_num_ebands_mol = min(max_eband_samples, num_ebands_mol)
-                sampled_eband_mask_mol = torch.zeros(num_ebands_mol, dtype=torch.bool).to(self.device)
-                sampled_eband_inds_mol = torch.randperm(num_ebands_mol)[:sampled_num_ebands_mol]
-                sampled_eband_mask_mol[sampled_eband_inds_mol] = True
-                sampled_mask_mol = sampled_eband_mask_mol.unsqueeze(1).repeat(1, num_atoms_mol).flatten()
-            else:
-                sampled_num_ebands_mol = num_ebands_mol
-                sampled_mask_mol = torch.ones(num_ebands_mol * num_atoms_mol, dtype=torch.bool).to(self.device)
-            sampled_mask.append(sampled_mask_mol)
-
-            # repeat num_edands times
-            sampled_eband_edge_batch.append(eband_edge_batch_mol.repeat(sampled_num_ebands_mol))
-            # edge index
-            sampled_eband_edge_index_mol = global_edge_index[:, global_edge_mol_batch == i]
-            sampled_eband_edge_index_mol = sampled_eband_edge_index_mol.unsqueeze(1) + (torch.arange(sampled_num_ebands_mol).to(self.device) * num_atoms_mol).unsqueeze(0).unsqueeze(2) # 2, sampled_num_ebands_mol, E
-            sampled_eband_edge_index_mol = sampled_eband_edge_index_mol.flatten(start_dim=1) + sampled_eband_edge_index_offset
-            sampled_eband_edge_index_offset += num_atoms_mol * (sampled_num_ebands_mol - 1) # how many additional repeats
-            sampled_eband_edge_index.append(sampled_eband_edge_index_mol)
-
-            sampled_graph_batch.append(torch.arange(sampled_num_ebands_mol).unsqueeze(1).repeat(1, num_atoms_mol).flatten() + sampled_graph_batch_counter)
-            sampled_graph_batch_counter += sampled_num_ebands_mol # Sep 17
-
-        all_eband_edge_batch = torch.cat(all_eband_edge_batch)
-        all_eband_edge_index = torch.cat(all_eband_edge_index, dim=1)
-        sampled_mask = torch.cat(sampled_mask)
-        sampled_eband_edge_batch = torch.cat(sampled_eband_edge_batch)
-        sampled_eband_edge_index = torch.cat(sampled_eband_edge_index, dim=1)
-        sampled_graph_batch = torch.cat(sampled_graph_batch)
+        global_data.edge_index = global_edge_index
+        eband_edge_data = broadcast_edge_features(
+            global_data=global_data,
+            batch_data=batch_data,
+            max_state_samples=max_state_samples,
+            device=self.device,
+        )
+        sampled_eband_edge_index = eband_edge_data["sampled_eband_edge_index"]
+        sampled_eband_edge_batch = eband_edge_data["sampled_eband_edge_batch"]
+        sampled_mask = eband_edge_data["sampled_mask"]
+        sampled_graph_batch = eband_edge_data["sampled_graph_batch"]
 
         coef_cond = coef_cond[:, sampled_mask, :, :]
 
@@ -580,7 +531,7 @@ class EquiformerV2_Eband_Pool(BaseModel):
         )
         x.embedding[:, :9, :] = coef_emb
         x = self.coef_proj(x)
-        x.embedding = x.embedding + x_global.embedding[graph_data.eband_atom_batch[sampled_mask]]
+        x.embedding = x.embedding + x_global.embedding[graph_data.state_atom_batch[sampled_mask]]
 
         # Network blocks
         for i in range(self.num_layers):
@@ -597,8 +548,8 @@ class EquiformerV2_Eband_Pool(BaseModel):
                 eband_edge_batch=sampled_eband_edge_batch,
             )
 
-            if self.use_eband_interaction and i < self.num_layers - 1:
-                x_global.embedding = torch_scatter.scatter_mean(x.embedding, graph_data.eband_atom_batch[sampled_mask], dim=0)
+            if self.use_state_interaction and i < self.num_layers - 1:
+                x_global.embedding = torch_scatter.scatter_mean(x.embedding, graph_data.state_atom_batch[sampled_mask], dim=0)
 
                 x_global = self.global_attn_blocks[i](
                     x=x_global,                  # SO3_Embedding
@@ -612,7 +563,7 @@ class EquiformerV2_Eband_Pool(BaseModel):
                     eband_edge_batch=None, # no broadcast
                 )
 
-                x.embedding = x.embedding + x_global.embedding[graph_data.eband_atom_batch[sampled_mask]]
+                x.embedding = x.embedding + x_global.embedding[graph_data.state_atom_batch[sampled_mask]]
 
         # Final layer norm
         if self.efield_cond:
