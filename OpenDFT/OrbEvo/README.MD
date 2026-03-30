@@ -3,7 +3,7 @@
 Official codebase for **OrbEvo**, accepted at **ICLR 2026**.
 
 - Paper (OpenReview): https://openreview.net/pdf?id=06I7jcrkW2
-- Datasets (Hugging Face): https://huggingface.co/divelab/OrbEvo
+- Datasets (Hugging Face): https://huggingface.co/datasets/divelab/OrbEvo
 
 ## Overview
 
