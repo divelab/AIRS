@@ -1,6 +1,6 @@
 # OrbEvo
 
-Official codebase for **OrbEvo**, accepted at **ICLR 2026**.
+Official codebase for **Orbital Transformers for Predicting Wavefunctions in Time-Dependent Density Functional Theory** (ICLR 2026).
 
 - Paper (OpenReview): https://openreview.net/pdf?id=06I7jcrkW2
 - Datasets (Hugging Face): https://huggingface.co/datasets/divelab/OrbEvo
@@ -46,7 +46,7 @@ uv pip install numpy==1.26.4 hydra-core tensorboard e3nn tqdm huggingface_hub
 
 ## Data
 
-Please check the [data release notes](DATA_RELEASE.md`).
+Please check the [data release notes](DATA_RELEASE.md).
 
 <!-- `huggingface_hub` is required if you want `orbevo/datasets/pyg_dataset.py` to automatically download QM9 raw files from Hugging Face into:
 - `data/QM9_tddft/raw` -->
