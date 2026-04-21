@@ -91,6 +91,10 @@ Supported datasets in eval are:
 - `QM9_ood` -->
 
 
+## Checkpoints
+
+- OrbEvo-DM, QM9: https://huggingface.co/divelab/orbevo_model/blob/main/qm9_dm_pf_tb8_s8_395k_bs16.pt
+
 ## Citation
 
 ```bibtex

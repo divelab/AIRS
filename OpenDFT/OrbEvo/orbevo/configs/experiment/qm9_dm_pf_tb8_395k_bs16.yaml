@@ -1,0 +1,31 @@
+# @package _global_
+
+defaults:
+  - override /model: orbevo_dm
+  - override /dataset: QM9
+
+lr: 1e-3
+
+batch_size: 16
+num_sessions: 2
+num_epochs: [0, 17] # 23250 / 2
+num_workers: 32
+
+max_eband_samples: 8
+
+push_forward: true
+add_noise: false
+pf_warmup: 0
+
+time_cond: 8
+time_future: 8
+
+debug: false
+clip_grad_norm: 100
+
+pin_memory: true 
+
+use_ddp: true 
+ddp_port: 12367
+find_unused_parameters: false
+use_amp: true
