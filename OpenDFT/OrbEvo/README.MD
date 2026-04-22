@@ -9,9 +9,9 @@ Official codebase for **Orbital Transformers for Predicting Wavefunctions in Tim
 
 ## Overview
 
-![Problem Formulation](assets/problem_formulation.jpg)
-
 This repository contains code for training and evaluating autoregressive models for TDDFT dynamics.
+
+![Problem Formulation](assets/problem_formulation.jpg)
 
 <!-- Core entry points:
 - Training: `python -m orbevo.train` -->
