@@ -5,7 +5,11 @@ Official codebase for **Orbital Transformers for Predicting Wavefunctions in Tim
 - Paper (OpenReview): https://openreview.net/pdf?id=06I7jcrkW2
 - Datasets (Hugging Face): https://huggingface.co/datasets/divelab/OrbEvo
 
+
+
 ## Overview
+
+![Problem Formulation](assets/problem_formulation.jpg)
 
 This repository contains code for training and evaluating autoregressive models for TDDFT dynamics.
 
