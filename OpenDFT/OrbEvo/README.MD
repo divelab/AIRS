@@ -78,17 +78,18 @@ For custom launches, edit experiment configs in `orbevo/configs/experiment/` and
 python -m orbevo.train +experiment=<experiment_name>
 ```
 
-<!-- ## Evaluation
+## Evaluation
 
 Example:
 
 ```bash
 python -m orbevo.eval \
-  --dataset QM9_ood \
+  --dataset QM9 \
   --ckpt_path /path/to/ckpt/best_s1.pt \
   --split test
 ```
 
+<!-- 
 Supported datasets in eval are:
 - `MDA`
 - `QM9`

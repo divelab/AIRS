@@ -11,6 +11,57 @@ from torch_geometric.data import Data, Dataset
 
 QM9_GOOD_INDEX_FILENAME = 'QM9_abs_max_lt_1e-03.txt'
 
+MDA_GOOD_INDEX_FILENAMES = {
+    'train': 'MDA_train_abs_max_lt_1e-03.txt',
+    'test': 'MDA_test_abs_max_lt_1e-03.txt',
+}
+
+
+def load_mda_good_split_filter(dataset_name: str, split: str):
+    """
+    Load MDA trajectory indices that should be kept *after* the split.
+
+    Args:
+        split: 'train' or 'test'
+
+    Returns:
+        torch.LongTensor of trajectory indices to keep. For non-MDA datasets
+        or unknown splits, returns None.
+    """
+    if dataset_name not in {'MDA', 'MDA_ood'}:
+        return None
+
+    filename = MDA_GOOD_INDEX_FILENAMES.get(split)
+    if filename is None:
+        return None
+
+    filter_path = osp.join(osp.dirname(__file__), filename)
+    if not osp.isfile(filter_path):
+        return None
+
+    good_inds = np.loadtxt(filter_path, dtype=np.int64)
+    good_inds = np.atleast_1d(good_inds)
+    return torch.as_tensor(good_inds, dtype=torch.long)
+
+
+def keep_mda_good_after_split(dataset_name: str, split: str, split_inds):
+    """
+    Keep only MDA good samples from an already-defined split.
+
+    This keeps the original random / OOD split assignment intact and only
+    filters the already-formed split.
+
+    Args:
+        split: 'train' or 'test'
+    """
+    good_inds = load_mda_good_split_filter(dataset_name, split)
+    if good_inds is None:
+        return split_inds
+
+    split_inds = torch.as_tensor(split_inds, dtype=torch.long)
+    keep_mask = torch.isin(split_inds, good_inds)
+    return split_inds[keep_mask]
+
 
 def load_qm9_good_split_filter(dataset_name: str):
     """

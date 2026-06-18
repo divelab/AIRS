@@ -17,6 +17,8 @@ Relevant good-index file:
 
 We recommend using the provided good-index filter when training or evaluating models.
 
-## Planned Second Release
+## ~~Planned Second Release~~
 
-We are re-generating the abnormal samples and plan to provide a second data release with corrected trajectories soon.
+~~We are re-generating the abnormal samples and plan to provide a second data release with corrected trajectories soon.~~
+
+**Update:** MDA dataset is uploaded: https://huggingface.co/datasets/divelab/OrbEvo/tree/main/MDA_tddft
