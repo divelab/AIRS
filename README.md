@@ -106,7 +106,59 @@ Here is the summary of methods we have in AIRS. More methods will be included as
           </ul>
             <img src="https://placehold.co/50x50/1EAAEE/1EAAEE.png" height="12" width="12"> <b>OpenODE</b>
           <ul>
-            <li><a href="OpenODE/DIF">IFL-DIF</a></li>
+            <li><a href="OpenODE/DIF"## 🗂️ Dataset
+
+Frag2Seq is trained and evaluated on the **CrossDocked2020** dataset, which contains 22.5 million docked protein-ligand complex poses.
+
+### Processed Dataset
+
+We follow the preprocessing pipeline introduced by [Luo et al.](https://github.com/luost26/3D-Generative-SBDD), which filters the raw CrossDocked2020 data as follows:
+
+- Only binding poses with RMSD < 1 Å from the crystal structure are retained
+- Data is split using [MMseqs2](https://github.com/soedinglab/MMseqs2) at 30% sequence identity
+- Final split: **100,000 protein-ligand pairs** for training, **100 protein pockets** for testing
+
+The processed dataset is publicly available at:
+
+> 📦 https://github.com/luost26/3D-Generative-SBDD/blob/main/data/README.md (MIT License)
+
+Download and place the data under the `data/` directory before running training or evaluation.
+
+### Protein Encoder
+
+Frag2Seq uses the pre-trained **ESM-IF1** (GVP-Transformer) model to obtain protein pocket embeddings via cross-attention. The model weights are publicly available at:
+
+> 🔗 https://github.com/facebookresearch/esm (MIT License)
+
+### Data Directory Structure
+
+After downloading, your `data/` folder should look like:
+
+```
+data/
+├── crossdocked_pocket10/       # Processed protein-ligand complexes
+│   ├── train.lmdb
+│   ├── test.lmdb
+│   └── ...
+└── split_by_name.pt            # Train/test split indices
+```
+
+### Citation
+
+If you use the CrossDocked2020 dataset, please also cite the original dataset paper:
+
+```bibtex
+@article{francoeur2020three,
+  title={Three-dimensional convolutional neural networks and a cross-docked data set for structure-based drug design},
+  author={Francoeur, Paul G and Masuda, Tomohide and Sunseri, Jocelyn and Jain, Andrew and Bhatt, Richard G and Koes, David Ryan and Bhatt, David L},
+  journal={Journal of Chemical Information and Modeling},
+  volume={60},
+  number={9},
+  pages={4200--4215},
+  year={2020},
+}
+```
+>IFL-DIF</a></li>
           </ul>
       </td>
     </tr>
