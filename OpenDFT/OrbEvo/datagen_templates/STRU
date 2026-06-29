@@ -1,0 +1,16 @@
+ATOMIC_SPECIES
+{atomic_species}
+
+NUMERICAL_ORBITAL
+{numerical_orbital}
+
+LATTICE_CONSTANT
+1.8897261258369282 
+
+LATTICE_VECTORS
+{lattice_vectors}    
+
+ATOMIC_POSITIONS
+Direct
+
+{atomic_positions}

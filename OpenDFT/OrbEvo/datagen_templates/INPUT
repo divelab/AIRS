@@ -1,0 +1,51 @@
+INPUT_PARAMETERS
+#Parameters (1.General)
+suffix          {suffix}
+calculation     md
+esolver_type    tddft
+pseudo_dir      {pseudo_dir}
+orbital_dir     {orbital_dir}
+
+#Parameters (2.Iteration)
+ecutwfc         100
+scf_thr         1e-6
+scf_nmax        100
+
+#Parameters (3.Basis)
+basis_type      lcao
+gamma_only      0
+
+#Parameters (4.Smearing)
+smearing_method     gauss
+
+#Parameters (5.MD Parameters)
+md_type         nve
+md_nstep        {md_nsteps}
+md_dt           0.005
+md_tfirst       0
+
+#Parameters (6.Efield Parameters)
+td_vext         1
+td_stype        0
+
+td_tstart 		1
+td_tend			{td_tend}
+
+td_vext_dire    3 3
+td_ttype        0 0
+td_gauss_freq		3.66 1.22
+td_gauss_phase		0.0 0.0
+td_gauss_sigma		0.2 0.2
+td_gauss_t0		150 150
+td_gauss_amp		0.01 0.01
+
+#Parameters (7.Output)
+out_chg         -1
+out_efield      1
+out_dipole      1
+out_wfc_lcao    1
+out_interval    1
+out_app_flag    0
+out_mat_hs2     1
+out_mat_r       1
+out_dm1         1
