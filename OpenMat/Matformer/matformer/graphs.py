@@ -319,9 +319,9 @@ def pair_nearest_neighbor_edges(
     atom_num = pos.size(0)
     lat = atoms.lattice
     radius_needed = min(lat.a, lat.b, lat.c) * (smallest / 2 - 1e-9)
-    r_a = (np.floor(radius_needed / lat.a) + 1).astype(np.int)
-    r_b = (np.floor(radius_needed / lat.b) + 1).astype(np.int)
-    r_c = (np.floor(radius_needed / lat.c) + 1).astype(np.int)
+    r_a = (np.floor(radius_needed / lat.a) + 1).astype(int)
+    r_b = (np.floor(radius_needed / lat.b) + 1).astype(int)
+    r_c = (np.floor(radius_needed / lat.c) + 1).astype(int)
     period_list = np.array([l for l in itertools.product(*[list(range(-r_a, r_a + 1)), list(range(-r_b, r_b + 1)), list(range(-r_c, r_c + 1))])])
     period_list = torch.as_tensor(period_list).float()
     n_cells = period_list.size(0)

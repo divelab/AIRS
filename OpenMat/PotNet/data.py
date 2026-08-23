@@ -326,8 +326,8 @@ def load_infinite_graphs(
 
         lattice_mat = structure.lattice_mat.astype(dtype=np.double)
 
-        vecs = structure.cart_coords[u.flatten().numpy().astype(np.int)] - structure.cart_coords[
-            v.flatten().numpy().astype(np.int)]
+        vecs = structure.cart_coords[u.flatten().numpy().astype(int)] - structure.cart_coords[
+            v.flatten().numpy().astype(int)]
 
         inf_edge_attr = torch.FloatTensor(np.stack([getattr(algorithm, func)(vecs, lattice_mat, param=param, R=R)
                                      for func, param in zip(infinite_funcs, infinite_params)], 1))
