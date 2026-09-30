@@ -1,0 +1,22 @@
+_target_: scdp.data.datamodule.ProbeDataModule
+
+dataset:
+  _target_: scdp.data.dataset.LmdbDataset
+  path: OUTPATH
+  gt_coeffs_path: null
+  sad_coeffs_path: null
+
+split_file: SPLITPATH
+
+num_workers:
+  train: 8
+  val: 8
+  test: 8
+batch_size:
+  train: 4
+  val: 4
+  test: 4
+n_probe:
+  train: 125000
+  val: 125000
+  test: 125000

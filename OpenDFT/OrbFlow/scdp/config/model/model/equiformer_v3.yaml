@@ -1,0 +1,44 @@
+_target_: scdp.model.equiformer_v3.EquiformerV3
+# Flow hooks (same names as eSCN; enable when using qm9_flow_qhflow + flow_head=escn).
+enable_flow_coeff_entangle: false
+flow_bridge_time_dim: 0
+
+# --- Shared with model/escn.yaml (keep in sync for fair eSCN vs EquiformerV3 comparisons) ---
+max_num_elements: 100
+num_layers: 8
+lmax_list: [6]
+mmax_list: [2]
+cutoff: 6.
+sphere_channels: 128
+hidden_channels: 256
+edge_channels: 128
+# eSCN: num_gaussians = int(cutoff / distance_resolution) = 300
+num_radial_basis: 300
+distance_resolution: 0.02
+basis_width_scalar: 2.0
+
+# --- EquiformerV3-only (attention transformer; no direct eSCN analogue) ---
+# attn_hidden follows EqV3 convention for num_channels=128 (OC20-style).
+attn_hidden_channels: 64
+num_heads: 8
+attn_alpha_channels: 32
+attn_value_channels: 16
+attn_grid_resolution_list: [20, 8]
+ffn_grid_resolution_list: [20, 20]
+norm_type: merge_layer_norm
+use_atom_edge_embedding: true
+use_envelope: true
+use_attn_renorm: true
+use_add_merge: false
+use_grid_mlp: true
+attn_activation: sep-merge_gates2_swiglu
+ffn_activation: sep-merge_gates2_swiglu
+# No backbone dropout during QM9 comparison (eSCN has none).
+alpha_drop: 0.0
+attn_mask_rate: 0.0
+attn_weights_drop: 0.0
+value_drop: 0.0
+drop_path_rate: 0.0
+proj_drop: 0.0
+ffn_drop: 0.0
+gradient_checkpointing_block_list: null

@@ -1,0 +1,35 @@
+__pycache__/
+.ipynb_checkpoints/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+ignored/
+*.npy
+.editorconfig
+.DS_Store
+.env
+wandb/
+.wandb_cache/
+.job_tmp/
+.orbflow_locks/
+.cache/
+
+# Local experiment outputs / checkpoints (share via Drive / Hugging Face)
+qm9_*/
+md_*/
+smoke_*/
+ablation/runs/
+efficiency_test/results/
+outputs/
+lightning_logs/
+*.ckpt
+*.out
+*.err
+*.log
+
+# Large local data mirrors (repo-root only; keep ablation/data splits tracked)
+/data/
+/lmdb/
+/lmdb_gt*/

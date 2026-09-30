@@ -1,0 +1,92 @@
+# reproducibility
+seed: 0
+deterministic: False
+
+# Run trainer.test() after trainer.fit() (loads best checkpoint on test split).
+run_post_fit_test: true
+
+# PyTorch Lightning Trainer https://pytorch-lightning.readthedocs.io/en/stable/common/trainer.html
+trainer:
+  fast_dev_run: False
+  accelerator: 'gpu'
+  strategy: ddp
+  devices: 4
+  precision: 32
+  max_epochs: 100000
+  max_steps: 500000
+  num_sanity_val_steps: 2
+  gradient_clip_val: 0.5
+  val_check_interval: 1.
+  deterministic: ${train.deterministic}
+
+optim:
+  _target_: torch.optim.Adam
+  lr: 1e-3
+  betas: [0.9, 0.999]
+  eps: 1e-08
+  weight_decay: 0.0
+
+lr_scheduler:
+  _target_: scdp.model.utils.PowerDecayScheduler
+  warmup_steps: 1000
+  alpha: 0.96
+  beta: 4433 # decay to 1e-5 in 500k steps
+lr_schedule_freq: 1
+
+ema:
+  decay: 0.995
+
+restore:
+  ckpt_or_run_path: null
+  mode: null # null, finetune, hotstart, continue
+  # When true, cold start loads ``init_weights.ckpt`` (model + EMA only) instead of
+  # resuming optimizer / LR schedule / global_step from a full checkpoint.
+  weights_only: false
+
+monitor:
+  metric: 'loss/val'
+  mode: 'min'
+
+callbacks:
+  - _target_: lightning.pytorch.callbacks.EarlyStopping
+    patience: 10000
+    verbose: False
+    monitor: ${train.monitor.metric}
+    mode: ${train.monitor.mode}
+
+  - _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    dirpath: ${core.storage_dir}
+    save_top_k: 5
+    save_last: True
+    verbose: False
+    monitor: ${train.monitor.metric}
+    mode: ${train.monitor.mode}
+
+  - _target_: lightning.pytorch.callbacks.LearningRateMonitor
+    logging_interval: "step"
+    log_momentum: False
+
+  - _target_: lightning.pytorch.callbacks.progress.tqdm_progress.TQDMProgressBar
+    refresh_rate: 20
+
+logging:
+  upload:
+    # false: log metrics only; do not copy ~2GB .ckpt files into W&B artifacts on fit end
+    run_files: false
+    source: true
+
+  wandb:
+    name: ${core.expname}
+    project: ${core.project_name}
+    entity: null
+    log_model: ${..upload.run_files}
+    mode: 'online'
+    tags: ${core.tags}
+    # id + resume are set in scdp/scripts/train.py so Slurm restarts append to one curve
+    resume: allow
+ 
+  # null: skip wandb.watch (gradients/weights). Metrics from self.log still upload.
+  # Set log: 'gradients' or 'all' only when debugging parameter/grad histograms.
+  wandb_watch:
+    log: null
+    log_freq: 100

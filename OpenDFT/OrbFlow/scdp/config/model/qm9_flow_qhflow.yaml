@@ -1,0 +1,12 @@
+# QHFlow-style unified flow: one eSCN network (no separate velocity head).
+# Endpoint regression + Euler sampling; combine with qm9_flow_{prior}_{target} via CLI.
+defaults:
+  - qm9_flow
+  - _self_
+
+flow_head: escn
+flow_loss_mode: endpoint
+
+model:
+  enable_flow_coeff_entangle: true
+  flow_bridge_time_dim: ${..flow_time_dim}
