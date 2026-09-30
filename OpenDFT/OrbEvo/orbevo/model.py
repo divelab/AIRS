@@ -125,6 +125,24 @@ class Model:
             batch['molecule_data'].efield = batch['molecule_data'].efield[:, :(self.cfg.time_cond + self.cfg.time_future) * 10]
             device_batch_size = batch['state_data'].mol_batch.max().cpu().item() + 1
 
+            # To reproduce paper's training setting, sample each molecule independently,
+            # run the no-grad PF pass on the full batch in train mode, and gradually
+            # increase how much of the prediction is used:
+            # pf_mask = torch.as_tensor(
+            #     self.rng.integers(0, 2, size=device_batch_size).astype(bool), device=device)
+            # mol_mask = pf_mask[batch['state_data'].mol_batch]
+            # with torch.no_grad():
+            #     pred = self.model(batch, max_state_samples=None)
+            # pf_ratio = min(global_iter / 100_000.0, 1.0)
+            # target = batch['state_data'].delta_coef_target[:self.cfg.time_future]
+            # cond = target * (1 - pf_ratio) + pred['delta_coef_t_norm'] * pf_ratio
+            # batch['state_data'].delta_coef_cond[:, mol_mask] = cond[:, mol_mask]
+
+            # Note: the paper's full-batch PF pass results in higher GPU memory usage.
+
+            # The current implementation instead forwards exactly half as a compact
+            # eval-mode sub-batch and uses the prediction fully (pf_ratio = 1).
+
             # Push-forward needs at least 2 samples, otherwise the sampled PF subset is empty.
             do_pf = push_forward and device_batch_size >= 2
 
