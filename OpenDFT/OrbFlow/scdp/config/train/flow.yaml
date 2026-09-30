@@ -1,0 +1,35 @@
+# Flow matching: checkpoint / early stopping on integrated density nMAPE (val Euler sample).
+# Requires bridge_mode=cfm and flow_val_integrate_steps > 0 (logged as nmape/val_flow).
+defaults:
+  - default
+
+# Post-fit trainer.test() hangs under 8-GPU DDP; evaluate with scdp/scripts/test_flow.py instead.
+# train.py also calls destroy_process_group() after fit so two-phase Slurm jobs hand off cleanly.
+run_post_fit_test: false
+
+monitor:
+  metric: nmape/val_flow
+  mode: min
+
+# Top-2 val checkpoints by nmape/val_flow plus last.ckpt (~3 files vs 6 with save_top_k=5).
+callbacks:
+  - _target_: lightning.pytorch.callbacks.EarlyStopping
+    patience: 10000
+    verbose: False
+    monitor: ${train.monitor.metric}
+    mode: ${train.monitor.mode}
+
+  - _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    dirpath: ${core.storage_dir}
+    save_top_k: 2
+    save_last: True
+    verbose: False
+    monitor: ${train.monitor.metric}
+    mode: ${train.monitor.mode}
+
+  - _target_: lightning.pytorch.callbacks.LearningRateMonitor
+    logging_interval: "step"
+    log_momentum: False
+
+  - _target_: lightning.pytorch.callbacks.progress.tqdm_progress.TQDMProgressBar
+    refresh_rate: 20

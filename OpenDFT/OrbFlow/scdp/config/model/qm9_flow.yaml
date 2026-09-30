@@ -1,0 +1,71 @@
+# Flow matching on GTO coefficients (requires batch['gt_coeffs'] from the dataset).
+defaults:
+  - qm9
+  - _self_
+
+_target_: scdp.model.module_flow.ChgFlowMatchingModule
+
+flow_velocity_mlp_hidden: 512
+flow_time_dim: 64
+# e3nn: separate equivariant head. mlp: flat CoeffVelocityMLP. escn: QHFlow unified (eSCN readout, no head).
+flow_head: e3nn
+flow_e3nn_hidden_multiplier: 2
+# cfm: linear bridge, match velocity. sb: Gaussian Brownian bridge, match conditional score.
+bridge_mode: cfm
+# CFM only: velocity = match v* = c_end - c0; endpoint = predict target from (latent, x_t, t).
+flow_loss_mode: velocity
+# Endpoint mode only: density = MAE/MSE on orbital_inference(head pred) vs chg_labels (default);
+# integrated_density = same density loss on coeffs after Euler CFM integration (train metric
+# aligned with nmape/val_flow); density_and_integrated = endpoint density + weighted integrated
+# density (one-stage joint; see flow_combined_integrated_weight); coeff = legacy masked MSE.
+flow_endpoint_loss: density
+# Weight on the integrated term when flow_endpoint_loss=density_and_integrated (endpoint weight=1).
+flow_combined_integrated_weight: 1.0
+# Endpoint / velocity bridge target: gt | res
+#   gt      — predict c_gt; bridge c0 -> c_gt
+#   res — predict c_gt - sad_coeffs; bridge c0 -> c_gt - sad; add sad at sample time
+flow_target_mode: gt
+# Optional endpoint loss weight 1 / (1 - min(t, flow_t_scale_max))^2 (endpoint mode only).
+flow_use_t_scale: false
+flow_t_scale_max: 0.9
+# Start field c0: gaussian | irrep_gaussian | sad_coeffs
+flow_prior_mode: gaussian
+flow_prior_sigma: 1.0
+# Additive center in normalized coeff space: c0_raw += flow_prior_mu * norm (0 = noise-only).
+# Estimate from training gt_coeffs via validate_gt_coeffs.py --compute_flow_prior_stats.
+flow_prior_mu: 0.0
+# Rescale random priors: N_valence from atom types (SAD table); Q(c0) from full-probe synthesis.
+flow_prior_nelectron_normalize: false
+# Deprecated (ignored): prior charge uses full batch probes, not a subsample.
+flow_nelectron_mc_max_probes: 0
+# Val/test density nMAPE: Euler CFM integrate (same as test_flow.py). 0 = readout-only nMAPE.
+# QHFlow uses 3 steps by default; increase if needed for velocity-mode flows.
+flow_val_integrate_steps: 3
+# Optional list of Euler step counts for extra val/test metrics: nmape/val_flow_s1, _s2, ...
+# Checkpoint still uses nmape/val_flow (= flow_val_integrate_steps). Example: [1, 2, 3]
+flow_val_integrate_sweep_steps: null
+# Training steps for flow_endpoint_loss=integrated_density (default: same as flow_val_integrate_steps).
+flow_integrate_train_steps: null
+# QHFlow DEFAULT_MIN_T=0.01: train t ~ Uniform[0.01, 0.99]; ODE integrates from t=0.01 to 1.
+flow_integrate_min_t: 0.01
+# Euler time grid for val/test/test_flow and integrated_density training (default: uniform).
+# Override in slurm: FLOW_INTEGRATE_SCHEDULE=endpoint_refine|power (+ optional t_hi / power).
+#   uniform — linspace(min_t, 1) (default)
+#   endpoint_refine — jump min_t→t_hi then refine on [t_hi, 1]
+#   power — front-loaded knots t_k = 1 - (1-min_t)*(1-k/n)^power
+flow_integrate_schedule: uniform
+# Top of the big first jump for endpoint_refine (matches training t upper bound 1-min_t).
+flow_integrate_t_hi: 0.99
+# Exponent for power schedule (alpha=1 ≈ uniform; 3–4 = strong front-loading).
+flow_integrate_power: 4.0
+flow_val_max_n_probe_per_pass: 400000
+# If true, also log nmape/{val,test}_readout (one-shot eSCN; not trained by flow loss).
+flow_val_log_readout: false
+# Checkpoint / early stopping: use train=flow (monitors nmape/val_flow, not loss/val).
+sb_sigma: 0.1
+# SB diagonal bridge: isotropic (legacy scalar var per row) | per_irrep (var per coeff from l-blocks).
+sb_noise_mode: isotropic
+# Used when sb_noise_mode=per_irrep and sb_per_l_sigma_scales is null: uniform | inv_sqrt_2lp1
+sb_per_l_sigma_mode: inv_sqrt_2lp1
+# Optional override: list of positive scales per angular momentum l (index l, length >= Lmax+1).
+sb_per_l_sigma_scales: null

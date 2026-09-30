@@ -1,0 +1,28 @@
+_target_: scdp.model.module.ChgLightningModule
+
+criterion: mae
+vnode_elem: 8
+pbc: false
+dft_basis_set: 'def2-qzvppd'
+dft_wt_aug: true
+concat_basis: false
+beta: 2.0
+lmax_restriction: true
+lmax_relax: 0
+uncontracted: true
+orb_cutoff: 5.0
+expo_trainable: false
+magnitude_weighting: false
+# linear: rho = sum c phi;  squared: rho = sum d phi^2  (bridge field d, GTO normalize unchanged)
+density_synthesis_mode: linear
+# Density engine for orbital_inference (training/val/test):
+#   realspace  — default GTOs.forward (+PBC images). Unchanged behavior.
+#   hybrid_fft — soft shells (ζ<=hybrid_fft_zeta_max) via analytical FT+IFFT;
+#                sharp shells via real-space. Opt-in only; requires PBC + grid_size.
+density_eval_mode: realspace
+hybrid_fft_zeta_max: 5.0
+hybrid_fft_phase_sign: -1.0
+hybrid_fft_chunk_G: 65536
+
+defaults:
+  - model: escn

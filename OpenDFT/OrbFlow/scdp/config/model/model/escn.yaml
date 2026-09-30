@@ -1,0 +1,13 @@
+  _target_: scdp.model.scn.eSCN
+  # When true (flow), pass coeff_xt=bridge coeffs into every eSCN layer (see escn.forward).
+  enable_flow_coeff_entangle: false
+  # Sinusoidal bridge time at l=0; set to flow_time_dim when flow_head=escn (QHFlow unified).
+  flow_bridge_time_dim: 0
+  num_layers: 8
+  lmax_list: [6]
+  mmax_list: [2]
+  cutoff: 6.
+  sphere_channels: 128
+  hidden_channels: 256
+  edge_channels: 128
+  num_sphere_samples: 128

@@ -1,0 +1,39 @@
+# metadata specialised for each experiment
+core:
+  expname: qm9_escn_k8l6_beta2.0
+  project_name: orbflow
+  storage_dir: ${core.expname}
+  version: 0.0.1
+  tags: null
+
+conventions:
+  x_key: 'x'
+  y_key: 'y'
+
+hydra:
+  run:
+    dir: ./
+  sweep:
+    dir: ./
+    subdir: ./
+
+  # Not saving the .hydra directory
+  output_subdir: null
+
+  job:
+    env_set:
+      WANDB_START_METHOD: thread
+      WANDB_DIR: ./
+
+  defaults:
+    # Disable hydra logging configuration, otherwise the basicConfig does not have any effect
+    - override job_logging: none
+    - override hydra_logging: none
+
+defaults:
+  - data: qm9_bond
+  - model: qm9
+  - train: default
+  - _self_ # as last argument to allow the override of parameters via this main config
+#    Decomment this parameter to get parallel job running
+#  - hydra/launcher: joblib

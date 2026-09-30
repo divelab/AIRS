@@ -1,0 +1,19 @@
+{
+  "created_by": "ablation/scripts/make_ablation_split.py",
+  "source_split": "${DATAPATH}/datasplits.json",
+  "seed": 0,
+  "fraction": 0.1,
+  "notes": {
+    "train": "10% of official train (ablation training)",
+    "validation": "official validation (monitor only; n=50)",
+    "test": "10% of official test (ablation table metrics)"
+  },
+  "counts": {
+    "source_train": 123835,
+    "source_test": 10000,
+    "source_validation": 50,
+    "train": 12384,
+    "validation": 50,
+    "test": 1000
+  }
+}
