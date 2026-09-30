@@ -1,0 +1,8 @@
+name: 'MDA'
+root: 'data/MDA_tddft/MDA_train'
+T: 100
+rms_0: 0.1464
+rms_t: 0.3617
+
+avg_num_nodes: 9 
+avg_degree: 8 # cutoff=5.0
