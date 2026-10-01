@@ -93,8 +93,6 @@ evaluation scripts expect the run folders:
 hf download divelab/OrbFlow --local-dir . --exclude README.md --exclude .gitattributes
 ```
 
-(The excludes keep the model card from overwriting this README.)
-
 They contain model and EMA weights only (no optimizer state): use them for evaluation, not to resume training.
 See [`docs/CHECKPOINTS.md`](docs/CHECKPOINTS.md).
 
@@ -203,4 +201,4 @@ OrbFlow builds on the open-source [SCDP](https://github.com/kyonofx/scdp) codeba
 
 ## Acknowledgement
 
-This work was supported in part by the National Science Foundation under Grants IIS-2243850, CNS-2328395, and MOMS-2331036; the National Institutes of Health under Grant U01AG070112; the Texas A&M University Division of Research Targeted Proposal Teams Funding Program; and the Texas A&M Institute of Data Science Thematic Labs Program.
+This work was supported in part by the National Science Foundation under Grants IIS-2551110, MOMS-2331036, and CMMI-2226908; the Advanced Research Projects Agency for Health (ARPA-H) under grant 1AY1AX000053; the Texas A\&M University Division of Research Targeted Proposal Teams Funding Program; and the Texas A\&M Institute of Data Science Thematic Labs Program. First-principles calculations by C.W. were primarily supported by the U.S. Department of Energy Office of Basic Energy Sciences under grant DE-SC0023866. We thank Jonas Elsborg and Arghya Bhowmik for their assistance in reproducing the results of the ELECTRA model. We are grateful to Shubham Parashar, Lianhao Zhou, and Wendi Yu for insightful discussions.
